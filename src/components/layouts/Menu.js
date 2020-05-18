@@ -7,7 +7,6 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -21,7 +20,7 @@ import {
   BarChart as BarChartIcon,
   Person as PersonIcon,
 } from "@material-ui/icons";
-const drawerWidth = 240;
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: "hidden",
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(7) + 1,
     },
   },
   toolbar: {
@@ -77,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Menu(props) {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <Drawer
@@ -94,19 +92,11 @@ export default function Menu(props) {
         }),
       }}
     >
-      <div className={classes.toolbar}>
-        <IconButton onClick={props.handleDrawerClose}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/logo_white.png`}
-            height="30"
-          />
-          <ChevronLeftIcon style={{ color: "white" }} />
-        </IconButton>
-      </div>
-
+      <div className={classes.toolbar}></div>
+      
       <Divider />
       <List>
-        {/* Stock */}
+        {/* Directory */}
         <ListItem
           component={NavLink}
           to="/directory"
@@ -120,7 +110,21 @@ export default function Menu(props) {
           <ListItemText primary="Directory" />
         </ListItem>
 
-        {/* AboutUS */}
+        {/* Ore Chart */}
+        <ListItem
+          component={NavLink}
+          to="/orechart"
+          button
+          key="Ore Chart"
+          activeClassName={classes.isActive}
+        >
+          <ListItemIcon>
+            <PersonIcon />
+          </ListItemIcon>
+          <ListItemText primary="Ore Chart" />
+        </ListItem>
+
+        {/* Documents */}
         <ListItem
           component={NavLink}
           to="/documents"

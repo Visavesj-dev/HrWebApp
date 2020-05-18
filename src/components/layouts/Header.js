@@ -12,7 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-const drawerWidth = 240;
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
