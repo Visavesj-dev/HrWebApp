@@ -50,14 +50,6 @@ const UsersToolbar = (props) => {
     <div {...rest} className={clsx(classes.root, className)}>
       <Grid container spacing={3}>
         <Grid item xs={6} md={6}>
-          <div className={classes.row1}>
-            <SearchInput
-              className={classes.searchInput}
-              placeholder="Search user"
-            />
-          </div>
-        </Grid>
-        <Grid item xs={6} md={6}>
           <div className={classes.row2}>
             <span className={classes.spacer} />
             <Button color="primary" variant="contained">

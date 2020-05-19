@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   appBar: {
-    backgroundColor: "#ED2324",
+    backgroundColor: "rgb(255, 87, 69)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
+
+  const { data } = props.history.location.pathname
   const classes = useStyles();
 
   return (
@@ -66,7 +68,9 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}></Typography>
+          <Typography variant="h6" className={classes.title}>
+                Human Capital Management |  
+          </Typography>
           <Button variant="contained" >
             Login
           </Button>

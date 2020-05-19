@@ -139,5 +139,17 @@ export default [
     phone: '801-301-7894',
     avatarUrl: '/images/avatars/avatar_10.png',
     createdAt: 1522702800000
+  },
+  {
+    id: uuid(),
+    name: 'zzz',
+    address: {
+        country: 'USA',
+        state: 'Utah',
+        city: 'Salt Lake City',
+        street: '368 Lamberts Branch Road'
+      },
+    
   }
+  
 ];
