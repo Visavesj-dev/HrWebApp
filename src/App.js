@@ -9,6 +9,7 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
+import Directory from "./components/pages/Directory/Directory";
 
 //import materails
 import { Container } from "@material-ui/core";
@@ -38,7 +39,7 @@ export default function App() {
   const classes = useStyles();
 
   // Drawer movement
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -58,7 +59,9 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-          <Switch>{/* Route */}</Switch>
+          <Switch>
+          <Route path="/directory" component={Directory} />
+          </Switch>
         </Container>
       </div>
     </Router>
