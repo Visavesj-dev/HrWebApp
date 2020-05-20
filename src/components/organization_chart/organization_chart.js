@@ -15,16 +15,20 @@ import {
   FormControl,
   Select,
   TextField,
-  Button,
   Switch,
 } from "@material-ui/core";
+import Button from '@material-ui/core/Button';
 import { Autocomplete } from "@material-ui/lab";
 import { lighten, withStyles } from "@material-ui/core/styles";
 import OrganizationChart from "@dabeng/react-orgchart";
 import JSONDigger from "json-digger";
+import 'bootstrap/dist/css/bootstrap.css';
 
 // Icons
 import { Flag, Edit, Visibility } from "@material-ui/icons";
+import SaveIcon from '@material-ui/icons/Save';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const BorderLinearProgress = withStyles({
   root: {
@@ -36,67 +40,13 @@ const BorderLinearProgress = withStyles({
     backgroundColor: "#ff6c5c",
   },
 })(LinearProgress);
-{/* table comment */}
-// const TransactionTable = ({ columns, data, error }) => {
-//   return (
-//     <div>
-//       {columns && data ? (
-//         <TableContainer component={Card}>
-//           <MaterialTable
-//             title=""
-//             columns={columns}
-//             data={data}
-//             onRowClick={(event, rowData, togglePanel) => togglePanel()}
-//             detailPanel={[
-//               {
-//                 tooltip: "Detail",
-//                 render: (rowData) => {
-//                   return (
-//                     <ul className="py-3 px-5 list-group list-group-flush">
-//                       {rowData.keyResult.map((value, index) => {
-//                         return (
-//                           <li key={index} className="list-group-item">
-//                             • {value}
-//                           </li>
-//                         );
-//                       })}
-//                     </ul>
-//                   );
-//                 },
-//               },
-//             ]}
-//             options={{
-//               headerStyle: {
-//                 backgroundColor: "#f1f3f4",
-//                 fontSize: "105%",
-//               },
-//               pageSizeOptions: [5],
-//             }}
-//             localization={{
-//               body: {
-//                 emptyDataSourceMessage: error,
-//               },
-//             }}
-//           />
-//         </TableContainer>
-//       ) : (
-//         <div>
-//           {/* <Skeleton width="100%" animation="wave" />
-//               <Skeleton variant="rect" width="100%" height={50} animation="wave" />
-//               <Skeleton width="100%" animation="wave" />
-//               <Skeleton variant="rect" width="100%" height={350} animation="wave" /> */}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
 
 const ShowDetail = ({ data, open, setOpen }) => {
   return (
     open && (
       <Dialog open={open} onClose={() => setOpen(false)} className="p-2">
         <DialogTitle style={{ backgroundColor: data[1] }}>
-          Planning detail
+          Personal detail
         </DialogTitle>
         <DialogContent style={{ backgroundColor: data[1] }}>
           <div className="pb-3">
@@ -111,12 +61,12 @@ const ShowDetail = ({ data, open, setOpen }) => {
                 &nbsp; - &nbsp;{data[0].position}
               </span>
             </div>
-            <div className="py-2">
+            {/* <div className="py-2">
               <Flag className="colorDefault3" /> &nbsp;Objective
               <br />
               <span className="p-1">{data[0].objective}</span>
-            </div>
-            <div className="py-3">
+            </div> */}
+            {/* <div className="py-3">
               <Flag className="colorDefault2" /> &nbsp;Key Result
               <br />
               {data[0].keyResult.map((value, index) => {
@@ -127,7 +77,7 @@ const ShowDetail = ({ data, open, setOpen }) => {
                   </span>
                 );
               })}
-            </div>
+            </div> */}
             {data[0].crossTeam && (
               <div className="py-3 text-center">
                 Work with{" "}
@@ -136,7 +86,7 @@ const ShowDetail = ({ data, open, setOpen }) => {
                 })}
               </div>
             )}
-            {data[0].score && (
+            {/* {data[0].score && (
               <div className="py-3 text-center">
                 {data[0].score * 100}%
                 <BorderLinearProgress
@@ -145,7 +95,7 @@ const ShowDetail = ({ data, open, setOpen }) => {
                   value={data[0].score * 100}
                 />
               </div>
-            )}
+            )} */}
           </div>
         </DialogContent>
       </Dialog>
@@ -168,25 +118,12 @@ const MyNode = ({ nodeData, color }) => {
         />
         &nbsp;{nodeData.name}
       </div>
-      <div className="py-1">
-        <Flag className="colorDefault3" /> &nbsp;{nodeData.objective}
-      </div>
       {nodeData.crossTeam && (
         <div className="pt-3">
           Work with{" "}
           {nodeData.crossTeam.map((value, index) => {
             return index === 0 ? value : ", " + value;
           })}
-        </div>
-      )}
-      {nodeData.score && (
-        <div className="pt-3">
-          {nodeData.score * 100}%
-          <BorderLinearProgress
-            variant="determinate"
-            color="secondary"
-            value={nodeData.score * 100}
-          />
         </div>
       )}
     </div>
@@ -456,40 +393,6 @@ const Dashboard = () => {
     setIsEditMode(false);
   };
 
-  const columns = [
-    {
-      title: "Name",
-      field: "name",
-      render: (rowData) => (
-        <div>
-          <img
-            src={rowData.image}
-            alt="img"
-            style={{ width: 40, borderRadius: "50%" }}
-          />
-          &nbsp;&nbsp;{rowData.name}
-        </div>
-      ),
-    },
-    { title: "Objective", field: "objective" },
-    {
-      title: "Score",
-      field: "score",
-      render: (rowData) => (
-        <BorderLinearProgress
-          variant="determinate"
-          color="secondary"
-          value={rowData.score * 100}
-        />
-      ),
-    },
-    {
-      title: "",
-      field: "score",
-      render: (rowData) => <div>{rowData.score * 100}%</div>,
-    },
-  ];
-
   const [isEdited, setIsEdited] = useState(false);
   const [refresh, setRefrest] = useState(true);
 
@@ -532,17 +435,21 @@ const Dashboard = () => {
   };
 
   const addChildNode = async () => {
-    await dsDigger.addChildren(selectedNode.id, getNewNode());
-    chartSource = dsDigger.ds;
-    setIsEdited(true);
-    setRefrest(!refresh);
+    if(selectedNode!=null){
+      await dsDigger.addChildren(selectedNode.id, getNewNode());
+      chartSource = dsDigger.ds;
+      setIsEdited(true);
+      setRefrest(!refresh);
+    }
   };
 
   const remove = async () => {
-    await dsDigger.removeNodes(selectedNode.id);
-    chartSource = dsDigger.ds;
-    setIsEdited(true);
-    setRefrest(!refresh);
+    if(selectedNode!=null){
+      await dsDigger.removeNodes(selectedNode.id);
+      chartSource = dsDigger.ds;
+      setIsEdited(true);
+      setRefrest(!refresh);
+    }
   };
   const orgchart = useRef();
   const exportTo = () => {
@@ -566,44 +473,12 @@ const Dashboard = () => {
         <div className="col-12">
           <div className="row justify-content-center px-2">
             <div className="col-12 p-4 text-center">
-              <h4>Dashboard & History</h4>
+              <h4>Organization Chart</h4>
             </div>
           </div>
 
-          <section className="toolbar">
-          <label htmlFor="txt-filename">Filename:</label>
-          <input
-            id="txt-filename"
-            type="text"
-            value={filename}
-            onChange={onNameChange}
-            style={{ fontSize: "1rem", marginRight: "2rem" }}
-          />
-          <span>Fileextension: </span>
-          <input
-            id="rd-png"
-            type="radio"
-            value="png"
-            checked={fileextension === "png"}
-            onChange={onExtensionChange}
-          />
-          <label htmlFor="rd-png">png</label>
-          <input
-            style={{ marginLeft: "1rem" }}
-            id="rd-pdf"
-            type="radio"
-            value="pdf"
-            checked={fileextension === "pdf"}
-            onChange={onExtensionChange}
-          />
-          <label htmlFor="rd-pdf">pdf</label>
-          <button onClick={exportTo} style={{ marginLeft: "2rem" }}>
-            Export
-          </button>
-        </section>
-
-          <div className="row justify-content-center px-5 pt-5 ">
-            <div className="col-3 px-0 px-md-5 text-left">
+          <div className="row justify-content-center px-5 pt-2 ">
+            <div className="col-5 px-5 px-md-5 text-left">
               <Autocomplete
                 options={member}
                 getOptionLabel={(option) => option.name}
@@ -618,27 +493,7 @@ const Dashboard = () => {
               />
             </div>
 
-            <div className="col-3 pt-3 text-left">
-              <Button disabled={!isEditMode} onClick={addChildNode}>
-                Add Child Nodes
-              </Button>
-              <Button disabled={!isEditMode} onClick={remove}>
-                Remove Nodes
-              </Button>
-            </div>
-
-            <div className="col-3 pt-3 text-left">
-              <Switch
-                checked={isEditMode}
-                onChange={(e) => {
-                  setIsEditMode(e.target.checked);
-                  setDepartmentToCompare("");
-                }}
-              />
-              Edit mode
-            </div>
-
-            <div className="col-3 px-0 px-md-5 text-right">
+            <div className="col-5 px-5 px-md-5 text-right">
               <FormControl>
                 <InputLabel>Department</InputLabel>
                 <Select
@@ -659,8 +514,67 @@ const Dashboard = () => {
                 </Select>
                 <FormHelperText>Select department to compare</FormHelperText>
               </FormControl>
+            </div></div>
+            
+          <div className="row justify-content-center px-5 pt-2 ">
+            <div className="col-3 pt-3 text-left">
+              <Switch
+                checked={isEditMode}
+                onChange={(e) => {
+                  setIsEditMode(e.target.checked);
+                  setDepartmentToCompare("");
+                }}
+              />
+              Edit mode
+            </div>
+
+            <div className="col-3 pt-3 text-left">
+              <Button disabled={!isEditMode} onClick={addChildNode}variant="contained" color="primary"> {<AddCircleIcon/>}
+                Add Child Nodes
+              </Button>
+            </div>
+            <div className="col-3 pt-3 text-left">
+              <Button disabled={!isEditMode} onClick={remove} variant="contained" color="secondary"> {<RemoveCircleIcon/>}
+                Remove Nodes
+              </Button>
             </div>
           </div>
+
+          <div className="row justify-content-center px-2">
+          <div className="col-12 p-4 text-center">
+            <section className="toolbar">
+            <label htmlFor="txt-filename">Filename  :  </label>
+            <input
+              id="txt-filename"
+              type="text"
+              value={filename}
+              onChange={onNameChange}
+              style={{ fontSize: "1rem", marginRight: "2rem" }}
+            />
+            <span>File extension : </span>
+            <input
+              id="rd-png"
+              type="radio"
+              value="png"
+              checked={fileextension === "png"}
+              onChange={onExtensionChange}
+            />
+            <label htmlFor="rd-png">  png  </label>
+            <input
+              style={{ marginLeft: "1rem" }}
+              id="rd-pdf"
+              type="radio"
+              value="pdf"
+              checked={fileextension === "pdf"}
+              onChange={onExtensionChange}
+            />
+            <label htmlFor="rd-pdf">  pdf  </label>
+            <Button onClick={exportTo} style={{ marginLeft: "2rem" }} color="primary" variant="contained"> {<SaveIcon />}
+              Export
+            </Button>
+            </section>
+          </div>
+        </div>
 
           <div className="row justify-content-center px-5 pb-4">
             <div
@@ -710,19 +624,8 @@ const Dashboard = () => {
                 />
               </div>
             )}
-
             <ShowDetail data={selectedNode} open={open} setOpen={setOpen} />
           </div>
-{/* table comment */}
-          {/* <div className="row justify-content-center px-5 pt-5 pb-4">
-            <div className="col-12 px-0 px-md-5 text-center">
-              <TransactionTable
-                columns={columns}
-                data={member}
-                error="No planning !"
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     )
