@@ -4,6 +4,7 @@ export default [
   {
     id: uuid(),
     name: 'Ekaterina Tankova',
+    type: "Full Time",
     address: {
       country: 'USA',
       state: 'West Virginia',
@@ -18,6 +19,7 @@ export default [
   {
     id: uuid(),
     name: 'Cao Yu',
+    type: "Full Time",
     address: {
       country: 'USA',
       state: 'Bristow',
@@ -32,6 +34,7 @@ export default [
   {
     id: uuid(),
     name: 'Alexa Richardson',
+    type: "Full Time",
     address: {
       country: 'USA',
       state: 'Georgia',
@@ -46,6 +49,7 @@ export default [
   {
     id: uuid(),
     name: 'Anje Keizer',
+    type: "Full Time",
     address: {
       country: 'USA',
       state: 'Ohio',
@@ -60,6 +64,7 @@ export default [
   {
     id: uuid(),
     name: 'Clarke Gillebert',
+    type: "Full Time",
     address: {
       country: 'USA',
       state: 'Texas',
@@ -74,6 +79,7 @@ export default [
   {
     id: uuid(),
     name: 'Adam Denisov',
+    type: "Part Time",
     address: {
       country: 'USA',
       state: 'California',
@@ -88,6 +94,7 @@ export default [
   {
     id: uuid(),
     name: 'Ava Gregoraci',
+    type: "Part Time",
     address: {
       country: 'USA',
       state: 'California',
@@ -102,6 +109,7 @@ export default [
   {
     id: uuid(),
     name: 'Emilee Simchenko',
+    type: "Part Time",
     address: {
       country: 'USA',
       state: 'Nevada',
@@ -116,6 +124,7 @@ export default [
   {
     id: uuid(),
     name: 'Kwak Seong-Min',
+    type: "Part Time",
     address: {
       country: 'USA',
       state: 'Michigan',
@@ -129,6 +138,7 @@ export default [
   {
     id: uuid(),
     name: 'Merrile Burgett',
+    type: "Part Time",
     address: {
       country: 'USA',
       state: 'Utah',
@@ -143,6 +153,7 @@ export default [
   {
     id: uuid(),
     name: 'zzz',
+    type: "Part Time",
     address: {
         country: 'USA',
         state: 'Utah',
