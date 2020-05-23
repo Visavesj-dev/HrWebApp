@@ -23,6 +23,7 @@ import { lighten, withStyles } from "@material-ui/core/styles";
 import OrganizationChart from "@dabeng/react-orgchart";
 import JSONDigger from "json-digger";
 import 'bootstrap/dist/css/bootstrap.css';
+import { v4 as uuidv4 } from "uuid";
 
 // Icons
 import { Flag, Edit, Visibility } from "@material-ui/icons";
@@ -41,6 +42,7 @@ const BorderLinearProgress = withStyles({
   },
 })(LinearProgress);
 
+//show detail by clicking a node.
 const ShowDetail = ({ data, open, setOpen }) => {
   return (
     open && (
@@ -86,16 +88,6 @@ const ShowDetail = ({ data, open, setOpen }) => {
                 })}
               </div>
             )}
-            {/* {data[0].score && (
-              <div className="py-3 text-center">
-                {data[0].score * 100}%
-                <BorderLinearProgress
-                  variant="determinate"
-                  color="secondary"
-                  value={data[0].score * 100}
-                />
-              </div>
-            )} */}
           </div>
         </DialogContent>
       </Dialog>
@@ -134,6 +126,8 @@ const Dashboard = () => {
   const [successQuery, setSuccessQuery] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [newNodeName, setNewNodeName] = useState("");
+  const [newNodeTitle, setNewNodeTitle] = useState("");
 
   // Base
   const [organization, setOrganization] = useState(null);
@@ -147,6 +141,17 @@ const Dashboard = () => {
   const [organizationCompare, setOrganizationCompare] = useState(null);
   const [teamCompare, setTeamCompare] = useState(null);
   const [managerCompare, setManagerCompare] = useState(null);
+
+
+  const onNameChange = e => {
+    setNewNodeName(e.target.value);
+  };
+
+  const onTitleChange = e => {
+    setNewNodeTitle(e.target.value);
+  };
+
+
 
   // Base
   const queryOrganization = async () => {
@@ -443,6 +448,18 @@ const Dashboard = () => {
     }
   };
 
+  const updateNodes = async () => {
+    console.log(selectedNode.id)
+    await dsDigger.updateNodes(selectedNode.id, {
+      id: uuidv4(),
+      name: newNodeName,
+      position: newNodeTitle
+    });
+    chartSource = dsDigger.ds;
+    setIsEdited(true);
+    setRefrest(!refresh);
+  };
+
   const remove = async () => {
     if(selectedNode!=null){
       await dsDigger.removeNodes(selectedNode.id);
@@ -459,7 +476,7 @@ const Dashboard = () => {
   const [filename, setFilename] = useState("organization_chart");
   const [fileextension, setFileextension] = useState("png");
 
-  const onNameChange = event => {
+  const onFileNameChange = event => {
     setFilename(event.target.value);
   };
 
@@ -540,6 +557,24 @@ const Dashboard = () => {
             </div>
           </div>
 
+          <div className="row justify-content-center px-5 pt-2 ">
+            <input
+              type="text"
+              placeholder="name"
+              value={newNodeName}
+              onChange={onNameChange}
+            />
+            <input
+              type="text"
+              placeholder="title"
+              value={newNodeTitle}
+              onChange={onTitleChange}
+            />
+            <button disabled={!isEditMode} onClick={updateNodes}>
+              Update Nodes
+            </button>
+          </div>
+
           <div className="row justify-content-center px-2">
           <div className="col-12 p-4 text-center">
             <section className="toolbar">
@@ -548,7 +583,7 @@ const Dashboard = () => {
               id="txt-filename"
               type="text"
               value={filename}
-              onChange={onNameChange}
+              onChange={onFileNameChange}
               style={{ fontSize: "1rem", marginRight: "2rem" }}
             />
             <span>File extension : </span>
