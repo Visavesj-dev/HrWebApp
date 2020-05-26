@@ -10,6 +10,8 @@ import {
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import Directory from "./components/pages/Directory/Directory";
+import EmployeeProfile from "./components/pages/EmployeeProfile/EmployeeProfile";
+import AddEmployee from "./components/pages/AddEmployee/AddEmployee";
 
 //import materails
 import { Container } from "@material-ui/core";
@@ -61,6 +63,8 @@ export default function App() {
         <Container className={classes.content} maxWidth={false}>
           <Switch>
           <Route path="/directory" component={Directory} />
+          <Route path="/profile/:id" component={EmployeeProfile}/>
+          <Route path="/addEmployee" component={AddEmployee} />
           </Switch>
         </Container>
       </div>
