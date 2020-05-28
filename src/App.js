@@ -58,7 +58,7 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-          <Switch>{/* Route */}</Switch>
+          <Route path="/document" component={document} />
         </Container>
       </div>
     </Router>
