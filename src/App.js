@@ -9,7 +9,7 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
-import document from "./components/pages/document"
+import document from "./components/pages/document/document"
 //import materails
 import { Container } from "@material-ui/core";
 
