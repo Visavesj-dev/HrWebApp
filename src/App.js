@@ -53,7 +53,7 @@ export default function App() {
 
   return (
     <Router>
-      <div className={classes.root}>
+      <div className={classes.root} >
         <Header
           open={open}
           handleDrawerOpen={handleDrawerOpen}

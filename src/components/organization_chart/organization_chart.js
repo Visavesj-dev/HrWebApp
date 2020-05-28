@@ -17,6 +17,7 @@ import {
   TextField,
   Switch,
 } from "@material-ui/core";
+import html2canvas from 'html2canvas';
 import Button from '@material-ui/core/Button';
 import { lighten, withStyles } from "@material-ui/core/styles";
 import OrganizationChart from "@dabeng/react-orgchart";
@@ -241,6 +242,12 @@ const Dashboard = () => {
     })
   };
 
+  // const handleCapture =()=>{
+  //   html2canvas(document.body).then(function(canvas) {
+  //   // html2canvas($("#orgchart")).then(function(canvas) {
+  //     document.body.appendChild(canvas);
+  // });
+  // }
   const [isEdited, setIsEdited] = useState(false);
   const [refresh, setRefrest] = useState(true);
 
@@ -448,15 +455,14 @@ const Dashboard = () => {
               Export
             </Button>
             </section>
+            {/* <Button onClick={handleCapture} style={{ marginLeft: "2rem" }} color="primary" variant="contained"> {<SaveIcon />}
+              Export
+            </Button> */}
           </div>
         </div>
 
-          <div className="row justify-content-center px-5 pb-4">
-            <div
-              className={
-                ("px-0 text-center")
-              }
-            >
+          <div className="row justify-content-center px-5 pb-4" >
+            <div className={("px-0 text-center")} id='orgchart'>
               <OrganizationChart
                 ref={orgchart}
                 datasource={chartSource}
