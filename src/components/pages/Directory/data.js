@@ -5,6 +5,7 @@ export default [
     id: uuid(),
     name: 'Ekaterina Tankova',
     type: "Full Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'West Virginia',
@@ -20,6 +21,7 @@ export default [
     id: uuid(),
     name: 'Cao Yu',
     type: "Full Time",
+    status: "Terminated",
     address: {
       country: 'USA',
       state: 'Bristow',
@@ -35,6 +37,7 @@ export default [
     id: uuid(),
     name: 'Alexa Richardson',
     type: "Full Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'Georgia',
@@ -50,6 +53,7 @@ export default [
     id: uuid(),
     name: 'Anje Keizer',
     type: "Full Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'Ohio',
@@ -65,6 +69,7 @@ export default [
     id: uuid(),
     name: 'Clarke Gillebert',
     type: "Full Time",
+    status: "Terminated",
     address: {
       country: 'USA',
       state: 'Texas',
@@ -80,6 +85,7 @@ export default [
     id: uuid(),
     name: 'Adam Denisov',
     type: "Part Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'California',
@@ -95,6 +101,7 @@ export default [
     id: uuid(),
     name: 'Ava Gregoraci',
     type: "Part Time",
+    status: "Terminated",
     address: {
       country: 'USA',
       state: 'California',
@@ -110,6 +117,7 @@ export default [
     id: uuid(),
     name: 'Emilee Simchenko',
     type: "Part Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'Nevada',
@@ -125,6 +133,7 @@ export default [
     id: uuid(),
     name: 'Kwak Seong-Min',
     type: "Part Time",
+    status: "Terminated",
     address: {
       country: 'USA',
       state: 'Michigan',
@@ -139,6 +148,7 @@ export default [
     id: uuid(),
     name: 'Merrile Burgett',
     type: "Part Time",
+    status: "Active",
     address: {
       country: 'USA',
       state: 'Utah',
@@ -154,6 +164,7 @@ export default [
     id: uuid(),
     name: 'zzz',
     type: "Part Time",
+    status: "Active",
     address: {
         country: 'USA',
         state: 'Utah',

@@ -116,40 +116,40 @@ const useStyles = makeStyles((theme) => ({
 const UsersTable = (props) => {
   const { className, users, ...rest } = props;
   const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = useState(3); //posts per page
+  const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
+const [searchTerm, setSearchTerm] = React.useState(""); //searching
 
-const [states,setTood] = useState("")
- // Test
-//   const [state, setState] = React.useState({
-//     Fulltime: false,
-//     Parttime: false,
-//   });
+ //test
+// const [test,setTest] = useState("")
+// const [test2,setTest2] = useState("")
+
+//   const handleChange = (event) => {
+//     setTest(event.target.value)
+//   };
+
+//   const handleChange1 = (event) => {
+//     setTest2(event.target.value)
+//   };
+
+const [state, setState] = React.useState({
+    FullTime: false,
+    PartTime: false,
+    Active: false,
+    Terminated: false
+  });
 
   const handleChange = (event) => {
-    // setSearchTerm(event.target.value);
-    // setState({ ...state, [event.target.name]: event.target.checked });
-    setState(event.target.checked)
-    
+    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-   const { Parttime, Fulltime, gilad, jason, antoine } = states;
-
-
-  const initialState = {
-    click: false,
-    change: false
-  };
-
-  const reducer = (state, action) => ({ ...state, ...action });
-  const [state, setState] = useReducer(reducer, initialState);
+  const { FullTime, PartTime, Active , Terminated} = state;
 
   //---*---//
 
-  //searching
-  const [searchTerm, setSearchTerm] = React.useState("");
 
+  //searching
   useEffect(() => {
     setPosts(users);
   }, []);
@@ -159,32 +159,6 @@ const [states,setTood] = useState("")
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
-
-  // checkbox filter 
-
-//   const Checkbox = ({ fnClick, fnChange, title = "", checked = false }) => (
-//     <label>
-//       <input
-//         onChange={e => {
-//           if (fnChange !== undefined) fnChange(e.target.checked);
-//         }}
-//         type="checkbox"
-//         checked={checked}
-//       />
-//       {" Checkbox " + title}
-//     </label>
-//   );
-
-//   const checkFilter = !searchTerm
-//     ? currentPosts
-//     : currentPosts.filter((person) => {
-//         return (
-//           person.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-//           person.phone.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-//         );
-//       });
-
-  //
 
   const results = !searchTerm
     ? currentPosts
@@ -197,8 +171,7 @@ const [states,setTood] = useState("")
       });
 
   const handlePageChange = (event, page) => {
-    // เปลี่ยนหน้า table
-    setPage(page);
+    setPage(page);// เปลี่ยนหน้า table
   };
 
   const handleRowsPerPageChange = (event) => {
@@ -206,13 +179,10 @@ const [states,setTood] = useState("")
   };
 
   const handleChangeSearch = (event) => {
-    // handle search
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value); // handle search
   };
 
-  const clear = () => {
-    //function clear value
-    setState(initialState);
+  const clear = () => { //function clear value
     setSearchTerm("");
   };
 
@@ -221,7 +191,7 @@ const [states,setTood] = useState("")
       <Grid container spacing={3}>
         <Grid item xs={3} md={2}>
           <div>
-          {console.log(state.change)}
+          {console.log(Active)}
             <Paper className={classes.paper}>
               <Typography
                 variant="h6"
@@ -239,18 +209,9 @@ const [states,setTood] = useState("")
                   <FormControlLabel
                     control={
                       <Checkbox
-                    //     color="primary"
-                    //     // onChange={handleChange}
-                    //     name="Fulltime"
-                    //     // checked={Fulltime}
-                        
-                    //    onChange={handleChange}
-                    //     checked={state.change}
-                    title="Change"
-                    // fnChange={v => setState({ change: v })}
-                    checked={state.change}
-
-
+                        checked={FullTime} 
+                        onChange={handleChange} 
+                        name="FullTime"
                       />
                     }
                     label="Full Time"
@@ -259,18 +220,17 @@ const [states,setTood] = useState("")
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color="primary"
-                        value={"Part Time"}
-                        onChange={handleChange}
-                        name="Parttime"
-                        checked={Parttime}
+                      checked={PartTime} 
+                        onChange={handleChange} 
+                        name="PartTime"
                       />
                     }
                     label="Part Time"
                   />
+                  
                 </FormGroup>
               </FormControl>
-              <Divider />
+               <Divider />
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
                   Status
@@ -280,9 +240,9 @@ const [states,setTood] = useState("")
                     control={
                       <Checkbox
                         color="primary"
-                        checked={gilad}
+                        checked={Active}
                         onChange={handleChange}
-                        name="gilad"
+                        name="Active"
                       />
                     }
                     label="Active"
@@ -291,28 +251,17 @@ const [states,setTood] = useState("")
                     control={
                       <Checkbox
                         color="primary"
-                        checked={jason}
+                         checked={Terminated}
                         onChange={handleChange}
-                        name="jason"
+                        name="Terminated"
                       />
                     }
                     label="Terminated"
                   />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={antoine}
-                        onChange={handleChange}
-                        name="antoine"
-                      />
-                    }
-                    label="Hiring/Onboarding"
-                  />
                 </FormGroup>
               </FormControl>
               <Divider />
-              <FormControl component="fieldset" className={classes.formControl}>
+             {/* <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
                   Department
                 </FormLabel>
@@ -340,7 +289,7 @@ const [states,setTood] = useState("")
                     label="Scg"
                   />
                 </FormGroup>
-              </FormControl>
+              </FormControl> */}
               <center>
                 <Button
                   variant="outlined"
@@ -412,7 +361,39 @@ const [states,setTood] = useState("")
                     </TableHead>
                     <TableBody>
                       {/* Set user data here */}
-                      {results.map((user) => (
+                      {results.filter((item)=> {
+                          if(FullTime == false && PartTime == false && Active == false && Terminated == false){
+                              return item
+                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == false){
+                              return item.type == "Full Time"
+                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == false){
+                              return item.type == "Part Time"
+                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == false){
+                              return item
+                          }else if(FullTime == false && PartTime == false && Active == true && Terminated == false){
+                              return item.status == "Active"
+                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == false){
+                              return item.status == "Active" && item.type == "Full Time"
+                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == false){
+                              return item.status == "Active" && item.type == "Part Time"
+                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == false){
+                              return item.status == "Active"
+                          }else if(FullTime == false && PartTime == false && Active == false && Terminated == true){
+                              return item.status == "Terminated"
+                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == true){
+                              return item.status == "Terminated" && item.type == "Full Time"
+                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == true){
+                              return item.status == "Terminated" && item.type == "Part Time"
+                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == true){
+                              return item.status == "Terminated"
+                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == true){
+                              return item.type == "Full Time"
+                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == true){
+                              return item.type == "Part Time"
+                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == true){
+                              return item
+                          }                     
+                      }).map((user) => (
                         <TableRow
                           className={classes.tableRow}
                           hover
@@ -434,7 +415,7 @@ const [states,setTood] = useState("")
                             </div>
                           </TableCell>
                           <TableCell>{user.type}</TableCell>
-                          <TableCell>Acive</TableCell>
+                          <TableCell>{user.status}</TableCell>
                           <TableCell>Tranier</TableCell>
                           <TableCell>TPE</TableCell>
                           <TableCell>

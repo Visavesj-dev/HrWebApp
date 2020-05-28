@@ -9,33 +9,36 @@ import {
   CardHeader,
   Avatar,
   Typography,
-  Divider,
-  Button,
-  LinearProgress,
-  TextField
+  Container,
 } from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
 
 //import tools
-import moment from "moment";
-
+import BasicInfo from "./compoments/BasicInfo";
+import EmploymentType from "./compoments/EmploymentType";
+import JobDetails from "./compoments/JobDetails";
+import EducationDestails from "./compoments/EducationDetails";
+import OfferDetails from "./compoments/OfferDetails";
+import HealthBenefits from "./compoments/HealthBenefits";
 
 //import style
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(4),
-    marginTop: 75
+    marginTop: 45,
   },
-  //prifile
   profile: {
-    marginBottom: 20
+    marginBottom: 20,
+    width: "85%",
   },
   details: {
     display: "flex",
   },
   avatar: {
-    marginLeft: "auto",
+    marginRight: "auto",
     height: 110,
     width: 100,
     flexShrink: 0,
@@ -44,232 +47,183 @@ const useStyles = makeStyles((theme) => ({
   progress: {
     marginTop: theme.spacing(2),
   },
-  uploadButton: {
-    margin: "auto"
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    marginTop: 25,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+  tabs1: {
+    width: "85%",
+    marginTop: 20,
   },
 }));
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+        <div>
+          <Typography>{children}</Typography>
+          </div>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
+//สำหรับใส่ชื่อ Step
+function getSteps() {
+  return ["Information", "Account"];
+}
+
 function AddEmployee(props) {
   const classes = useStyles();
-  const [data, setData] = useState([])
-  // const [users] = useState(mockData);
-  
-  React.useEffect(() => {
-   console.log(props.match.params.id)
-  }, [])
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
 
-  const user = {
-    name: "Shen Zhi",
-    city: "Los Angeles",
-    country: "USA",
-    timezone: "GTM-7",
-    avatar: "/images/avatars/avatar_11.png",
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  });
-
-  const handleChange = event => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  //สำหรับ get Step ตาม index
+  // function getStepContent(stepIndex) {
+  //   switch (stepIndex) {
+  //     case 0:
+  //       return (
+  //         <TabPanel value={value} index={0}>
+
+  //           <BasicInfo />
+  //         </TabPanel>
+  //       );
+  //     case 1:
+  //       return (
+  //         <TabPanel value={value} index={1}>
+  //           <BasicInfo />
+  //         </TabPanel>
+  //       )
+  //     default:
+  //       return "Unknown stepIndex";
+  //   }
+  // }
+
+  // For Taps
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  //-----*-----//
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
-        <Grid item  md={4}  xs={12}>
-          <Card>
-            <CardContent>
-              <div className={classes.details}>
-                <div>
-                  <Typography gutterBottom variant="h2">
-                    ........
-                  </Typography>
-                  <Typography
-                    className={classes.locationText}
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    {user.city}, {user.country}
-                  </Typography>
-                  <Typography
-                    className={classes.dateText}
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    {moment().format("hh:mm A")} ({user.timezone})
-                  </Typography>
+      <Container>
+        {/* Left Side */}
+        <Grid container spacing={1}>
+          <Grid item md={5} xs={12}>
+            <Card style={{ width: "85%", marginTop: 25 }}>
+              <CardContent>
+                <div className={classes.details}>
+                  <Avatar className={classes.avatar} />
+                  <div style={{ margin: "auto" }}>
+                    <Typography gutterBottom variant="h6">
+                      Visavesj Chiangsan
+                    </Typography>
+                    <Typography
+                      className={classes.locationText}
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      Trainer (Full-Time), Fitness Training
+                    </Typography>
+                    <Typography
+                      className={classes.dateText}
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      Started on December 5th, 2013
+                    </Typography>
+                  </div>
                 </div>
-                <Avatar className={classes.avatar}  />
-              </div>
-            </CardContent>
-            <Divider />
-            <CardActions>
-              <Button
-                className={classes.uploadButton}
-                color="primary"
-                variant="text"
-              >
-                Upload picture
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item  md={8}  xs={12}>
-
-        {/* Right Side  */}
-        <Card className={classes.profile}>
-      <form
-        autoComplete="off"
-        noValidate
-      >
-        <CardHeader
-          title="Basic Info"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-          <Grid
-              item
-              md={6}
-              xs={12}
-            >
-            <Typography variant="h6" >
-                  Frist Name
-             </Typography>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Frist Name"
-                margin="dense"
-                name="fullname"
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-            <Typography variant="h6">
-                  Last Name
-             </Typography>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Gender"
-                margin="dense"
-                name="Gender"
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-            <Typography variant="h6">
-                  Email Address
-             </Typography>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-             <TextField
-                fullWidth
-                label="Date of Birth"
-                margin="dense"
-                name="DOB"
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-            <Typography variant="h6">
-            Confirm Email
-             </Typography>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Id Number"
-                margin="dense"
-                name="idnumber"
-                onChange={handleChange}
-                value={values.phone}
-                required
-                variant="outlined"
-              />
-            </Grid>
+              </CardContent>
+            </Card>
+            <div className={classes.tabs1}>
+              <Card>
+                <CardContent>
+                  <Tabs
+                    orientation="vertical"
+                    variant="standard"
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs example"
+                    style={{ marginLeft: 60 }}
+                  >
+                    <Tab label="Basic Info" {...a11yProps(0)} />
+                    <Tab label="Employment Type" {...a11yProps(1)} />
+                    <Tab label="Job Details" {...a11yProps(2)} />
+                    <Tab label="Education Details" {...a11yProps(3)} />
+                    <Tab label="Offer Details" {...a11yProps(4)} />
+                    <Tab label="Health Benefits" {...a11yProps(5)} />
+                  </Tabs>
+                </CardContent>
+              </Card>
+            </div>
           </Grid>
-        </CardContent>
-        <Divider />
-        {/* <CardActions>
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </CardActions> */}
-      </form>
-    </Card>
-    </Grid>
-</Grid>
+
+          {/* Right Side  */}
+
+          <Grid item md={7} xs={12}>
+           {/* Basic Info */}
+            <TabPanel value={value} index={0}>
+              <BasicInfo />
+            </TabPanel>
+            {/* Employment Type */}
+            <TabPanel value={value} index={1}>
+              <EmploymentType />
+            </TabPanel>
+             {/* Job */}
+             <TabPanel value={value} index={2}>
+              <JobDetails />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <EducationDestails />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <OfferDetails />
+            </TabPanel> 
+            <TabPanel value={value} index={5}>
+              <HealthBenefits />
+            </TabPanel> 
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 }
