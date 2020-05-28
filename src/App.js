@@ -9,7 +9,7 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
-
+import document from "./components/pages/document"
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -58,7 +58,7 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-          <Route path="/document" component={document} />
+          <Route path="/documents" component={document} />
         </Container>
       </div>
     </Router>
