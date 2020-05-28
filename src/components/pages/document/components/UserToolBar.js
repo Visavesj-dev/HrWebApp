@@ -1,8 +1,5 @@
 import React from "react";
-
 //import modules
-
-
 //import tools
 import PropTypes from "prop-types";
 
