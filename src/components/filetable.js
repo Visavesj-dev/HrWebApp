@@ -3,20 +3,21 @@ import uuid from 'uuid/v1';
 export default [
   {
     id: 1,
-    name: 'Ekaterina Tankova',
-    type: "Full Time",
-    status: "Active",
-    address: {
-      country: 'USA',
-      state: 'West Virginia',
-      city: 'Parkersburg',
-      street: '2849 Fulton Street'
-    },
-    email: 'ekaterina.tankova@devias.io',
-    phone: '304-428-3097',
-    avatarUrl: '/images/avatars/avatar_3.png',
-    createdAt: 1555016400000
+    document1:'urlfilepath',
+    document2:'urlfilepath',
+    document3:'urlfilepath',
+    document4:'urlfilepath',
+    document5:'urlfilepath',
   },
+
+
+
+
+
+
+
+
+  
   {
     id: 2,
     name: 'Cao Yu',

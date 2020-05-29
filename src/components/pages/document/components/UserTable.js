@@ -22,6 +22,7 @@ import {
   Link,
   Button,
 } from "@material-ui/core";
+// import MaterialTable from 'material-table';
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -30,7 +31,9 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Divider from "@material-ui/core/Divider";
 import { withRouter } from "react-router-dom";
-
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 //import Tools
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -38,15 +41,15 @@ import moment from "moment";
 
 //Icon
 import EmailIcon from '@material-ui/icons/Email';
+import BackupIcon from '@material-ui/icons/Backup';
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 
 //SVGIcon
-// function NoDocIcon(){return <svg id="Layer_1" enable-background="new 0 0 512 512" height="40" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg"><g id="XMLID_2510_"><g id="XMLID_2232_"><g id="XMLID_2233_"><g id="XMLID_2234_"><g id="XMLID_2235_"><g id="XMLID_2236_"><g id="XMLID_2237_"><g id="XMLID_2238_"><g id="XMLID_2472_"><g id="XMLID_2478_"><g id="XMLID_2479_"><g id="XMLID_2480_"><g id="XMLID_2481_"><g id="XMLID_2482_"><g id="XMLID_2483_"><circle id="XMLID_3251_" cx="256" cy="256" fill="#00efd1" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path id="XMLID_1155_" d="m512 256c0-11.456-.764-22.732-2.223-33.789l-104.833-104.834-31.014 5.36-50.006-49.604-215.859 362.952 60.635 60.635c27.245 9.883 56.641 15.28 87.3 15.28 141.385 0 256-114.615 256-256z" fill="#00cfb4"/><g id="XMLID_2042_"><path id="XMLID_2231_" d="m108.065 117.377h296.879v279.867h-296.879z" fill="#fff"/><path id="XMLID_2230_" d="m256 117.38h148.94v279.86h-148.94z" fill="#fff5ca"/><g id="XMLID_2222_"><circle id="XMLID_2224_" cx="256.503" cy="130.377" fill="#ff6326" r="88.467"/><path id="XMLID_2223_" d="m344.973 130.374c0 48.86-39.61 88.47-88.47 88.47v-176.93c48.86 0 88.47 39.599 88.47 88.46z" fill="#ff1f3d"/></g><g id="XMLID_2053_"><path id="XMLID_2218_" d="m151.838 317.31h38.162v30h-38.162z" fill="#324a5e"/><path id="XMLID_2216_" d="m224 317.31h137.171v30h-137.171z" fill="#324a5e"/><path id="XMLID_2214_" d="m256 317.31h105.17v30h-105.17z" fill="#1f3742"/><path id="XMLID_2210_" d="m151.838 257.31h138.912v30h-138.912z" fill="#324a5e"/><g fill="#1f3742"><path id="XMLID_2055_" d="m256 257.31h34.75v30h-34.75z"/><path id="XMLID_2054_" d="m324.5 257.31h36.671v30h-36.671z"/></g></g><g id="XMLID_2046_"><g><path id="XMLID_115_" d="m108.065 392.417h296.879v43.668h-296.879z" fill="#ff6326"/></g></g><g id="XMLID_2043_"><path id="XMLID_2045_" d="m256 392.42h148.94v43.67h-148.94z" fill="#ff1f3d"/></g></g><g id="XMLID_2039_"><path id="XMLID_2041_" d="m311.667 160.1-29.724-29.723 29.724-29.724-25.441-25.44-29.723 29.724-29.724-29.724-25.44 25.44 29.724 29.724-29.724 29.723 25.44 25.441 29.724-29.724 29.723 29.724z" fill="#fff"/><path id="XMLID_2040_" d="m281.943 130.377 29.72 29.72-25.437 25.447-29.721-29.73v-50.875l29.721-29.729 25.437 25.447z" fill="#fff5ca"/></g></g></svg>}
-function DocIcon(){return <svg id="Layer_1" enable-background="new 0 0 32 32" height="32" viewBox="0 0 35 35" width="32" xmlns="http://www.w3.org/2000/svg"><g id="XMLID_805_"><g id="XMLID_477_"><g id="XMLID_478_"><g id="XMLID_479_"><g id="XMLID_480_"><g id="XMLID_481_"><g id="XMLID_482_"><g id="XMLID_483_"><g id="XMLID_484_"><g id="XMLID_485_"><g id="XMLID_486_"><g id="XMLID_487_"><g id="XMLID_488_"><g id="XMLID_489_"><g id="XMLID_490_"><circle id="XMLID_491_" cx="256" cy="256" fill="#45f6ff" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path id="XMLID_2228_" d="m512 256c0-33.094-6.281-64.721-17.714-93.755l-89.411-89.411-297.75 366.333 55.119 55.119c29.035 11.433 60.662 17.714 93.756 17.714 141.385 0 256-114.615 256-256z" fill="#2ebeef"/><path id="XMLID_1428_" d="m107.125 72.833h297.749v366.333h-297.749z" fill="#fff"/><path id="XMLID_457_" d="m256 72.83h148.87v366.34h-148.87z" fill="#fff5ca"/><g id="XMLID_1427_"><path id="XMLID_171_" d="m256 136h108.667v30h-108.667z" fill="#1f3742"/></g><g id="XMLID_1426_"><path id="XMLID_173_" d="m147.333 118.667h64.667v64.667h-64.667z" fill="#00efd1"/></g><g id="XMLID_1424_"><path id="XMLID_170_" d="m256 241h108.667v30h-108.667z" fill="#1f3742"/></g><g id="XMLID_1423_"><g><path id="XMLID_38_" d="m147.333 223.667h64.667v64.667h-64.667z" fill="#ff6326"/></g></g><g id="XMLID_1421_"><path id="XMLID_119_" d="m256 346h108.667v30h-108.667z" fill="#1f3742"/></g><g id="XMLID_1420_"><path id="XMLID_93_" d="m147.333 328.667h64.667v64.667h-64.667z" fill="#00efd1"/></g></g></svg>}
-const NodocIcon =<svg id="Layer_1" enable-background="new 0 0 512 512" height="40" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg"><g id="XMLID_2510_"><g id="XMLID_2232_"><g id="XMLID_2233_"><g id="XMLID_2234_"><g id="XMLID_2235_"><g id="XMLID_2236_"><g id="XMLID_2237_"><g id="XMLID_2238_"><g id="XMLID_2472_"><g id="XMLID_2478_"><g id="XMLID_2479_"><g id="XMLID_2480_"><g id="XMLID_2481_"><g id="XMLID_2482_"><g id="XMLID_2483_"><circle id="XMLID_3251_" cx="256" cy="256" fill="#00efd1" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path id="XMLID_1155_" d="m512 256c0-11.456-.764-22.732-2.223-33.789l-104.833-104.834-31.014 5.36-50.006-49.604-215.859 362.952 60.635 60.635c27.245 9.883 56.641 15.28 87.3 15.28 141.385 0 256-114.615 256-256z" fill="#00cfb4"/><g id="XMLID_2042_"><path id="XMLID_2231_" d="m108.065 117.377h296.879v279.867h-296.879z" fill="#fff"/><path id="XMLID_2230_" d="m256 117.38h148.94v279.86h-148.94z" fill="#fff5ca"/><g id="XMLID_2222_"><circle id="XMLID_2224_" cx="256.503" cy="130.377" fill="#ff6326" r="88.467"/><path id="XMLID_2223_" d="m344.973 130.374c0 48.86-39.61 88.47-88.47 88.47v-176.93c48.86 0 88.47 39.599 88.47 88.46z" fill="#ff1f3d"/></g><g id="XMLID_2053_"><path id="XMLID_2218_" d="m151.838 317.31h38.162v30h-38.162z" fill="#324a5e"/><path id="XMLID_2216_" d="m224 317.31h137.171v30h-137.171z" fill="#324a5e"/><path id="XMLID_2214_" d="m256 317.31h105.17v30h-105.17z" fill="#1f3742"/><path id="XMLID_2210_" d="m151.838 257.31h138.912v30h-138.912z" fill="#324a5e"/><g fill="#1f3742"><path id="XMLID_2055_" d="m256 257.31h34.75v30h-34.75z"/><path id="XMLID_2054_" d="m324.5 257.31h36.671v30h-36.671z"/></g></g><g id="XMLID_2046_"><g><path id="XMLID_115_" d="m108.065 392.417h296.879v43.668h-296.879z" fill="#ff6326"/></g></g><g id="XMLID_2043_"><path id="XMLID_2045_" d="m256 392.42h148.94v43.67h-148.94z" fill="#ff1f3d"/></g></g><g id="XMLID_2039_"><path id="XMLID_2041_" d="m311.667 160.1-29.724-29.723 29.724-29.724-25.441-25.44-29.723 29.724-29.724-29.724-25.44 25.44 29.724 29.724-29.724 29.723 25.44 25.441 29.724-29.724 29.723 29.724z" fill="#fff"/><path id="XMLID_2040_" d="m281.943 130.377 29.72 29.72-25.437 25.447-29.721-29.73v-50.875l29.721-29.729 25.437 25.447z" fill="#fff5ca"/></g></g></svg>
+function NoDocIcon(){return <svg height="32pt" viewBox="0 0 512 512" width="32pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>}
+function DocIcon(){return <svg height="32pt" viewBox="0 0 512 512" width="32pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#2196f3"/><path d="m385.75 201.75-138.667969 138.664062c-4.160156 4.160157-9.621093 6.253907-15.082031 6.253907s-10.921875-2.09375-15.082031-6.253907l-69.332031-69.332031c-8.34375-8.339843-8.34375-21.824219 0-30.164062 8.339843-8.34375 21.820312-8.34375 30.164062 0l54.25 54.25 123.585938-123.582031c8.339843-8.34375 21.820312-8.34375 30.164062 0 8.339844 8.339843 8.339844 21.820312 0 30.164062zm0 0" fill="#fafafa"/></svg>}
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -119,6 +122,17 @@ const useStyles = makeStyles((theme) => ({
   },
   spacer: {
     flexGrow: 1,
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  papermodal: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 }));
 
@@ -195,8 +209,112 @@ const [state, setState] = React.useState({
     setSearchTerm("");
   };
 
+
+  const [show,setShow] = useState(false)
+  const handleClose = () => setShow(false);
+  const handleShow = (user,file) => {
+    setUserTemp(user)
+    setFileTemp(file)
+    setShow(true);
+  }
+  const [userTemp,setUserTemp]=useState(false)
+  const [fileTemp,setFileTemp]=useState(false)
+  const [modalHeader,setModalHeader] = useState('')
+  const [modalContent,setModalContent] = useState('')
+
+  const tableColumn = {
+    columns: [
+      { title: "Offer", value: "document1" },
+      { title: "employment eligibility", value: "document2" },
+      { title: "Tax document", value: "document3" },
+      { title: "background check", value: "document4" },
+
+    ]
+  }
+  // const [stage2, setState2] = React.useState({
+  //   columns: [
+    // { title: "Offer", value: "document1" },
+    // { title: "employment eligibility", value: "document2" },
+    // { title: "Tax document", value: "document3" },
+    // { title: "background check", value: "document4" },
+  //   ],
+  //   data: [
+  //     },
+  //   ],
+  // });
+
+  const filetable = [
+      {
+        id:1,
+        file:[
+        {title:'document1',fileurl:'ad'},
+        {title:'document2',fileurl:''},
+        {title:'document3',fileurl:'sdf'},
+        {title:'document4',fileurl:''},
+        {title:'document5',fileurl:'sdv'},
+        ]
+      },
+      {
+        id:2,
+        file:[
+        {title:'document1',fileurl:'a'},
+        {title:'document2',fileurl:'a'},
+        {title:'document3',fileurl:'sdf'},
+        {title:'document4',fileurl:'a'},
+        {title:'document5',fileurl:'sdv'},
+        ]
+      }
+  ]
+  
+  function fileLogo(user,file){
+    for (let i = 0; i < filetable.length; i++){
+      if(user.id==filetable[i].id){
+          for(let j=0; j<filetable[i].file.length;j++){
+            console.log(filetable[i].file[j].title+' and '+file.title)
+            if(filetable[i].file[j].title==file.value){
+              if(filetable[i].file[j].fileurl!=''){
+                return DocIcon()
+              }
+            }
+          }
+      }
+    }
+    return NoDocIcon()
+  }
   return (
     <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={show}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={show}>
+          <div className={classes.papermodal}>
+          <div className={classes.nameContainer}>
+          <Avatar
+            className={classes.avatar}
+            src={userTemp.avatarUrl}
+          >
+            {getInitials(userTemp.name)}
+          </Avatar>
+          <h2 id="transition-modal-title">{userTemp.name+" - "+fileTemp.title}</h2>
+          </div>
+            <p id="transition-modal-description"><BackupIcon/><input type="file" name="file" /></p>
+          </div>
+          {/* <MaterialTable
+            title="Editable Example"
+            columns={state2.columns}
+            data={state2.data}/> */}
+        </Fade>
+      </Modal>
+
       <Grid container spacing={3}>
         <Grid item xs={3} md={2}>
           <div>
@@ -270,35 +388,7 @@ const [state, setState] = React.useState({
                 </FormGroup>
               </FormControl>
               <Divider />
-             {/* <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend" className={classes.headerText}>
-                  Department
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={gilad}
-                        onChange={handleChange}
-                        name="gilad"
-                      />
-                    }
-                    label="Scg"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={jason}
-                        onChange={handleChange}
-                        name="jason"
-                      />
-                    }
-                    label="Scg"
-                  />
-                </FormGroup>
-              </FormControl> */}
+              
               <center>
                 <Button
                   variant="outlined"
@@ -337,7 +427,7 @@ const [state, setState] = React.useState({
             <Grid item xs={6} md={6}>
               <div className={classes.row2}>
                 <span className={classes.spacer} />
-                <Button
+                {/* <Button
                   color="primary"
                   variant="contained"
                   onClick={() => {
@@ -345,7 +435,7 @@ const [state, setState] = React.useState({
                   }}
                 >
                   Add Employee
-                </Button>
+                </Button> */}
               </div>
             </Grid>
             {/* ------------- */}
@@ -358,14 +448,10 @@ const [state, setState] = React.useState({
                   <Table style={{ overflowX: "scroll" }}>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Offer letter</TableCell>
-                        {/* <TableCell>Status</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Department</TableCell>
-                        <TableCell>Location</TableCell>
-                        <TableCell>Phone</TableCell>
-                        <TableCell>Start date</TableCell> */}
+                      <TableCell>Name</TableCell>
+                      {tableColumn.columns.map(item=>
+                        <TableCell>{item.title}</TableCell>
+                      )}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -423,20 +509,16 @@ const [state, setState] = React.useState({
                               <Link variant="body1">{user.name}</Link>
                             </div>
                           </TableCell>
-                          <TableCell> {DocIcon} <EmailIcon/> </TableCell>
-                          <TableCell><svg id="Layer_1" enable-background="new 0 0 512 512" height="40" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg"><g id="XMLID_2510_"><g id="XMLID_2232_"><g id="XMLID_2233_"><g id="XMLID_2234_"><g id="XMLID_2235_"><g id="XMLID_2236_"><g id="XMLID_2237_"><g id="XMLID_2238_"><g id="XMLID_2472_"><g id="XMLID_2478_"><g id="XMLID_2479_"><g id="XMLID_2480_"><g id="XMLID_2481_"><g id="XMLID_2482_"><g id="XMLID_2483_"><circle id="XMLID_3251_" cx="256" cy="256" fill="#00efd1" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path id="XMLID_1155_" d="m512 256c0-11.456-.764-22.732-2.223-33.789l-104.833-104.834-31.014 5.36-50.006-49.604-215.859 362.952 60.635 60.635c27.245 9.883 56.641 15.28 87.3 15.28 141.385 0 256-114.615 256-256z" fill="#00cfb4"/><g id="XMLID_2042_"><path id="XMLID_2231_" d="m108.065 117.377h296.879v279.867h-296.879z" fill="#fff"/><path id="XMLID_2230_" d="m256 117.38h148.94v279.86h-148.94z" fill="#fff5ca"/><g id="XMLID_2222_"><circle id="XMLID_2224_" cx="256.503" cy="130.377" fill="#ff6326" r="88.467"/><path id="XMLID_2223_" d="m344.973 130.374c0 48.86-39.61 88.47-88.47 88.47v-176.93c48.86 0 88.47 39.599 88.47 88.46z" fill="#ff1f3d"/></g><g id="XMLID_2053_"><path id="XMLID_2218_" d="m151.838 317.31h38.162v30h-38.162z" fill="#324a5e"/><path id="XMLID_2216_" d="m224 317.31h137.171v30h-137.171z" fill="#324a5e"/><path id="XMLID_2214_" d="m256 317.31h105.17v30h-105.17z" fill="#1f3742"/><path id="XMLID_2210_" d="m151.838 257.31h138.912v30h-138.912z" fill="#324a5e"/><g fill="#1f3742"><path id="XMLID_2055_" d="m256 257.31h34.75v30h-34.75z"/><path id="XMLID_2054_" d="m324.5 257.31h36.671v30h-36.671z"/></g></g><g id="XMLID_2046_"><g><path id="XMLID_115_" d="m108.065 392.417h296.879v43.668h-296.879z" fill="#ff6326"/></g></g><g id="XMLID_2043_"><path id="XMLID_2045_" d="m256 392.42h148.94v43.67h-148.94z" fill="#ff1f3d"/></g></g><g id="XMLID_2039_"><path id="XMLID_2041_" d="m311.667 160.1-29.724-29.723 29.724-29.724-25.441-25.44-29.723 29.724-29.724-29.724-25.44 25.44 29.724 29.724-29.724 29.723 25.44 25.441 29.724-29.724 29.723 29.724z" fill="#fff"/><path id="XMLID_2040_" d="m281.943 130.377 29.72 29.72-25.437 25.447-29.721-29.73v-50.875l29.721-29.729 25.437 25.447z" fill="#fff5ca"/></g></g></svg></TableCell>
-                          {/* <TableCell>{user.type}</TableCell>
-                          <TableCell>{user.status}</TableCell>
-                          <TableCell>Tranier</TableCell>
-                          <TableCell>TPE</TableCell>
-                          <TableCell>
-                            {user.address.city}, {user.address.state},{" "}
-                            {user.address.country}
+
+                          {tableColumn.columns.map(item=>
+                            <TableCell 
+                              onClick={() => {
+                              handleShow(user,item)
+                            }}
+                              align="center"> 
+                              {fileLogo(user,item)}
                           </TableCell>
-                          <TableCell>{user.phone}</TableCell>
-                          <TableCell>
-                            {moment(user.createdAt).format("DD/MM/YYYY")}
-                          </TableCell> */}
+                          )}
                         </TableRow>
                       ))}
                     </TableBody>
