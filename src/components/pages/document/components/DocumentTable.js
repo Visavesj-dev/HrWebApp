@@ -359,13 +359,15 @@ function navBar(){return <div className={classes.root}>
           <TableCell>Type</TableCell>
           <TableCell>Date</TableCell>
           <TableCell>Status</TableCell>
+          <TableCell>Download</TableCell>
+          <TableCell>Upload</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {columns.map(item=>{return <div className={classes.root}>
-            <TableRow className={classes.tableRow}>
+            {/* <TableRow className={classes.tableRow}>
             <TableCell align="center">{item}</TableCell><TableCell align="center">date</TableCell><TableCell align="center">download</TableCell>
-            </TableRow>
+            </TableRow> */}
             {filetable.filter((query)=>query.id==user.id).map(query=>{return <TableRow>
             <TableCell>
             <div className={classes.nameContainer}>{query[item][0].value}</div>
@@ -374,9 +376,13 @@ function navBar(){return <div className={classes.root}>
               {query[item][0].createDate}
             </TableCell>
             <TableCell>
+              {fileLogo(user,query[item][0])}
+            </TableCell>
+            <TableCell>
               <a target="_blank" href={query[item][0].fileurl}>Download File</a>
               {/* <a target="_blank" href="https://meetflo.zendesk.com/hc/en-us/articles/230425728-Privacy-Policies">Policies</a> */}
             </TableCell>
+            <TableCell><p id="transition-modal-description"><BackupIcon/><input type="file" name="file" /></p></TableCell>
             </TableRow>})}
             </div>})}
         </TableBody>
@@ -423,9 +429,8 @@ function navBar(){return <div className={classes.root}>
             >
               {getInitials(userTemp.name)}
             </Avatar>
-            <h2 id="transition-modal-title">{userTemp.name+" - "+fileTemp.title}</h2>
+            <h2 id="transition-modal-title">{userTemp.name+" - "}</h2>
           </div>
-            <p id="transition-modal-description"><BackupIcon/><input type="file" name="file" /></p>
             {modalContent}
           </div>
         </Fade>
