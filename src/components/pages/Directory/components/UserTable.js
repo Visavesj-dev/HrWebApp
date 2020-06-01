@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 //import modules
 import getInitials from "../modules/getInitials";
@@ -119,35 +119,22 @@ const UsersTable = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
-const [searchTerm, setSearchTerm] = React.useState(""); //searching
+  const [searchTerm, setSearchTerm] = React.useState(""); //searching
 
- //test
-// const [test,setTest] = useState("")
-// const [test2,setTest2] = useState("")
-
-//   const handleChange = (event) => {
-//     setTest(event.target.value)
-//   };
-
-//   const handleChange1 = (event) => {
-//     setTest2(event.target.value)
-//   };
-
-const [state, setState] = React.useState({
+  const [state, setState] = React.useState({
     FullTime: false,
     PartTime: false,
     Active: false,
-    Terminated: false
+    Terminated: false,
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const { FullTime, PartTime, Active , Terminated} = state;
+  const { FullTime, PartTime, Active, Terminated } = state;
 
   //---*---//
-
 
   //searching
   useEffect(() => {
@@ -171,7 +158,7 @@ const [state, setState] = React.useState({
       });
 
   const handlePageChange = (event, page) => {
-    setPage(page);// เปลี่ยนหน้า table
+    setPage(page); // เปลี่ยนหน้า table
   };
 
   const handleRowsPerPageChange = (event) => {
@@ -182,7 +169,8 @@ const [state, setState] = React.useState({
     setSearchTerm(event.target.value); // handle search
   };
 
-  const clear = () => { //function clear value
+  const clear = () => {
+    //function clear value
     setSearchTerm("");
   };
 
@@ -191,7 +179,7 @@ const [state, setState] = React.useState({
       <Grid container spacing={3}>
         <Grid item xs={3} md={2}>
           <div>
-          {console.log(Active)}
+            {console.log(Active)}
             <Paper className={classes.paper}>
               <Typography
                 variant="h6"
@@ -209,28 +197,27 @@ const [state, setState] = React.useState({
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={FullTime} 
-                        onChange={handleChange} 
+                        checked={FullTime}
+                        onChange={handleChange}
                         name="FullTime"
                       />
                     }
                     label="Full Time"
                   />
-                  
+
                   <FormControlLabel
                     control={
                       <Checkbox
-                      checked={PartTime} 
-                        onChange={handleChange} 
+                        checked={PartTime}
+                        onChange={handleChange}
                         name="PartTime"
                       />
                     }
                     label="Part Time"
                   />
-                  
                 </FormGroup>
               </FormControl>
-               <Divider />
+              <Divider />
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
                   Status
@@ -251,7 +238,7 @@ const [state, setState] = React.useState({
                     control={
                       <Checkbox
                         color="primary"
-                         checked={Terminated}
+                        checked={Terminated}
                         onChange={handleChange}
                         name="Terminated"
                       />
@@ -261,7 +248,7 @@ const [state, setState] = React.useState({
                 </FormGroup>
               </FormControl>
               <Divider />
-             {/* <FormControl component="fieldset" className={classes.formControl}>
+              {/* <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
                   Department
                 </FormLabel>
@@ -361,73 +348,162 @@ const [state, setState] = React.useState({
                     </TableHead>
                     <TableBody>
                       {/* Set user data here */}
-                      {results.filter((item)=> {
-                          if(FullTime == false && PartTime == false && Active == false && Terminated == false){
-                              return item
-                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == false){
-                              return item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == false){
-                              return item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == false){
-                              return item
-                          }else if(FullTime == false && PartTime == false && Active == true && Terminated == false){
-                              return item.status == "Active"
-                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == false){
-                              return item.status == "Active" && item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == false){
-                              return item.status == "Active" && item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == false){
-                              return item.status == "Active"
-                          }else if(FullTime == false && PartTime == false && Active == false && Terminated == true){
-                              return item.status == "Terminated"
-                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == true){
-                              return item.status == "Terminated" && item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == true){
-                              return item.status == "Terminated" && item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == true){
-                              return item.status == "Terminated"
-                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == true){
-                              return item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == true){
-                              return item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == true){
-                              return item
-                          }                     
-                      }).map((user) => (
-                        <TableRow
-                          className={classes.tableRow}
-                          hover
-                          key={user.id}
-                        >
-                          <TableCell
-                            onClick={() => {
-                              props.history.push("/profile/" + user.id);
-                            }}
+                      {results
+                        .filter((item) => {
+                          if (
+                            FullTime == false &&
+                            PartTime == false &&
+                            Active == false &&
+                            Terminated == false
+                          ) {
+                            return item;
+                          } else if (
+                            FullTime == true &&
+                            PartTime == false &&
+                            Active == false &&
+                            Terminated == false
+                          ) {
+                            return item.type == "Full Time";
+                          } else if (
+                            FullTime == false &&
+                            PartTime == true &&
+                            Active == false &&
+                            Terminated == false
+                          ) {
+                            return item.type == "Part Time";
+                          } else if (
+                            FullTime == true &&
+                            PartTime == true &&
+                            Active == false &&
+                            Terminated == false
+                          ) {
+                            return item;
+                          } else if (
+                            FullTime == false &&
+                            PartTime == false &&
+                            Active == true &&
+                            Terminated == false
+                          ) {
+                            return item.status == "Active";
+                          } else if (
+                            FullTime == true &&
+                            PartTime == false &&
+                            Active == true &&
+                            Terminated == false
+                          ) {
+                            return (
+                              item.status == "Active" &&
+                              item.type == "Full Time"
+                            );
+                          } else if (
+                            FullTime == false &&
+                            PartTime == true &&
+                            Active == true &&
+                            Terminated == false
+                          ) {
+                            return (
+                              item.status == "Active" &&
+                              item.type == "Part Time"
+                            );
+                          } else if (
+                            FullTime == true &&
+                            PartTime == true &&
+                            Active == true &&
+                            Terminated == false
+                          ) {
+                            return item.status == "Active";
+                          } else if (
+                            FullTime == false &&
+                            PartTime == false &&
+                            Active == false &&
+                            Terminated == true
+                          ) {
+                            return item.status == "Terminated";
+                          } else if (
+                            FullTime == true &&
+                            PartTime == false &&
+                            Active == false &&
+                            Terminated == true
+                          ) {
+                            return (
+                              item.status == "Terminated" &&
+                              item.type == "Full Time"
+                            );
+                          } else if (
+                            FullTime == false &&
+                            PartTime == true &&
+                            Active == false &&
+                            Terminated == true
+                          ) {
+                            return (
+                              item.status == "Terminated" &&
+                              item.type == "Part Time"
+                            );
+                          } else if (
+                            FullTime == true &&
+                            PartTime == true &&
+                            Active == false &&
+                            Terminated == true
+                          ) {
+                            return item.status == "Terminated";
+                          } else if (
+                            FullTime == true &&
+                            PartTime == false &&
+                            Active == true &&
+                            Terminated == true
+                          ) {
+                            return item.type == "Full Time";
+                          } else if (
+                            FullTime == false &&
+                            PartTime == true &&
+                            Active == true &&
+                            Terminated == true
+                          ) {
+                            return item.type == "Part Time";
+                          } else if (
+                            FullTime == true &&
+                            PartTime == true &&
+                            Active == true &&
+                            Terminated == true
+                          ) {
+                            return item;
+                          }
+                        })
+                        .map((user) => (
+                          <TableRow
+                            className={classes.tableRow}
+                            hover
+                            key={user.id}
                           >
-                            <div className={classes.nameContainer}>
-                              <Avatar
-                                className={classes.avatar}
-                                src={user.avatarUrl}
-                              >
-                                {getInitials(user.name)}
-                              </Avatar>
-                              <Link variant="body1">{user.name}</Link>
-                            </div>
-                          </TableCell>
-                          <TableCell>{user.type}</TableCell>
-                          <TableCell>{user.status}</TableCell>
-                          <TableCell>Tranier</TableCell>
-                          <TableCell>TPE</TableCell>
-                          <TableCell>
-                            {user.address.city}, {user.address.state},{" "}
-                            {user.address.country}
-                          </TableCell>
-                          <TableCell>{user.phone}</TableCell>
-                          <TableCell>
-                            {moment(user.createdAt).format("DD/MM/YYYY")}
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                            <TableCell
+                              onClick={() => {
+                                props.history.push("/profile/" + user.id);
+                              }}
+                            >
+                              <div className={classes.nameContainer}>
+                                <Avatar
+                                  className={classes.avatar}
+                                  src={user.avatarUrl}
+                                >
+                                  {getInitials(user.name)}
+                                </Avatar>
+                                <Link variant="body1">{user.name}</Link>
+                              </div>
+                            </TableCell>
+                            <TableCell>{user.type}</TableCell>
+                            <TableCell>{user.status}</TableCell>
+                            <TableCell>Tranier</TableCell>
+                            <TableCell>TPE</TableCell>
+                            <TableCell>
+                              {user.address.city}, {user.address.state},{" "}
+                              {user.address.country}
+                            </TableCell>
+                            <TableCell>{user.phone}</TableCell>
+                            <TableCell>
+                              {moment(user.createdAt).format("DD/MM/YYYY")}
+                            </TableCell>
+                          </TableRow>
+                        ))}
                     </TableBody>
                   </Table>
                 </div>

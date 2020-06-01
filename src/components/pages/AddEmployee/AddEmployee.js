@@ -22,6 +22,7 @@ import JobDetails from "./compoments/JobDetails";
 import EducationDestails from "./compoments/EducationDetails";
 import OfferDetails from "./compoments/OfferDetails";
 import HealthBenefits from "./compoments/HealthBenefits";
+import PayrollDetails from "./compoments/PayrollDetails";
 
 //import style
 import { makeStyles } from "@material-ui/core/styles";
@@ -142,6 +143,18 @@ function AddEmployee(props) {
   };
   //-----*-----//
 
+  // change Profile Name
+  const [profile , setProfile] = React.useState({
+    firstName: "",
+    lastName: ""
+  })
+
+  const handleChangeName = (event) => {
+    setProfile({ ...profile, [event.target.name]: event.target.value});
+  }
+
+  const {firstName , lastName} = profile;
+
   return (
     <div className={classes.root}>
       <Container>
@@ -154,7 +167,7 @@ function AddEmployee(props) {
                   <Avatar className={classes.avatar} />
                   <div style={{ margin: "auto" }}>
                     <Typography gutterBottom variant="h6">
-                      Visavesj Chiangsan
+                       {firstName} {lastName}
                     </Typography>
                     <Typography
                       className={classes.locationText}
@@ -188,9 +201,10 @@ function AddEmployee(props) {
                     <Tab label="Basic Info" {...a11yProps(0)} />
                     <Tab label="Employment Type" {...a11yProps(1)} />
                     <Tab label="Job Details" {...a11yProps(2)} />
-                    <Tab label="Education Details" {...a11yProps(3)} />
-                    <Tab label="Offer Details" {...a11yProps(4)} />
-                    <Tab label="Health Benefits" {...a11yProps(5)} />
+                    <Tab label="Payroll Details" {...a11yProps(3)} />
+                    <Tab label="Education Details" {...a11yProps(4)} />
+                    <Tab label="Offer Details" {...a11yProps(5)} />
+                    <Tab label="Health Benefits" {...a11yProps(6)} />
                   </Tabs>
                 </CardContent>
               </Card>
@@ -202,7 +216,7 @@ function AddEmployee(props) {
           <Grid item md={7} xs={12}>
            {/* Basic Info */}
             <TabPanel value={value} index={0}>
-              <BasicInfo />
+              <BasicInfo handleChangeName={handleChangeName} profile={profile} />
             </TabPanel>
             {/* Employment Type */}
             <TabPanel value={value} index={1}>
@@ -212,13 +226,20 @@ function AddEmployee(props) {
              <TabPanel value={value} index={2}>
               <JobDetails />
             </TabPanel>
+             {/* Payroll */}
             <TabPanel value={value} index={3}>
+              <PayrollDetails />
+            </TabPanel>
+             {/* Education */}
+            <TabPanel value={value} index={4}>
               <EducationDestails />
             </TabPanel>
-            <TabPanel value={value} index={4}>
+             {/* Offer */}
+            <TabPanel value={value} index={5}>
               <OfferDetails />
             </TabPanel> 
-            <TabPanel value={value} index={5}>
+             {/* Health */}
+            <TabPanel value={value} index={6}>
               <HealthBenefits />
             </TabPanel> 
           </Grid>

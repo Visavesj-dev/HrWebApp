@@ -120,7 +120,7 @@ export default function EmploymentType() {
                     <RadioGroup
                       aria-label="gender"
                       name="gender1"
-                      value={value}
+                      value={value1}
                       onChange={handleChange1}
                     >
                       <FormControlLabel
@@ -178,7 +178,7 @@ export default function EmploymentType() {
                     <RadioGroup
                       aria-label="gender"
                       name="gender1"
-                      value={value}
+                      value={value1}
                       onChange={handleChange1}
                     >
                       <FormControlLabel
@@ -203,7 +203,7 @@ export default function EmploymentType() {
                       color="textSecondary"
                       variant="body1"
                     >
-                      A temporary worker who is paid directly through your company and usually receives a W-2 form..
+                      A temporary worker who is paid directly through your company and usually receives a W-2 
                     </Typography>
                        <FormControlLabel
                         value="Independent Contractor"
