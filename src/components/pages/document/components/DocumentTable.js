@@ -35,8 +35,7 @@ import { withRouter } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { Navbar, Nav } from "react-bootstrap";
-import Collapse from '@material-ui/core/Collapse';
+
 //import Tools
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -45,10 +44,10 @@ import moment from "moment";
 //Icon
 import EmailIcon from '@material-ui/icons/Email';
 import BackupIcon from '@material-ui/icons/Backup';
+
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-
 
 //SVGIcon
 function NoDocIcon(){return <svg height="32pt" viewBox="0 0 512 512" width="32pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>}
@@ -126,12 +125,29 @@ const useStyles = makeStyles((theme) => ({
   spacer: {
     flexGrow: 1,
   },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  // modal: {
+  //   // display: 'flex',
+  //   // alignItems: 'center',
+  //   // justifyContent: 'center',
+  //   position: fixed,
+  //   zindex: 999999,
+  //   top: 0,
+  //   left: 0,
+  //   width: '100vw',
+  //   height: '100vh',
+  //   background: rgba(0, 0, 0, 0.5),
+  //   display: flex,
+  //   alignitems: center,
+  //   justifycontent: center,
+  // },
+  modal:{
+
+    'max-height': 'calc(100vh - 210px)', 
+    'overflow-y': 'auto',
   },
   papermodal: {
+    'max-height': 'calc(100vh - 210px)', 
+    'overflow-y': 'auto',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -139,12 +155,105 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+///////////// Table mockup////////////////////
+const tableColumn = {
+  Hiring: [
+    { title: "Offer", value: "Hiring1" },
+    { title: "Emloyment Eligibility", value: "Hiring2" },
+    { title: "Tax Document", value: "Hiring3" },
+    { title: "Background check", value: "Hiring4" },
+  ],
+  HandbookAndAgreement: [
+    { title: "Defult Ip Agreement", value: "HandbookAndAgreement1" },
+    { title: "HandBook", value: "HandbookAndAgreement2" },
+  ],
+  Benefits: [
+    { title: "Marketplace Notification", value: "Benefits1" },
+  ],
+  Payroll: [
+    { title: "1099", value: "Payroll1" },
+    { title: "W2", value: "Payroll2" },
+  ],
+  PerformanceManagement: [
+    { title: "Reviews", value: "PerformanceManagement1" },
+  ],
+  Other: [
+    { title: "Other Document", value: "Other1" },
+  ],
+}
+  var columns =[]
+  function getcolumn(){
+    var myarray=[];
+    for(var k in tableColumn){
+      myarray.push(k)
+    }
+    return myarray
+  }
+/////////FileData Mockup/////////////
+var createdate= new Date(Date.now())
+createdate = createdate.toDateString()
+const filetable = [
+    {
+      id:1,
+      Hiring: [
+        {value:'Hiring1',fileurl:'https://www.google.com/',createDate:createdate},
+        {value:'Hiring2',fileurl:'https://www.google.com/',createDate:createdate},
+        {value:'Hiring3',fileurl:'',createDate:createdate},
+        {value:'Hiring4',fileurl:'',createDate:createdate},
+      ],
+      HandbookAndAgreement: [
+        {value:'HandbookAndAgreement1',fileurl:'aaaa',createDate:createdate},
+        {value:'HandbookAndAgreement2',fileurl:'',createDate:createdate},
+      ],
+      Benefits: [
+        {value:'Benefits1',fileurl:'',createDate:createdate},
+      ],
+      Payroll: [
+        {value:'Payroll1',fileurl:'',createDate:createdate},
+        {value:'Payroll2',fileurl:'',createDate:createdate},
+      ],
+      PerformanceManagement: [
+        {value:'PerformanceManagement1',fileurl:'',createDate:createdate},
+      ],
+      Other: [
+        {value:'Other1',fileurl:'',createDate:createdate},
+      ],
+    },
+    {
+      id:2,
+      Hiring: [
+        {value:'Hiring1',fileurl:'',createDate:createdate},
+        {value:'Hiring2',fileurl:'h',createDate:createdate},
+        {value:'Hiring3',fileurl:'',createDate:createdate},
+        {value:'Hiring4',fileurl:'a',createDate:createdate},
+      ],
+      HandbookAndAgreement: [
+        {value:'HandbookAndAgreement1',fileurl:'as',createDate:createdate},
+        {value:'HandbookAndAgreement2',fileurl:'',createDate:createdate},
+      ],
+      Benefits: [
+        {value:'Benefits1',fileurl:'',createDate:createdate},
+      ],
+      Payroll: [
+        {value:'Payroll1',fileurl:'',createDate:createdate},
+        {value:'Payroll2',fileurl:'',createDate:createdate},
+      ],
+      PerformanceManagement: [
+        {value:'PerformanceManagement1',fileurl:'',createDate:createdate},
+      ],
+      Other: [
+        {value:'Other1',fileurl:'',createDate:createdate},
+      ],
+    },
+]
+
 const DocumentTable = (props) => {
-  const { className, users, ...rest } = props;
-  const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
-  const [page, setPage] = useState(0); // current page
-  const [posts, setPosts] = useState([]); //เก็บข้อมูล array
+const { className, users, ...rest } = props;
+const classes = useStyles();
+const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
+const [page, setPage] = useState(0); // current page
+const [posts, setPosts] = useState([]); //เก็บข้อมูล array
 const [searchTerm, setSearchTerm] = React.useState(""); //searching
 const [state, setState] = React.useState({
     FullTime: false,
@@ -158,9 +267,6 @@ const [state, setState] = React.useState({
   };
 
   const { FullTime, PartTime, Active , Terminated} = state;
-
-  //---*---//
-
 
   //searching
   useEffect(() => {
@@ -202,20 +308,19 @@ const [state, setState] = React.useState({
     setCatagory(value)
   }
 
-
-  const [show,setShow] = useState(false)
+  const [catagory,setCatagory]=useState('Hiring')//catagory use to render the table 
+  const [modalContent,setModalContent]=useState('')//change model content by data that user click
+  const [userTemp,setUserTemp]=useState(false)
+  const [fileTemp,setFileTemp]=useState(false)
+  const [show,setShow] = useState(false)//state show modal
   const handleClose = () => setShow(false);
   const handleShow = (user,file) => {
     setUserTemp(user)
     setFileTemp(file)
     setShow(true);
   }
-  const [userTemp,setUserTemp]=useState(false)
-  const [fileTemp,setFileTemp]=useState(false)
-  const [tabValue,setTabValue]=useState('')
-  const [catagory,setCatagory]=useState('Hiring')
-  const [modalContent,setModalContent]=useState('')
 
+//buttongroup to change catagory 
 function navBar(){return <div className={classes.root}>
 <ButtonGroup color="secondary" aria-label="text primary button group">
   <Button onClick={() =>setCatagory('Hiring')}>Hiring</Button>
@@ -228,139 +333,64 @@ function navBar(){return <div className={classes.root}>
 </div>
 }
 
-///////////// Table mockup////////////////////
-  const tableColumn = {
-    Hiring: [
-      { title: "Offer", value: "Hiring1" },
-      { title: "Emloyment Eligibility", value: "Hiring2" },
-      { title: "Tax Document", value: "Hiring3" },
-      { title: "Background check", value: "Hiring4" },
-    ],
-    HandbookAndAgreement: [
-      { title: "Defult Ip Agreement", value: "HandbookAndAgreement1" },
-      { title: "HandBook", value: "HandbookAndAgreement2" },
-    ],
-    Benefits: [
-      { title: "Marketplace Notification", value: "Benefits1" },
-    ],
-    Payroll: [
-      { title: "1099", value: "Payroll1" },
-      { title: "W2", value: "Payroll2" },
-    ],
-    PerformanceManagement: [
-      { title: "Reviews", value: "PerformanceManagement1" },
-    ],
-    Other: [
-      { title: "Other Document", value: "Other1" },
-    ],
-  }
-    var columns =[]
-    function getcolumn(){
-      var myarray=[];
-      for(var k in tableColumn){
-        myarray.push(k)
+
+  function isFileExist(user,file){
+    for (let i = 0; i < filetable.length; i++){
+      if(user.id==filetable[i].id){
+        for(let j=0; j<filetable[i][catagory].length;j++){
+          if(filetable[i][catagory][j].value==file.value){
+            if(filetable[i][catagory][j].fileurl!=''){
+                return true
+              }
+            }
+          }
       }
-      return myarray
     }
-    // const [columnHeader,setColumnHeader] =useState([])
-    // const getCollumnHeader=()=>{
-    //   var myarray=[];
-    //   for(var k in tableColumn){
-    //     myarray.push(k)
-    //   }
-    //   console.log(myarray)
-    //   setColumnHeader(myarray)
-    //   console.log(columnHeader)
-    //   setColumnHeader('asdasd')
-    // }
+    return false
+  }
   
-  /////////FileData Mockup/////////////
-  const filetable = [
-      {
-        id:1,
-        Hiring: [
-          {value:'Hiring1',fileurl:''},
-          {value:'Hiring2',fileurl:'h'},
-          {value:'Hiring3',fileurl:''},
-          {value:'Hiring4',fileurl:''},
-        ],
-        HandbookAndAgreement: [
-          {value:'HandbookAndAgreement1',fileurl:''},
-          {value:'HandbookAndAgreement2',fileurl:''},
-        ],
-        Benefits: [
-          {value:'Benefits1',fileurl:''},
-        ],
-        Payroll: [
-          {value:'Payroll1',fileurl:''},
-          {value:'Payroll2',fileurl:''},
-        ],
-        PerformanceManagement: [
-          {value:'PerformanceManagement1',fileurl:''},
-        ],
-        Other: [
-          {value:'Other1',fileurl:''},
-        ],
-      },
-      {
-        id:2,
-        Hiring: [
-          {value:'Hiring1',fileurl:''},
-          {value:'Hiring2',fileurl:'h'},
-          {value:'Hiring3',fileurl:''},
-          {value:'Hiring4',fileurl:''},
-        ],
-        HandbookAndAgreement: [
-          {value:'HandbookAndAgreement1',fileurl:''},
-          {value:'HandbookAndAgreement2',fileurl:''},
-        ],
-        Benefits: [
-          {value:'Benefits1',fileurl:''},
-        ],
-        Payroll: [
-          {value:'Payroll1',fileurl:''},
-          {value:'Payroll2',fileurl:''},
-        ],
-        PerformanceManagement: [
-          {value:'PerformanceManagement1',fileurl:''},
-        ],
-        Other: [
-          {value:'Other1',fileurl:''},
-        ],
-      }
-  ]
+
   const [open, setOpen] = React.useState(false);
   const handleClick=(user)=>{
     let content=<div className={classes.root}> 
       <Table style={{ overflowX: "scroll" }}>
         <TableHead>
-          <TableRow>
+          <TableRow className={classes.tableRow}>
           <TableCell>Type</TableCell>
           <TableCell>Date</TableCell>
           <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {columns.map(item=>
-          <TableRow>
+          {columns.map(item=>{return <div className={classes.root}>
+            <TableRow className={classes.tableRow}>
+            <TableCell align="center">{item}</TableCell><TableCell align="center">date</TableCell><TableCell align="center">download</TableCell>
+            </TableRow>
+            {filetable.filter((query)=>query.id==user.id).map(query=>{return <TableRow>
             <TableCell>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              {item}
-            </Collapse>
+            <div className={classes.nameContainer}>{query[item][0].value}</div>
             </TableCell>
-          </TableRow>)}
+            <TableCell>
+              {query[item][0].createDate}
+            </TableCell>
+            <TableCell>
+              <a target="_blank" href={query[item][0].fileurl}>Download File</a>
+              {/* <a target="_blank" href="https://meetflo.zendesk.com/hc/en-us/articles/230425728-Privacy-Policies">Policies</a> */}
+            </TableCell>
+            </TableRow>})}
+            </div>})}
         </TableBody>
       </Table>
     </div>
-
     setModalContent(content)
   }
+
   function fileLogo(user,file){
     for (let i = 0; i < filetable.length; i++){
       if(user.id==filetable[i].id){
-          for(let j=0; j<filetable[i].Hiring.length;j++){
-            if(filetable[i].Hiring[j].value==file.value){
-              if(filetable[i].Hiring[j].fileurl!=''){
+          for(let j=0; j<filetable[i][catagory].length;j++){
+            if(filetable[i][catagory][j].value==file.value){
+              if(filetable[i][catagory][j].fileurl!=''){
                 return DocIcon()
               }
             }
@@ -369,6 +399,7 @@ function navBar(){return <div className={classes.root}>
     }
     return NoDocIcon()
   }
+
   return (
     <div>
       <Modal
