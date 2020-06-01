@@ -12,6 +12,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 //import styles
 import { makeStyles, useTheme } from "@material-ui/core/styles";

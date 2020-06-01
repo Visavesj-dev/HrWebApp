@@ -21,6 +21,7 @@ import {
   Paper,
   Link,
   Button,
+  ButtonGroup,
 } from "@material-ui/core";
 // import MaterialTable from 'material-table';
 import Grid from "@material-ui/core/Grid";
@@ -34,6 +35,8 @@ import { withRouter } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { Navbar, Nav } from "react-bootstrap";
+import Collapse from '@material-ui/core/Collapse';
 //import Tools
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -136,26 +139,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UsersTable = (props) => {
+const DocumentTable = (props) => {
   const { className, users, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
 const [searchTerm, setSearchTerm] = React.useState(""); //searching
-
- //test
-// const [test,setTest] = useState("")
-// const [test2,setTest2] = useState("")
-
-//   const handleChange = (event) => {
-//     setTest(event.target.value)
-//   };
-
-//   const handleChange1 = (event) => {
-//     setTest2(event.target.value)
-//   };
-
 const [state, setState] = React.useState({
     FullTime: false,
     PartTime: false,
@@ -208,6 +198,9 @@ const [state, setState] = React.useState({
   const clear = () => { //function clear value
     setSearchTerm("");
   };
+  const handleChangeCatagory = (value)=>{
+    setCatagory(value)
+  }
 
 
   const [show,setShow] = useState(false)
@@ -219,60 +212,155 @@ const [state, setState] = React.useState({
   }
   const [userTemp,setUserTemp]=useState(false)
   const [fileTemp,setFileTemp]=useState(false)
-  const [modalHeader,setModalHeader] = useState('')
-  const [modalContent,setModalContent] = useState('')
+  const [tabValue,setTabValue]=useState('')
+  const [catagory,setCatagory]=useState('Hiring')
+  const [modalContent,setModalContent]=useState('')
 
+function navBar(){return <div className={classes.root}>
+<ButtonGroup color="secondary" aria-label="text primary button group">
+  <Button onClick={() =>setCatagory('Hiring')}>Hiring</Button>
+  <Button onClick={() =>setCatagory('HandbookAndAgreement')}>HandbookAndAgreement</Button>
+  <Button onClick={() =>setCatagory('PerformanceManagement')}>PerformanceManagement</Button>
+  <Button onClick={() =>setCatagory('Benefits')}>Benefits</Button>
+  <Button onClick={() =>setCatagory('Payroll')}>Payroll</Button>
+  <Button onClick={() =>setCatagory('Other')}>Other</Button> 
+</ButtonGroup>
+</div>
+}
+
+///////////// Table mockup////////////////////
   const tableColumn = {
-    columns: [
-      { title: "Offer", value: "document1" },
-      { title: "employment eligibility", value: "document2" },
-      { title: "Tax document", value: "document3" },
-      { title: "background check", value: "document4" },
-
-    ]
+    Hiring: [
+      { title: "Offer", value: "Hiring1" },
+      { title: "Emloyment Eligibility", value: "Hiring2" },
+      { title: "Tax Document", value: "Hiring3" },
+      { title: "Background check", value: "Hiring4" },
+    ],
+    HandbookAndAgreement: [
+      { title: "Defult Ip Agreement", value: "HandbookAndAgreement1" },
+      { title: "HandBook", value: "HandbookAndAgreement2" },
+    ],
+    Benefits: [
+      { title: "Marketplace Notification", value: "Benefits1" },
+    ],
+    Payroll: [
+      { title: "1099", value: "Payroll1" },
+      { title: "W2", value: "Payroll2" },
+    ],
+    PerformanceManagement: [
+      { title: "Reviews", value: "PerformanceManagement1" },
+    ],
+    Other: [
+      { title: "Other Document", value: "Other1" },
+    ],
   }
-  // const [stage2, setState2] = React.useState({
-  //   columns: [
-    // { title: "Offer", value: "document1" },
-    // { title: "employment eligibility", value: "document2" },
-    // { title: "Tax document", value: "document3" },
-    // { title: "background check", value: "document4" },
-  //   ],
-  //   data: [
-  //     },
-  //   ],
-  // });
-
+    var columns =[]
+    function getcolumn(){
+      var myarray=[];
+      for(var k in tableColumn){
+        myarray.push(k)
+      }
+      return myarray
+    }
+    // const [columnHeader,setColumnHeader] =useState([])
+    // const getCollumnHeader=()=>{
+    //   var myarray=[];
+    //   for(var k in tableColumn){
+    //     myarray.push(k)
+    //   }
+    //   console.log(myarray)
+    //   setColumnHeader(myarray)
+    //   console.log(columnHeader)
+    //   setColumnHeader('asdasd')
+    // }
+  
+  /////////FileData Mockup/////////////
   const filetable = [
       {
         id:1,
-        file:[
-        {title:'document1',fileurl:'ad'},
-        {title:'document2',fileurl:''},
-        {title:'document3',fileurl:'sdf'},
-        {title:'document4',fileurl:''},
-        {title:'document5',fileurl:'sdv'},
-        ]
+        Hiring: [
+          {value:'Hiring1',fileurl:''},
+          {value:'Hiring2',fileurl:'h'},
+          {value:'Hiring3',fileurl:''},
+          {value:'Hiring4',fileurl:''},
+        ],
+        HandbookAndAgreement: [
+          {value:'HandbookAndAgreement1',fileurl:''},
+          {value:'HandbookAndAgreement2',fileurl:''},
+        ],
+        Benefits: [
+          {value:'Benefits1',fileurl:''},
+        ],
+        Payroll: [
+          {value:'Payroll1',fileurl:''},
+          {value:'Payroll2',fileurl:''},
+        ],
+        PerformanceManagement: [
+          {value:'PerformanceManagement1',fileurl:''},
+        ],
+        Other: [
+          {value:'Other1',fileurl:''},
+        ],
       },
       {
         id:2,
-        file:[
-        {title:'document1',fileurl:'a'},
-        {title:'document2',fileurl:'a'},
-        {title:'document3',fileurl:'sdf'},
-        {title:'document4',fileurl:'a'},
-        {title:'document5',fileurl:'sdv'},
-        ]
+        Hiring: [
+          {value:'Hiring1',fileurl:''},
+          {value:'Hiring2',fileurl:'h'},
+          {value:'Hiring3',fileurl:''},
+          {value:'Hiring4',fileurl:''},
+        ],
+        HandbookAndAgreement: [
+          {value:'HandbookAndAgreement1',fileurl:''},
+          {value:'HandbookAndAgreement2',fileurl:''},
+        ],
+        Benefits: [
+          {value:'Benefits1',fileurl:''},
+        ],
+        Payroll: [
+          {value:'Payroll1',fileurl:''},
+          {value:'Payroll2',fileurl:''},
+        ],
+        PerformanceManagement: [
+          {value:'PerformanceManagement1',fileurl:''},
+        ],
+        Other: [
+          {value:'Other1',fileurl:''},
+        ],
       }
   ]
-  
+  const [open, setOpen] = React.useState(false);
+  const handleClick=(user)=>{
+    let content=<div className={classes.root}> 
+      <Table style={{ overflowX: "scroll" }}>
+        <TableHead>
+          <TableRow>
+          <TableCell>Type</TableCell>
+          <TableCell>Date</TableCell>
+          <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {columns.map(item=>
+          <TableRow>
+            <TableCell>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              {item}
+            </Collapse>
+            </TableCell>
+          </TableRow>)}
+        </TableBody>
+      </Table>
+    </div>
+
+    setModalContent(content)
+  }
   function fileLogo(user,file){
     for (let i = 0; i < filetable.length; i++){
       if(user.id==filetable[i].id){
-          for(let j=0; j<filetable[i].file.length;j++){
-            console.log(filetable[i].file[j].title+' and '+file.title)
-            if(filetable[i].file[j].title==file.value){
-              if(filetable[i].file[j].fileurl!=''){
+          for(let j=0; j<filetable[i].Hiring.length;j++){
+            if(filetable[i].Hiring[j].value==file.value){
+              if(filetable[i].Hiring[j].fileurl!=''){
                 return DocIcon()
               }
             }
@@ -298,27 +386,23 @@ const [state, setState] = React.useState({
         <Fade in={show}>
           <div className={classes.papermodal}>
           <div className={classes.nameContainer}>
-          <Avatar
-            className={classes.avatar}
-            src={userTemp.avatarUrl}
-          >
-            {getInitials(userTemp.name)}
-          </Avatar>
-          <h2 id="transition-modal-title">{userTemp.name+" - "+fileTemp.title}</h2>
+            <Avatar
+              className={classes.avatar}
+              src={userTemp.avatarUrl}
+            >
+              {getInitials(userTemp.name)}
+            </Avatar>
+            <h2 id="transition-modal-title">{userTemp.name+" - "+fileTemp.title}</h2>
           </div>
             <p id="transition-modal-description"><BackupIcon/><input type="file" name="file" /></p>
+            {modalContent}
           </div>
-          {/* <MaterialTable
-            title="Editable Example"
-            columns={state2.columns}
-            data={state2.data}/> */}
         </Fade>
       </Modal>
 
       <Grid container spacing={3}>
         <Grid item xs={3} md={2}>
           <div>
-          {console.log(Active)}
             <Paper className={classes.paper}>
               <Typography
                 variant="h6"
@@ -445,12 +529,13 @@ const [state, setState] = React.useState({
             <CardContent className={classes.content}>
               <PerfectScrollbar>
                 <div className={classes.inner}>
+                  {navBar()}
                   <Table style={{ overflowX: "scroll" }}>
                     <TableHead>
                       <TableRow>
                       <TableCell>Name</TableCell>
-                      {tableColumn.columns.map(item=>
-                        <TableCell>{item.title}</TableCell>
+                      {tableColumn[catagory].map(item=>
+                        <TableCell align="center">{item.title}</TableCell>
                       )}
                       </TableRow>
                     </TableHead>
@@ -509,10 +594,11 @@ const [state, setState] = React.useState({
                               <Link variant="body1">{user.name}</Link>
                             </div>
                           </TableCell>
-
-                          {tableColumn.columns.map(item=>
+                          {tableColumn[catagory].map(item=>
                             <TableCell 
                               onClick={() => {
+                              {columns = getcolumn()}
+                              handleClick(user)
                               handleShow(user,item)
                             }}
                               align="center"> 
@@ -550,9 +636,9 @@ const [state, setState] = React.useState({
   );
 };
 
-UsersTable.propTypes = {
+DocumentTable.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array.isRequired,
 };
 
-export default withRouter(UsersTable);
+export default withRouter(DocumentTable);

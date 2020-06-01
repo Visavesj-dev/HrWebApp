@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //import modules
 import mockData from "./data";
 import UsersToolbar from "./components/UserToolBar";
-import UsersTable from "./components/UserTable";
+import DocumentTable from "./components/DocumentTable";
 
 //import material
 import Grid from "@material-ui/core/Grid";
@@ -42,7 +42,7 @@ export default function Document() {
         <Grid item xs={12} md={12}>
           {/* <UsersToolbar /> */}
           <div className={classes.content}>
-            <UsersTable users={users} />
+            <DocumentTable users={users} />
           </div>
         </Grid>
       </Grid>
