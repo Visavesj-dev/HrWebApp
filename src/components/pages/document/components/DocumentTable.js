@@ -2,6 +2,7 @@ import React, { useState, useEffect ,useReducer } from "react";
 
 //import modules
 import getInitials from "../modules/getInitials";
+import Modal from "./Modal.tsx";
 
 //import material
 import {
@@ -32,7 +33,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Divider from "@material-ui/core/Divider";
 import { withRouter } from "react-router-dom";
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
@@ -102,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    height: 525,
+    height: "auto",
     overflowX: "scroll",
   },
   headerText: {
@@ -125,21 +126,6 @@ const useStyles = makeStyles((theme) => ({
   spacer: {
     flexGrow: 1,
   },
-  // modal: {
-  //   // display: 'flex',
-  //   // alignItems: 'center',
-  //   // justifyContent: 'center',
-  //   position: fixed,
-  //   zindex: 999999,
-  //   top: 0,
-  //   left: 0,
-  //   width: '100vw',
-  //   height: '100vh',
-  //   background: rgba(0, 0, 0, 0.5),
-  //   display: flex,
-  //   alignitems: center,
-  //   justifycontent: center,
-  // },
   modal:{
 
     'max-height': 'calc(100vh - 210px)', 
@@ -262,6 +248,27 @@ const [state, setState] = React.useState({
     Terminated: false
   });
 
+  //animation modal 
+const [isOpens, setOpens ] = useState(false)
+
+const handleVisible = (e,user) => {
+      setOpens(e)
+    
+
+      
+      setUserTemp(user) 
+      
+      
+};
+
+const renderCloseComponent = () => (
+  <button className={'close'} onClick={() => handleVisible(false)}>
+  X
+  </button>
+);
+
+///
+
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
@@ -314,11 +321,11 @@ const [state, setState] = React.useState({
   const [fileTemp,setFileTemp]=useState(false)
   const [show,setShow] = useState(false)//state show modal
   const handleClose = () => setShow(false);
-  const handleShow = (user,file) => {
-    setUserTemp(user)
-    setFileTemp(file)
-    setShow(true);
-  }
+  // const handleShow = (user,file) => {
+  //   setUserTemp(user)
+  //   setFileTemp(file)
+  //   setShow(true);
+  // }
 
 //buttongroup to change catagory 
 function navBar(){return <div className={classes.root}>
@@ -397,6 +404,44 @@ function navBar(){return <div className={classes.root}>
 
   return (
     <div>
+
+       <Modal
+          // default false
+          isOpen={isOpens}
+          // default 60%
+          width={'80%'}
+          // default from right
+          directionFrom={'right'}
+          // default Modal
+          contentLabel={'Demo Modal'}
+          onRequestClose={() => handleVisible(false,false)}
+          // optional for accessibility
+          setAppElement={'#root'}
+          // default false allows you to skip setAppElement prop for react-modal
+          ariaHideApp={true}
+          // allow you to set the maximum width of the viewport
+          // at which the modal will be expanded to full screen
+          maxMediaWidth={1024}
+        >
+           <Fade in={isOpens}>
+           <div className={classes.papermodal}>
+          <div className={classes.nameContainer}>
+            <Avatar
+              className={classes.avatar}
+              src={userTemp.avatarUrl}
+            >
+              {getInitials(userTemp.name)}
+            </Avatar>
+            <h2 id="transition-modal-title">{userTemp.name+" - "+catagory}</h2>
+          </div>
+            {modalContent}
+            
+          </div> 
+         
+        </Fade>
+        </Modal>
+       
+{/* 
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -423,7 +468,7 @@ function navBar(){return <div className={classes.root}>
             {modalContent}
           </div>
         </Fade>
-      </Modal>
+      </Modal> */}
 
       <Grid container spacing={3}>
         <Grid item xs={3} md={2}>
@@ -511,6 +556,7 @@ function navBar(){return <div className={classes.root}>
             </Paper>
           </div>
         </Grid>
+        {console.log(isOpens)}
 
         {/* Table */}
         <Grid item xs={9} md={10}>
@@ -622,9 +668,9 @@ function navBar(){return <div className={classes.root}>
                           {tableColumn[catagory].map(item=>
                             <TableCell 
                               onClick={() => {
-                              {columns = getcolumn()}
                               handleClick(user)
-                              handleShow(user,item)
+                              handleVisible(true ,user)
+                              // handleShow(user,item)
                             }}
                               align="center"> 
                               {fileLogo(user,item)}
