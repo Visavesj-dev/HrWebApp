@@ -33,17 +33,18 @@ const useStyles = makeStyles((theme) => ({
   },
   profile: {
     marginBottom: 20,
-    width: "85%",
+    width: "100%",
   },
   details: {
     display: "flex",
   },
   avatar: {
-    marginRight: "auto",
+    marginRight: 30,
     height: 110,
     width: 100,
     flexShrink: 0,
     flexGrow: 0,
+    marginLeft:30
   },
   progress: {
     marginTop: theme.spacing(2),
@@ -56,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
-  tabs1: {
-    width: "85%",
+  tabs: {
+    width: "100%",
     marginTop: 20,
   },
 }));
@@ -73,11 +74,7 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -116,7 +113,7 @@ export default function EmployeeProfile(props) {
         {/* Left Side */}
         <Grid container spacing={1}>
           <Grid item md={5} xs={12}>
-            <Card style={{ width: "85%", marginTop: 25 }}>
+            <Card style={{ width: "100%", marginTop: 25 }}>
               <CardContent>
                 <div className={classes.details}>
                   <Avatar className={classes.avatar} src={user.avatar} />
@@ -142,7 +139,7 @@ export default function EmployeeProfile(props) {
                 </div>
               </CardContent>
             </Card>
-            <div className={classes.tabs1}>
+            <div className={classes.tabs}>
               <Card>
                 <CardContent>
                   <Tabs
@@ -151,7 +148,7 @@ export default function EmployeeProfile(props) {
                     value={value}
                     onChange={handleChange}
                     aria-label="Vertical tabs example"
-                    style={{ marginLeft: 60 }}
+                    style={{ marginLeft: "20%",flexGrow: 1,display: 'flex', }}
                   >
                     <Tab label="Personal Profile" {...a11yProps(0)} />
                     <Tab label="Employee & Compensation" {...a11yProps(1)} />
@@ -473,7 +470,7 @@ export default function EmployeeProfile(props) {
                         <Grid container spacing={0}>
                           <Grid item md={5} xs={12}>
                             <Typography className={classes.heading}>
-                            Department
+                              Department
                             </Typography>
                           </Grid>
                           <Grid item md={6} xs={12}>
@@ -490,7 +487,7 @@ export default function EmployeeProfile(props) {
                         <Grid container spacing={0}>
                           <Grid item md={5} xs={12}>
                             <Typography className={classes.heading}>
-                           Projects
+                              Projects
                             </Typography>
                           </Grid>
                           <Grid item md={6} xs={12}>
@@ -501,14 +498,13 @@ export default function EmployeeProfile(props) {
                         </Grid>
                         {/* ----*----- */}
                       </Grid>
-
 
                       <Grid item md={12} xs={12}>
                         {/* ----*----- */}
                         <Grid container spacing={0}>
                           <Grid item md={5} xs={12}>
                             <Typography className={classes.heading}>
-                           Position
+                              Position
                             </Typography>
                           </Grid>
                           <Grid item md={6} xs={12}>
@@ -519,7 +515,6 @@ export default function EmployeeProfile(props) {
                         </Grid>
                         {/* ----*----- */}
                       </Grid>
-                      
                     </Grid>
                   </CardContent>
                 </form>
@@ -528,7 +523,7 @@ export default function EmployeeProfile(props) {
 
             {/* index 4 */}
             <TabPanel value={value} index={3}>
-            <Card className={classes.profile}>
+              <Card className={classes.profile}>
                 <form autoComplete="off" noValidate>
                   <CardHeader title="Bank Accounts" />
                   <Divider />
@@ -652,8 +647,7 @@ export default function EmployeeProfile(props) {
             </TabPanel>
 
             {/* index 5 */}
-            <TabPanel value={value} index={4}>
-            </TabPanel>
+            <TabPanel value={value} index={4}></TabPanel>
           </Grid>
         </Grid>
       </Container>

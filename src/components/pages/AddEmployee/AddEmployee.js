@@ -33,17 +33,18 @@ const useStyles = makeStyles((theme) => ({
   },
   profile: {
     marginBottom: 20,
-    width: "85%",
+    width: "100%",
   },
   details: {
     display: "flex",
   },
   avatar: {
-    marginRight: "auto",
+    marginRight: 30,
     height: 110,
     width: 100,
     flexShrink: 0,
     flexGrow: 0,
+    marginLeft:30
   },
   progress: {
     marginTop: theme.spacing(2),
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   tabs1: {
-    width: "85%",
+    width: "100%",
     marginTop: 20,
   },
 }));
@@ -74,13 +75,7 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-        <div>
-          <Typography>{children}</Typography>
-          </div>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -144,16 +139,16 @@ function AddEmployee(props) {
   //-----*-----//
 
   // change Profile Name
-  const [profile , setProfile] = React.useState({
+  const [profile, setProfile] = React.useState({
     firstName: "",
-    lastName: ""
-  })
+    lastName: "",
+  });
 
   const handleChangeName = (event) => {
-    setProfile({ ...profile, [event.target.name]: event.target.value});
-  }
+    setProfile({ ...profile, [event.target.name]: event.target.value });
+  };
 
-  const {firstName , lastName} = profile;
+  const { firstName, lastName } = profile;
 
   return (
     <div className={classes.root}>
@@ -161,13 +156,13 @@ function AddEmployee(props) {
         {/* Left Side */}
         <Grid container spacing={1}>
           <Grid item md={5} xs={12}>
-            <Card style={{ width: "85%", marginTop: 25 }}>
+            <Card style={{ width: "100%", marginTop: 25 }}>
               <CardContent>
                 <div className={classes.details}>
                   <Avatar className={classes.avatar} />
                   <div style={{ margin: "auto" }}>
                     <Typography gutterBottom variant="h6">
-                       {firstName} {lastName}
+                      {firstName} {lastName}
                     </Typography>
                     <Typography
                       className={classes.locationText}
@@ -196,7 +191,7 @@ function AddEmployee(props) {
                     value={value}
                     onChange={handleChange}
                     aria-label="Vertical tabs example"
-                    style={{ marginLeft: 60 }}
+                    style={{ marginLeft: "20%",flexGrow: 1,display: 'flex', }}
                   >
                     <Tab label="Basic Info" {...a11yProps(0)} />
                     <Tab label="Employment Type" {...a11yProps(1)} />
@@ -214,34 +209,37 @@ function AddEmployee(props) {
           {/* Right Side  */}
 
           <Grid item md={7} xs={12}>
-           {/* Basic Info */}
+            {/* Basic Info */}
             <TabPanel value={value} index={0}>
-              <BasicInfo handleChangeName={handleChangeName} profile={profile} />
+              <BasicInfo
+                handleChangeName={handleChangeName}
+                profile={profile}
+              />
             </TabPanel>
             {/* Employment Type */}
             <TabPanel value={value} index={1}>
               <EmploymentType />
             </TabPanel>
-             {/* Job */}
-             <TabPanel value={value} index={2}>
+            {/* Job */}
+            <TabPanel value={value} index={2}>
               <JobDetails />
             </TabPanel>
-             {/* Payroll */}
+            {/* Payroll */}
             <TabPanel value={value} index={3}>
               <PayrollDetails />
             </TabPanel>
-             {/* Education */}
+            {/* Education */}
             <TabPanel value={value} index={4}>
               <EducationDestails />
             </TabPanel>
-             {/* Offer */}
+            {/* Offer */}
             <TabPanel value={value} index={5}>
               <OfferDetails />
-            </TabPanel> 
-             {/* Health */}
+            </TabPanel>
+            {/* Health */}
             <TabPanel value={value} index={6}>
               <HealthBenefits />
-            </TabPanel> 
+            </TabPanel>
           </Grid>
         </Grid>
       </Container>
