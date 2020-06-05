@@ -720,7 +720,7 @@ function navBar(){return <div className={classes.root}>
                         if(StatusConditions.length==0){
                           StatusConditions.push('Active')
                           StatusConditions.push('Onboarding')
-                          StatusConditions.push('Termanited')
+                          StatusConditions.push('Terminated')
                         }
                         if(ProvinceConditions.length==0){
                           ProvinceConditions.push('Rayong')
@@ -736,6 +736,8 @@ function navBar(){return <div className={classes.root}>
                           for(let b=0;b<StatusConditions.length;b++){
                             for(let c=0;c<ProvinceConditions.length;c++){
                               for(let d=0;d<DepartmentConditions.length;d++){
+                                console.log(TypeConditions[a],StatusConditions[b],ProvinceConditions[c],DepartmentConditions[d])
+                                console.log('This is '+item.id.toString(),item.type,item.status,item.province,item.department)
                                 if(item.type==TypeConditions[a]&&item.status==StatusConditions[b]&&item.province==ProvinceConditions[c]&&item.department==DepartmentConditions[d]){
                                   return item
                                 }
