@@ -53,8 +53,9 @@ import clsx from "clsx";
 //SVGIcon
 function NoDocIcon(){return <svg height="32pt" viewBox="0 0 512 512" width="32pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#f44336"/><path d="m350.273438 320.105469c8.339843 8.34375 8.339843 21.824219 0 30.167969-4.160157 4.160156-9.621094 6.25-15.085938 6.25-5.460938 0-10.921875-2.089844-15.082031-6.25l-64.105469-64.109376-64.105469 64.109376c-4.160156 4.160156-9.621093 6.25-15.082031 6.25-5.464844 0-10.925781-2.089844-15.085938-6.25-8.339843-8.34375-8.339843-21.824219 0-30.167969l64.109376-64.105469-64.109376-64.105469c-8.339843-8.34375-8.339843-21.824219 0-30.167969 8.34375-8.339843 21.824219-8.339843 30.167969 0l64.105469 64.109376 64.105469-64.109376c8.34375-8.339843 21.824219-8.339843 30.167969 0 8.339843 8.34375 8.339843 21.824219 0 30.167969l-64.109376 64.105469zm0 0" fill="#fafafa"/></svg>}
 function DocIcon(){return <svg height="32pt" viewBox="0 0 512 512" width="32pt" xmlns="http://www.w3.org/2000/svg"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#2196f3"/><path d="m385.75 201.75-138.667969 138.664062c-4.160156 4.160157-9.621093 6.253907-15.082031 6.253907s-10.921875-2.09375-15.082031-6.253907l-69.332031-69.332031c-8.34375-8.339843-8.34375-21.824219 0-30.164062 8.339843-8.34375 21.820312-8.34375 30.164062 0l54.25 54.25 123.585938-123.582031c8.339843-8.34375 21.820312-8.34375 30.164062 0 8.339844 8.339843 8.339844 21.820312 0 30.164062zm0 0" fill="#fafafa"/></svg>}
-
-const useStyles = makeStyles((theme) => ({
+function downloadIcon(){return <svg id="Layer_1" enable-background="new 0 0 512 512" height="36" viewBox="0 0 512 512" width="36" xmlns="http://www.w3.org/2000/svg"><g><g id="XMLID_19_"><g id="XMLID_147_"><g id="XMLID_148_"><g id="XMLID_149_"><g id="XMLID_150_"><g id="XMLID_152_"><g id="XMLID_153_"><g id="XMLID_154_"><g id="XMLID_155_"><g id="XMLID_156_"><g id="XMLID_157_"><g id="XMLID_158_"><g id="XMLID_159_"><g id="XMLID_160_"><circle id="XMLID_161_" cx="256" cy="256" fill="#776d6b" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path d="m511.995 256.365-59.762-59.762s-5.667-3.984-15.613-8.211l-61.707-61.548s-20.698-1.843-40.913-1.843c-8.638 0-21.742-14.208-29.348-11.277l-24.29-24.168-211.562 207.288 90.034 90.072c4.029 12.236 12.709 23.645 12.709 23.645l100.898 100.899c133.601-8.471 239.365-119.402 239.554-255.095z" fill="#57555c"/><g><path d="m397.596 172.276c-1.798 0-3.574.087-5.339.214 0-.072.005-.142.005-.214 0-37.669-30.537-68.205-68.205-68.205-10.532 0-20.505 2.391-29.41 6.654-13.792-29.003-43.354-49.057-77.607-49.057-47.439 0-85.896 38.457-85.896 85.896 0 .037.003.074.003.111-1.452-.073-2.914-.111-4.385-.111-47.439 0-85.896 38.457-85.896 85.896s38.457 85.896 85.896 85.896c16.562 0 32.021-4.699 45.139-12.819 13.118 8.12 28.577 12.819 45.139 12.819s32.021-4.699 45.139-12.819c13.118 8.12 28.577 12.819 45.139 12.819 17.38 0 33.543-5.178 47.062-14.052 12.133 8.83 27.061 14.052 43.216 14.052 40.615 0 73.54-32.925 73.54-73.54-.001-40.615-32.926-73.54-73.54-73.54z" fill="#fff"/><g><path d="m471.14 245.82c0 40.61-32.93 73.53-73.54 73.53-11.84 0-23.01-2.8-32.91-7.77-3.62-1.81-7.07-3.91-10.31-6.28-13.52 8.88-29.68 14.05-47.06 14.05-2.14 0-4.26-.08-6.36-.24-6.47-.47-12.73-1.66-18.73-3.48-2.42-.74-4.79-1.59-7.11-2.52-4.52-1.83-8.84-4.03-12.94-6.57-2.01 1.24-4.07 2.4-6.18 3.48v-239.02c16.86 8.59 30.5 22.6 38.65 39.72 8.9-4.26 18.87-6.65 29.41-6.65 37.66 0 68.2 30.54 68.2 68.21v.21c1.76-.13 3.54-.21 5.34-.21 40.61 0 73.54 32.92 73.54 73.54z" fill="#eae1dc"/></g><path d="m291.691 429.367h-71.383c-40.148 0-72.996-32.848-72.996-72.996v-50.566c0-40.148 32.848-72.996 72.996-72.996h71.383c40.148 0 72.996 32.848 72.996 72.996v50.566c.001 40.148-32.848 72.996-72.996 72.996z" fill="#238cf8"/><path d="m364.69 305.8v50.57c0 40.15-32.85 73-73 73h-35.69v-196.56h35.69c40.15 0 73 32.85 73 72.99z" fill="#0768dd"/><path d="m289.258 308.139-14.141 15.075v-48.479h-38.234v48.479l-14.141-15.075-21.88 20.525 55.138 58.777 55.138-58.777z" fill="#5eefee"/><path d="m311.14 328.66-55.14 58.78v-112.71h19.12v48.48l7.11-7.58 7.03-7.49 11.7 10.97z" fill="#54c9fc"/></g></g></svg>}
+function lockIcon(){return <svg id="Layer_1" enable-background="new 0 0 512 512" height="36" viewBox="0 0 512 512" width="36" xmlns="http://www.w3.org/2000/svg"><g><g id="XMLID_500_"><g><g id="XMLID_980_"><g id="XMLID_981_"><g id="XMLID_982_"><g id="XMLID_983_"><g id="XMLID_984_"><g id="XMLID_986_"><g id="XMLID_989_"><g id="XMLID_1008_"><g id="XMLID_1009_"><g id="XMLID_1010_"><g id="XMLID_1011_"><g id="XMLID_1012_"><g id="XMLID_1013_"><g id="XMLID_1014_"><circle cx="256" cy="256" fill="#436375" r="256"/></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g><path d="m512 256c0-.984-.026-1.962-.037-2.944l-181.244-181.244s-90.459-1.812-110.089 32.188-75.385 328.03-75.385 328.03l77.875 77.875c10.766 1.38 21.739 2.095 32.88 2.095 141.385 0 256-114.615 256-256z" fill="#274a59"/><g><g><g><g><path d="m357.72 220.22h-60.839v-78.618c0-23.732-19.307-43.039-43.039-43.039s-43.039 19.307-43.039 43.039v78.611h-60.839v-78.611c0-57.278 46.6-103.878 103.878-103.878s103.878 46.6 103.878 103.878z" fill="#fff"/></g><g><g><g><g><path d="m357.72 141.6v78.62h-60.84v-78.62c0-23.01-18.15-41.86-40.88-42.98v-60.88c56.29 1.16 101.72 47.3 101.72 103.86z" fill="#e9edf5"/></g></g></g></g><g><path d="m299.812 457.81h-87.624c-55.124 0-99.81-44.686-99.81-99.81v-143.683h287.244v143.683c0 55.124-44.687 99.81-99.81 99.81z" fill="#ffaa20"/></g><g><path d="m399.62 214.32v143.68c0 55.12-44.68 99.81-99.81 99.81h-43.81v-243.49z" fill="#ff8900"/></g></g></g><path d="m291.37 310.915c0-19.534-15.836-35.37-35.37-35.37s-35.37 15.836-35.37 35.37c0 10.634 4.7 20.165 12.128 26.649l-9.258 59.018h65l-9.258-59.018c7.428-6.484 12.128-16.015 12.128-26.649z" fill="#9e653e"/><path d="m279.24 337.56 9.26 59.02h-32.5v-121.03c19.53 0 35.37 15.83 35.37 35.37 0 10.63-4.7 20.16-12.13 26.64z" fill="#835637"/></g></g></svg>}
+  const useStyles = makeStyles((theme) => ({
   root: {},
   content: {
     padding: 0,
@@ -245,7 +246,13 @@ const [state, setState] = React.useState({
     FullTime: false,
     PartTime: false,
     Active: false,
-    Terminated: false
+    Onboarding:false,
+    Terminated: false,
+    Rayong:false,
+    Bangkok:false,
+    Department1:false,
+    Department2:false,
+    Department3:false,
   });
 
   //animation modal 
@@ -253,12 +260,7 @@ const [isOpens, setOpens ] = useState(false)
 
 const handleVisible = (e,user) => {
       setOpens(e)
-    
-
-      
       setUserTemp(user) 
-      
-      
 };
 
 const renderCloseComponent = () => (
@@ -273,7 +275,7 @@ const renderCloseComponent = () => (
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const { FullTime, PartTime, Active , Terminated} = state;
+  const { FullTime, PartTime, Active,Onboarding , Terminated,Rayong,Bangkok,Department1,Department2,Department3} = state;
 
   //searching
   useEffect(() => {
@@ -377,7 +379,7 @@ function navBar(){return <div className={classes.root}>
                 <TableCell>{item.value}</TableCell>
                 <TableCell>{item.createDate}</TableCell>
                 <TableCell>{fileLogo(user,item)}</TableCell>  
-                <TableCell><a target="_blank" href={item.fileurl}>Download File</a></TableCell>
+                <TableCell>{downloadlink(item.fileurl)}</TableCell>
                 <TableCell><p id="transition-modal-description"><BackupIcon/><input type="file" name="file" /></p></TableCell>
                 </TableRow></TableBody>
               })}
@@ -400,6 +402,12 @@ function navBar(){return <div className={classes.root}>
       }
     }
     return NoDocIcon()
+  }
+
+  function downloadlink(fileurl){
+    if(fileurl!=''){
+    return <a target="_blank" href={fileurl}>{downloadIcon()}Download File</a>
+    }else return <p>{lockIcon()} Not avaliable</p>
   }
 
   return (
@@ -435,7 +443,6 @@ function navBar(){return <div className={classes.root}>
             <h2 id="transition-modal-title">{userTemp.name+" - "+catagory}</h2>
           </div>
             {modalContent}
-            
           </div> 
          
         </Fade>
@@ -507,8 +514,7 @@ function navBar(){return <div className={classes.root}>
                       />
                     }
                     label="Part Time"
-                  />
-                  
+                  />                  
                 </FormGroup>
               </FormControl>
                <Divider />
@@ -528,6 +534,16 @@ function navBar(){return <div className={classes.root}>
                     }
                     label="Active"
                   />
+                    <FormControlLabel
+                    control={
+                      <Checkbox
+                      checked={Onboarding} 
+                        onChange={handleChange} 
+                        name="Onboarding"
+                      />
+                    }
+                    label="Onboarding"
+                  />
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -542,7 +558,77 @@ function navBar(){return <div className={classes.root}>
                 </FormGroup>
               </FormControl>
               <Divider />
-              
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend" className={classes.headerText}>
+                  Filter By location
+                </FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={Bangkok}
+                        onChange={handleChange}
+                        name="Bangkok"
+                      />
+                    }
+                    label="Bangkok"
+                  />
+                  
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                      checked={Rayong} 
+                        onChange={handleChange} 
+                        name="Rayong"
+                      />
+                    }
+                    label="Rayong"
+                  />
+                  
+                </FormGroup>
+              </FormControl>
+               <Divider />
+               <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend" className={classes.headerText}>
+                  Filter By Department
+                </FormLabel>
+                <FormGroup>
+                <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={Department1}
+                        onChange={handleChange}
+                        name="Department1"
+                      />
+                    }
+                    label="Department1"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={Department2}
+                        onChange={handleChange}
+                        name="Department2"
+                      />
+                    }
+                    label="Department2"
+                  />
+                  
+                  
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                      checked={Department3} 
+                        onChange={handleChange} 
+                        name="Department3"
+                      />
+                    }
+                    label="Department3"
+                  />
+                  
+                </FormGroup>
+              </FormControl>
+               <Divider />
               <center>
                 <Button
                   variant="outlined"
@@ -611,39 +697,52 @@ function navBar(){return <div className={classes.root}>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {/* Set user data here */}
+                    {/* const { FullTime, PartTime, Active,Onboarding , Terminated,Rayong,Bangkok,Department1,Department2,Department3} = state; */}
                       {results.filter((item)=> {
-                          if(FullTime == false && PartTime == false && Active == false && Terminated == false){
-                              return item
-                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == false){
-                              return item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == false){
-                              return item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == false){
-                              return item
-                          }else if(FullTime == false && PartTime == false && Active == true && Terminated == false){
-                              return item.status == "Active"
-                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == false){
-                              return item.status == "Active" && item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == false){
-                              return item.status == "Active" && item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == false){
-                              return item.status == "Active"
-                          }else if(FullTime == false && PartTime == false && Active == false && Terminated == true){
-                              return item.status == "Terminated"
-                          }else if(FullTime == true && PartTime == false && Active == false && Terminated == true){
-                              return item.status == "Terminated" && item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == false && Terminated == true){
-                              return item.status == "Terminated" && item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == false && Terminated == true){
-                              return item.status == "Terminated"
-                          }else if(FullTime == true && PartTime == false && Active == true && Terminated == true){
-                              return item.type == "Full Time"
-                          }else if(FullTime == false && PartTime == true && Active == true && Terminated == true){
-                              return item.type == "Part Time"
-                          }else if(FullTime == true && PartTime == true && Active == true && Terminated == true){
-                              return item
-                          }                     
+                        let conditionsCount=0
+                        let TypeConditions=[],StatusConditions=[],ProvinceConditions=[],DepartmentConditions=[]
+                        if(FullTime){TypeConditions.push('Full Time')}
+                        if(PartTime){TypeConditions.push('Part Time')}
+                        if(Active){StatusConditions.push('Active')}
+                        if(Onboarding){StatusConditions.push('Onboarding')}
+                        if(Terminated){StatusConditions.push('Terminated')}
+                        if(Rayong){ProvinceConditions.push('Rayong')}
+                        if(Bangkok){ProvinceConditions.push('Bangkok')}
+                        if(Department1){DepartmentConditions.push('Department1')}
+                        if(Department2){DepartmentConditions.push('Department2')}
+                        if(Department3){DepartmentConditions.push('Department3')}
+                        if(TypeConditions.length+StatusConditions.length+ProvinceConditions.length+DepartmentConditions.length==0){
+                          return item}
+                        if(TypeConditions.length==0){
+                          TypeConditions.push('Full Time')
+                          TypeConditions.push('Part Time')
+                        }
+                        if(StatusConditions.length==0){
+                          StatusConditions.push('Active')
+                          StatusConditions.push('Onboarding')
+                          StatusConditions.push('Termanited')
+                        }
+                        if(ProvinceConditions.length==0){
+                          ProvinceConditions.push('Rayong')
+                          ProvinceConditions.push('Bangkok')
+                        }
+                        if(DepartmentConditions.length==0){
+                          DepartmentConditions.push('Department1')
+                          DepartmentConditions.push('Department2')
+                          DepartmentConditions.push('Department3')
+                        }
+                        console.log(TypeConditions.length+StatusConditions.length+ProvinceConditions.length+DepartmentConditions.length)
+                        for(let a=0;a<TypeConditions.length;a++){
+                          for(let b=0;b<StatusConditions.length;b++){
+                            for(let c=0;c<ProvinceConditions.length;c++){
+                              for(let d=0;d<DepartmentConditions.length;d++){
+                                if(item.type==TypeConditions[a]&&item.status==StatusConditions[b]&&item.province==ProvinceConditions[c]&&item.department==DepartmentConditions[d]){
+                                  return item
+                                }
+                              }
+                            }
+                          }
+                        }
                       }).map((user) => (
                         <TableRow
                           className={classes.tableRow}
