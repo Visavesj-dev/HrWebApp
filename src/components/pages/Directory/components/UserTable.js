@@ -125,14 +125,20 @@ const UsersTable = (props) => {
     FullTime: false,
     PartTime: false,
     Active: false,
+    Onboarding:false,
     Terminated: false,
+    Rayong:false,
+    Bangkok:false,
+    Department1:false,
+    Department2:false,
+    Department3:false,
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const { FullTime, PartTime, Active, Terminated } = state;
+  const { FullTime, PartTime, Active,Onboarding , Terminated,Rayong,Bangkok,Department1,Department2,Department3} = state;
 
   //---*---//
 
@@ -237,6 +243,17 @@ const UsersTable = (props) => {
                   <FormControlLabel
                     control={
                       <Checkbox
+                      color="primary"
+                      checked={Onboarding} 
+                        onChange={handleChange} 
+                        name="Onboarding"
+                      />
+                    }
+                    label="Onboarding"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
                         color="primary"
                         checked={Terminated}
                         onChange={handleChange}
@@ -248,35 +265,83 @@ const UsersTable = (props) => {
                 </FormGroup>
               </FormControl>
               <Divider />
-              {/* <FormControl component="fieldset" className={classes.formControl}>
+              <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
-                  Department
+                  Filter By location
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color="primary"
-                        checked={gilad}
+                      color="primary"
+                        checked={Bangkok}
                         onChange={handleChange}
-                        name="gilad"
+                        name="Bangkok"
                       />
                     }
-                    label="Scg"
+                    label="Bangkok"
+                  />
+                  
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                      color="primary"
+                      checked={Rayong} 
+                        onChange={handleChange} 
+                        name="Rayong"
+                      />
+                    }
+                    label="Rayong"
+                  />
+                  
+                </FormGroup>
+              </FormControl>
+               <Divider />
+               <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend" className={classes.headerText}>
+                  Filter By Department
+                </FormLabel>
+                <FormGroup>
+                <FormControlLabel
+                    control={
+                      <Checkbox
+                      color="primary"
+                        checked={Department1}
+                        onChange={handleChange}
+                        name="Department1"
+                      />
+                    }
+                    label="Department1"
                   />
                   <FormControlLabel
                     control={
                       <Checkbox
-                        color="primary"
-                        checked={jason}
+                      color="primary"
+                        checked={Department2}
                         onChange={handleChange}
-                        name="jason"
+                        name="Department2"
                       />
                     }
-                    label="Scg"
+                    label="Department2"
                   />
+                  
+                  
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                      color="primary"
+                      checked={Department3} 
+                        onChange={handleChange} 
+                        name="Department3"
+                      />
+                    }
+                    label="Department3"
+                  />
+                  
                 </FormGroup>
-              </FormControl> */}
+              </FormControl>
+               <Divider />
+              
               <center>
                 <Button
                   variant="outlined"
@@ -350,124 +415,43 @@ const UsersTable = (props) => {
                       {/* Set user data here */}
                       {results
                         .filter((item) => {
-                          if (
-                            FullTime == false &&
-                            PartTime == false &&
-                            Active == false &&
-                            Terminated == false
-                          ) {
-                            return item;
-                          } else if (
-                            FullTime == true &&
-                            PartTime == false &&
-                            Active == false &&
-                            Terminated == false
-                          ) {
-                            return item.type == "Full Time";
-                          } else if (
-                            FullTime == false &&
-                            PartTime == true &&
-                            Active == false &&
-                            Terminated == false
-                          ) {
-                            return item.type == "Part Time";
-                          } else if (
-                            FullTime == true &&
-                            PartTime == true &&
-                            Active == false &&
-                            Terminated == false
-                          ) {
-                            return item;
-                          } else if (
-                            FullTime == false &&
-                            PartTime == false &&
-                            Active == true &&
-                            Terminated == false
-                          ) {
-                            return item.status == "Active";
-                          } else if (
-                            FullTime == true &&
-                            PartTime == false &&
-                            Active == true &&
-                            Terminated == false
-                          ) {
-                            return (
-                              item.status == "Active" &&
-                              item.type == "Full Time"
-                            );
-                          } else if (
-                            FullTime == false &&
-                            PartTime == true &&
-                            Active == true &&
-                            Terminated == false
-                          ) {
-                            return (
-                              item.status == "Active" &&
-                              item.type == "Part Time"
-                            );
-                          } else if (
-                            FullTime == true &&
-                            PartTime == true &&
-                            Active == true &&
-                            Terminated == false
-                          ) {
-                            return item.status == "Active";
-                          } else if (
-                            FullTime == false &&
-                            PartTime == false &&
-                            Active == false &&
-                            Terminated == true
-                          ) {
-                            return item.status == "Terminated";
-                          } else if (
-                            FullTime == true &&
-                            PartTime == false &&
-                            Active == false &&
-                            Terminated == true
-                          ) {
-                            return (
-                              item.status == "Terminated" &&
-                              item.type == "Full Time"
-                            );
-                          } else if (
-                            FullTime == false &&
-                            PartTime == true &&
-                            Active == false &&
-                            Terminated == true
-                          ) {
-                            return (
-                              item.status == "Terminated" &&
-                              item.type == "Part Time"
-                            );
-                          } else if (
-                            FullTime == true &&
-                            PartTime == true &&
-                            Active == false &&
-                            Terminated == true
-                          ) {
-                            return item.status == "Terminated";
-                          } else if (
-                            FullTime == true &&
-                            PartTime == false &&
-                            Active == true &&
-                            Terminated == true
-                          ) {
-                            return item.type == "Full Time";
-                          } else if (
-                            FullTime == false &&
-                            PartTime == true &&
-                            Active == true &&
-                            Terminated == true
-                          ) {
-                            return item.type == "Part Time";
-                          } else if (
-                            FullTime == true &&
-                            PartTime == true &&
-                            Active == true &&
-                            Terminated == true
-                          ) {
-                            return item;
-                          }
+                        let TypeConditions=[],StatusConditions=[],ProvinceConditions=[],DepartmentConditions=[]
+                        if(FullTime){TypeConditions.push('Full Time')}
+                        if(PartTime){TypeConditions.push('Part Time')}
+                        if(Active){StatusConditions.push('Active')}
+                        if(Onboarding){StatusConditions.push('Onboarding')}
+                        if(Terminated){StatusConditions.push('Terminated')}
+                        if(Rayong){ProvinceConditions.push('Rayong')}
+                        if(Bangkok){ProvinceConditions.push('Bangkok')}
+                        if(Department1){DepartmentConditions.push('Department1')}
+                        if(Department2){DepartmentConditions.push('Department2')}
+                        if(Department3){DepartmentConditions.push('Department3')}
+                        
+                        if(TypeConditions.length+StatusConditions.length+ProvinceConditions.length+DepartmentConditions.length==0){
+                          return item}
+                        if(TypeConditions.length==0){
+                          TypeConditions.push('Full Time')
+                          TypeConditions.push('Part Time')
+                        }
+                        if(StatusConditions.length==0){
+                          StatusConditions.push('Active')
+                          StatusConditions.push('Onboarding')
+                          StatusConditions.push('Terminated')
+                        }
+                        if(ProvinceConditions.length==0){
+                          ProvinceConditions.push('Rayong')
+                          ProvinceConditions.push('Bangkok')
+                        }
+                        if(DepartmentConditions.length==0){
+                          DepartmentConditions.push('Department1')
+                          DepartmentConditions.push('Department2')
+                          DepartmentConditions.push('Department3')
+                        }
+                        
+
+                        return TypeConditions.includes(item.type) && StatusConditions.includes(item.status) && ProvinceConditions.includes(item.province) && DepartmentConditions.includes(item.department)
+
+
                         })
                         .map((user) => (
                           <TableRow

@@ -16,13 +16,13 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 
 //import tools
-import BasicInfo from "./compoments/BasicInfo";
-import EmploymentType from "./compoments/EmploymentType";
-import JobDetails from "./compoments/JobDetails";
-import EducationDestails from "./compoments/EducationDetails";
-import OfferDetails from "./compoments/OfferDetails";
-import HealthBenefits from "./compoments/HealthBenefits";
-import PayrollDetails from "./compoments/PayrollDetails";
+import BasicInfo from "./components/BasicInfo";
+import EmploymentType from "./components/EmploymentType";
+import JobDetails from "./components/JobDetails";
+import EducationDestails from "./components/EducationDetails";
+import OfferDetails from "./components/OfferDetails";
+import HealthBenefits from "./components/HealthBenefits";
+import PayrollDetails from "./components/PayrollDetails";
 
 //import style
 import { makeStyles } from "@material-ui/core/styles";

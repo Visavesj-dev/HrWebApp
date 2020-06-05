@@ -2,10 +2,12 @@ import uuid from 'uuid/v1';
 
 export default [
   {
-    id: uuid(),
+    id: 1,
     name: 'Ekaterina Tankova',
     type: "Full Time",
-    status: "Active",
+    status: "Onboarding",
+    department:'Department1',
+    province:'Rayong',
     address: {
       country: 'USA',
       state: 'West Virginia',
@@ -18,10 +20,12 @@ export default [
     createdAt: 1555016400000
   },
   {
-    id: uuid(),
+    id: 2,
     name: 'Cao Yu',
     type: "Full Time",
     status: "Terminated",
+    department:'Department2',
+    province:'Bangkok',
     address: {
       country: 'USA',
       state: 'Bristow',
@@ -34,10 +38,12 @@ export default [
     createdAt: 1555016400000
   },
   {
-    id: uuid(),
+    id: 3,
     name: 'Alexa Richardson',
     type: "Full Time",
     status: "Active",
+    department:'Department1',
+    province:'Rayong',
     address: {
       country: 'USA',
       state: 'Georgia',
@@ -50,10 +56,12 @@ export default [
     createdAt: 1555016400000
   },
   {
-    id: uuid(),
+    id: 4,
     name: 'Anje Keizer',
     type: "Full Time",
     status: "Active",
+    department:'Department1',
+    province:'Bangkok',
     address: {
       country: 'USA',
       state: 'Ohio',
@@ -66,10 +74,12 @@ export default [
     createdAt: 1554930000000
   },
   {
-    id: uuid(),
+    id: 5,
     name: 'Clarke Gillebert',
     type: "Full Time",
     status: "Terminated",
+    department:'Department2',
+    province:'Rayong',
     address: {
       country: 'USA',
       state: 'Texas',
@@ -82,10 +92,12 @@ export default [
     createdAt: 1554757200000
   },
   {
-    id: uuid(),
+    id: 6,
     name: 'Adam Denisov',
     type: "Part Time",
     status: "Active",
+    department:'Department3',
+    province:'Bangkok',
     address: {
       country: 'USA',
       state: 'California',
@@ -98,10 +110,12 @@ export default [
     createdAt: 1554670800000
   },
   {
-    id: uuid(),
+    id: 7,
     name: 'Ava Gregoraci',
     type: "Part Time",
     status: "Terminated",
+    department:'Department1',
+    province:'Rayong',
     address: {
       country: 'USA',
       state: 'California',
@@ -114,10 +128,12 @@ export default [
     createdAt: 1554325200000
   },
   {
-    id: uuid(),
+    id: 8,
     name: 'Emilee Simchenko',
     type: "Part Time",
     status: "Active",
+    department:'Department2',
+    province:'Bangkok',
     address: {
       country: 'USA',
       state: 'Nevada',
@@ -130,10 +146,12 @@ export default [
     createdAt: 1523048400000
   },
   {
-    id: uuid(),
+    id: 9,
     name: 'Kwak Seong-Min',
     type: "Part Time",
     status: "Terminated",
+    department:'Department3',
+    province:'Rayong',
     address: {
       country: 'USA',
       state: 'Michigan',
@@ -145,10 +163,12 @@ export default [
     phone: '313-812-8947'
   },
   {
-    id: uuid(),
+    id: 10,
     name: 'Merrile Burgett',
     type: "Part Time",
     status: "Active",
+    department:'Department1',
+    province:'Bangkok',
     address: {
       country: 'USA',
       state: 'Utah',
@@ -161,10 +181,12 @@ export default [
     createdAt: 1522702800000
   },
   {
-    id: uuid(),
+    id: 11,
     name: 'zzz',
     type: "Part Time",
     status: "Active",
+    department:'Department3',
+    province:'Rayong',
     address: {
         country: 'USA',
         state: 'Utah',
