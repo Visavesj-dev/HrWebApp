@@ -735,6 +735,7 @@ function navBar(){return <div className={classes.root}>
 
                         return TypeConditions.includes(item.type) && StatusConditions.includes(item.status) && ProvinceConditions.includes(item.province) && DepartmentConditions.includes(item.department)
                         
+                      
                       }).map((user) => (
                         <TableRow
                           className={classes.tableRow}
