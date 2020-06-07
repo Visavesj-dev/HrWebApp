@@ -571,12 +571,9 @@ const JobtaskTable = (props) => {
                                 style={{ paddingBottom: 0, paddingTop: 0 }}
                                 colSpan={6}
                               >
-                                <Collapse
-                                  in={open}
-                                  timeout="auto"
-                                  unmountOnExit
-                                >
-                                  
+                                <Collapse in={open} timeout="auto" unmountOnExit>
+                                  {/* edit inside collpse here */}
+                                  fdasdfas
                                 </Collapse>
                               </TableCell>
                             </TableRow>
