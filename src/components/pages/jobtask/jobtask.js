@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
 //import modules
-import mockData from "./data";
+import users from "./usersdata";
+import tasks from "./tasksdata";
 import UsersToolbar from "./components/UserToolBar";
-import DocumentTable from "./components/DocumentTable";
+import JobtaskTable from "./components/JobtaskTable";
 
 //import material
 import Grid from "@material-ui/core/Grid";
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Jobtask() {
   const classes = useStyles();
-  const [users] = useState(mockData);
+  const [usersdata] = useState(users);
+  const [tasksdata] = useState(tasks);
 
   return (
     <div className={classes.root}>
@@ -42,7 +44,7 @@ export default function Jobtask() {
         <Grid item xs={12} md={12}>
           {/* <UsersToolbar /> */}
           <div className={classes.content}>
-            <DocumentTable users={users} />
+            <JobtaskTable users={usersdata} tasks={tasksdata} />
           </div>
         </Grid>
       </Grid>

@@ -648,6 +648,7 @@ function navBar(){return <div className={classes.root}>
         <Grid item xs={9} md={10}>
           <Grid container spacing={3}>
             <Grid item xs={6} md={6}>
+            <div className={classes.row1}><h1>Documents</h1></div>
               {/* Searching */}
               <div className={classes.row1}>
                 <Paper className={classes.rootSearch}>
