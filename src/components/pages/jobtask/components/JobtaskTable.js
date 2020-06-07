@@ -450,6 +450,7 @@ const JobtaskTable = (props) => {
                     <TableHead>
                       <TableRow>
                         <TableCell>Name</TableCell>
+                        <TableCell>Department</TableCell>
                         <TableCell>Progress</TableCell>
                         <TableCell />
                         {/* {tableColumn[catagory].map((item) => (
@@ -547,7 +548,8 @@ const JobtaskTable = (props) => {
                                   <Link variant="body1">{user.name}</Link>
                                 </div>
                               </TableCell>
-
+                              
+                              <TableCell>{user.department},{user.province}</TableCell>
                               <TableCell>
                               <CircularProgressWithLabel value={50} complete={4} all={5}/>
                               </TableCell>
