@@ -25,7 +25,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 // import MaterialTable from 'material-table';
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
 import SearchIcon from "@material-ui/icons/Search";
@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const JobtaskTable = (props) => {
-  const { className, users,tasks, ...rest } = props;
+  const { className, users, tasks, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
@@ -158,7 +158,7 @@ const JobtaskTable = (props) => {
     Department2: false,
     Department3: false,
   });
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -214,10 +214,17 @@ const JobtaskTable = (props) => {
     //function clear value
     setSearchTerm("");
   };
+  const routeChange = (path) =>{ 
+    props.history.push(path);
+  }
+  // circularprogress need 2 props which is complete,all
   function CircularProgressWithLabel(props) {
     return (
       <Box position="relative" display="inline-flex">
-        <CircularProgress variant="static" value={props.complete/props.all*100} />
+        <CircularProgress
+          variant="static"
+          value={(props.complete / props.all) * 100}
+        />
         <Box
           top={0}
           left={0}
@@ -233,6 +240,56 @@ const JobtaskTable = (props) => {
           </Typography>
         </Box>
       </Box>
+    );
+  }
+
+  function Eachrow(props) {
+    const user = props.eachuser;
+    const [open, setOpen] = React.useState(false);
+    return (
+      <React.Fragment>
+        <TableRow>
+          <TableCell
+            onClick={() => {
+              routeChange("/profile/" + user.id);
+            }}
+          >
+            <div className={classes.nameContainer}>
+              <Avatar className={classes.avatar} src={user.avatarUrl}>
+                {getInitials(user.name)}
+              </Avatar>
+              <Link variant="body1">{user.name}</Link>
+            </div>
+          </TableCell>
+
+          <TableCell>
+            {user.department},{user.province}
+          </TableCell>
+          <TableCell>
+            <CircularProgressWithLabel value={50} complete={4} all={5} />
+          </TableCell>
+
+          <TableCell>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Link variant="body1" onClick={()=>routeChange("/task/1")}>{user.name}</Link>
+              {results.map(item=>{
+
+              })}
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </React.Fragment>
     );
   }
 
@@ -428,15 +485,15 @@ const JobtaskTable = (props) => {
             <Grid item xs={6} md={6}>
               <div className={classes.row2}>
                 <span className={classes.spacer} />
-                {/* <Button
+                <Button
                   color="primary"
                   variant="contained"
                   onClick={() => {
-                    props.history.push("/addEmployee");
+                    props.history.push("/addTask");
                   }}
                 >
-                  Add Employee
-                </Button> */}
+                  Assign new task
+                </Button>
               </div>
             </Grid>
             {/* ------------- */}
@@ -532,53 +589,7 @@ const JobtaskTable = (props) => {
                         })
                         .map((user) => (
                           <React.Fragment>
-                            <TableRow>
-                              <TableCell
-                                onClick={() => {
-                                  props.history.push("/profile/" + user.id);
-                                }}
-                              >
-                                <div className={classes.nameContainer}>
-                                  <Avatar
-                                    className={classes.avatar}
-                                    src={user.avatarUrl}
-                                  >
-                                    {getInitials(user.name)}
-                                  </Avatar>
-                                  <Link variant="body1">{user.name}</Link>
-                                </div>
-                              </TableCell>
-                              
-                              <TableCell>{user.department},{user.province}</TableCell>
-                              <TableCell>
-                              <CircularProgressWithLabel value={50} complete={4} all={5}/>
-                              </TableCell>
-                              
-                              <TableCell>
-                                <IconButton
-                                  aria-label="expand row"
-                                  size="small"
-                                  onClick={() => setOpen(!open)}
-                                >
-                                  {open ? (
-                                    <KeyboardArrowUpIcon />
-                                  ) : (
-                                    <KeyboardArrowDownIcon />
-                                  )}
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                            <TableRow>
-                              <TableCell
-                                style={{ paddingBottom: 0, paddingTop: 0 }}
-                                colSpan={6}
-                              >
-                                <Collapse in={open} timeout="auto" unmountOnExit>
-                                  {/* edit inside collpse here */}
-                                  fdasdfas
-                                </Collapse>
-                              </TableCell>
-                            </TableRow>
+                            <Eachrow eachuser={user} />
                           </React.Fragment>
                         ))}
                     </TableBody>
