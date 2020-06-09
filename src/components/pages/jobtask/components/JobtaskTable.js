@@ -492,7 +492,7 @@ const JobtaskTable = (props) => {
                     props.history.push("/addTask");
                   }}
                 >
-                  Assign new task
+                  Assign new Job
                 </Button>
               </div>
             </Grid>

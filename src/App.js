@@ -12,6 +12,7 @@ import Menu from "./components/layouts/Menu";
 import document from "./components/pages/document/document"
 import jobtask from './components/pages/jobtask/jobtask'
 import task from './components/pages/jobtask/task'
+import addtask from './components/pages/jobtask/addtask'
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/documents" component={document}/>
           <Route path="/jobtask" component={jobtask}/>
           <Route path="/task/" component={task}/>
+          <Route path="/addtask/" component={addtask}/>
         </Container>
       </div>
     </Router>
