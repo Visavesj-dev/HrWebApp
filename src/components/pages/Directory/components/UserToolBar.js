@@ -1,7 +1,7 @@
 import React from "react";
 
 //import modules
-import SearchInput from "../modules/SearchInput";
+
 
 //import tools
 import PropTypes from "prop-types";
