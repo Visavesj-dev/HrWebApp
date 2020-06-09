@@ -21,6 +21,7 @@ import {
   Paper,
   Link,
   Button,
+  ButtonGroup,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   actions: {
-    justifyContent: "flex-end",
+    justifyContent: "flex-container",
   },
   row1: {
     height: "42px",
@@ -88,7 +89,12 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    height: 525,
+    height: "80%",
+    overflowX: "scroll",
+  },
+  nav: {
+    padding: theme.spacing(0.3),
+    marginBottom: 5,
     overflowX: "scroll",
   },
   headerText: {
@@ -114,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UsersTable = (props) => {
-  const { className, users, ...rest } = props;
+  const { className, users, users2, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
@@ -125,20 +131,27 @@ const UsersTable = (props) => {
     FullTime: false,
     PartTime: false,
     Active: false,
-    Onboarding:false,
+    Onboarding: false,
     Terminated: false,
-    Rayong:false,
-    Bangkok:false,
-    Department1:false,
-    Department2:false,
-    Department3:false,
+    Rayong: false,
+    Bangkok: false,
+    Department1: false,
+    Department2: false,
+    Department3: false,
   });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  const { FullTime, PartTime, Active,Onboarding , Terminated,Rayong,Bangkok,Department1,Department2,Department3} = state;
+  const {
+    FullTime,
+    PartTime,
+    Active,
+    Onboarding,
+    Terminated,
+    Rayong,
+    Bangkok,
+    Department1,
+    Department2,
+    Department3,
+  } = state;
 
   //---*---//
 
@@ -153,32 +166,71 @@ const UsersTable = (props) => {
     page * rowsPerPage + rowsPerPage
   );
 
+  //Myteam data
+  const currentPosts2 = users2.slice(
+    // ทำให้ข้อมูลเป็นหน้าปัจจุบัน
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   const results = !searchTerm
     ? currentPosts
     : currentPosts.filter((person) => {
         return (
           person.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
           person.phone.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-          person.type.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+          person.type.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+          person.email.toLowerCase().includes(searchTerm.toLocaleLowerCase())
         );
       });
+
+  const results2 = !searchTerm
+    ? currentPosts2
+    : currentPosts2.filter((person) => {
+        return person.name
+          .toLowerCase()
+          .includes(searchTerm.toLocaleLowerCase());
+      });
+
+  //For Check box filter    
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   const handlePageChange = (event, page) => {
     setPage(page); // เปลี่ยนหน้า table
   };
 
   const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(event.target.value);
+    setRowsPerPage(event.target.value); // change Row
   };
 
   const handleChangeSearch = (event) => {
     setSearchTerm(event.target.value); // handle search
   };
 
+  //function clear value
   const clear = () => {
-    //function clear value
-    setSearchTerm("");
+    setState(false);
   };
+
+  //Navigator Bar
+  const [catagory, setCatagory] = useState("myteam"); //catagory use to render the table
+
+  //buttongroup to change catagory
+  const navBar = () => {
+    return (
+      <Card className={classes.nav}>
+        <ButtonGroup disableElevation variant="contained">
+          <Button onClick={() => setCatagory("company")}>Company</Button>
+          <Button onClick={() => setCatagory("myteam")}>MyTeam</Button>
+        </ButtonGroup>
+      </Card>
+    );
+  };
+
+  //Collect length of employee
+  const employNumber = [];
 
   return (
     <div>
@@ -186,6 +238,7 @@ const UsersTable = (props) => {
         <Grid item xs={3} md={2}>
           <div>
             {console.log(Active)}
+            {navBar()}
             <Paper className={classes.paper}>
               <Typography
                 variant="h6"
@@ -206,6 +259,7 @@ const UsersTable = (props) => {
                         checked={FullTime}
                         onChange={handleChange}
                         name="FullTime"
+                        color="primary"
                       />
                     }
                     label="Full Time"
@@ -217,6 +271,7 @@ const UsersTable = (props) => {
                         checked={PartTime}
                         onChange={handleChange}
                         name="PartTime"
+                        color="primary"
                       />
                     }
                     label="Part Time"
@@ -243,9 +298,9 @@ const UsersTable = (props) => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
-                      checked={Onboarding} 
-                        onChange={handleChange} 
+                        color="primary"
+                        checked={Onboarding}
+                        onChange={handleChange}
                         name="Onboarding"
                       />
                     }
@@ -267,13 +322,13 @@ const UsersTable = (props) => {
               <Divider />
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
-                  Filter By location
+                  Filter By Location
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
+                        color="primary"
                         checked={Bangkok}
                         onChange={handleChange}
                         name="Bangkok"
@@ -281,31 +336,30 @@ const UsersTable = (props) => {
                     }
                     label="Bangkok"
                   />
-                  
+
                   <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
-                      checked={Rayong} 
-                        onChange={handleChange} 
+                        color="primary"
+                        checked={Rayong}
+                        onChange={handleChange}
                         name="Rayong"
                       />
                     }
                     label="Rayong"
                   />
-                  
                 </FormGroup>
               </FormControl>
-               <Divider />
-               <FormControl component="fieldset" className={classes.formControl}>
+              <Divider />
+              <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
                   Filter By Department
                 </FormLabel>
                 <FormGroup>
-                <FormControlLabel
+                  <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
+                        color="primary"
                         checked={Department1}
                         onChange={handleChange}
                         name="Department1"
@@ -316,7 +370,7 @@ const UsersTable = (props) => {
                   <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
+                        color="primary"
                         checked={Department2}
                         onChange={handleChange}
                         name="Department2"
@@ -324,24 +378,22 @@ const UsersTable = (props) => {
                     }
                     label="Department2"
                   />
-                  
-                  
+
                   <FormControlLabel
                     control={
                       <Checkbox
-                      color="primary"
-                      checked={Department3} 
-                        onChange={handleChange} 
+                        color="primary"
+                        checked={Department3}
+                        onChange={handleChange}
                         name="Department3"
                       />
                     }
                     label="Department3"
                   />
-                  
                 </FormGroup>
               </FormControl>
-               <Divider />
-              
+              <Divider />
+
               <center>
                 <Button
                   variant="outlined"
@@ -394,123 +446,327 @@ const UsersTable = (props) => {
             {/* ------------- */}
           </Grid>
 
-          <Card className={clsx(classes.root, className)}>
-            <CardContent className={classes.content}>
-              <PerfectScrollbar>
-                <div className={classes.inner}>
-                  <Table style={{ overflowX: "scroll" }}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Title</TableCell>
-                        <TableCell>Department</TableCell>
-                        <TableCell>Location</TableCell>
-                        <TableCell>Phone</TableCell>
-                        <TableCell>Start date</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {/* Set user data here */}
-                      {results
-                        .filter((item) => {
-                        let TypeConditions=[],StatusConditions=[],ProvinceConditions=[],DepartmentConditions=[]
-                        if(FullTime){TypeConditions.push('Full Time')}
-                        if(PartTime){TypeConditions.push('Part Time')}
-                        if(Active){StatusConditions.push('Active')}
-                        if(Onboarding){StatusConditions.push('Onboarding')}
-                        if(Terminated){StatusConditions.push('Terminated')}
-                        if(Rayong){ProvinceConditions.push('Rayong')}
-                        if(Bangkok){ProvinceConditions.push('Bangkok')}
-                        if(Department1){DepartmentConditions.push('Department1')}
-                        if(Department2){DepartmentConditions.push('Department2')}
-                        if(Department3){DepartmentConditions.push('Department3')}
-                        
-                        if(TypeConditions.length+StatusConditions.length+ProvinceConditions.length+DepartmentConditions.length==0){
-                          return item}
-                        if(TypeConditions.length==0){
-                          TypeConditions.push('Full Time')
-                          TypeConditions.push('Part Time')
-                        }
-                        if(StatusConditions.length==0){
-                          StatusConditions.push('Active')
-                          StatusConditions.push('Onboarding')
-                          StatusConditions.push('Terminated')
-                        }
-                        if(ProvinceConditions.length==0){
-                          ProvinceConditions.push('Rayong')
-                          ProvinceConditions.push('Bangkok')
-                        }
-                        if(DepartmentConditions.length==0){
-                          DepartmentConditions.push('Department1')
-                          DepartmentConditions.push('Department2')
-                          DepartmentConditions.push('Department3')
-                        }
-                        
+          {catagory == "company" && (
+            <Card className={clsx(classes.root, className)}>
+              <CardContent className={classes.content}>
+                <PerfectScrollbar>
+                  <div className={classes.inner}>
+                    <Table style={{ overflowX: "scroll" }}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{ paddingRight: 200 }}>
+                            Name
+                          </TableCell>
+                          <TableCell>Type</TableCell>
+                          <TableCell>Status</TableCell>
+                          <TableCell>Title</TableCell>
+                          <TableCell>Department</TableCell>
+                          <TableCell>Section</TableCell>
+                          <TableCell>Location</TableCell>
+                          <TableCell>Manager</TableCell>
+                          <TableCell>Email</TableCell>
+                          <TableCell>HiringDate</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {/* Set user data here */}
+                        {results
+                          .filter((item) => {
+                            let TypeConditions = [],
+                              StatusConditions = [],
+                              ProvinceConditions = [],
+                              DepartmentConditions = [];
+                            if (FullTime) {
+                              TypeConditions.push("Full Time");
+                            }
+                            if (PartTime) {
+                              TypeConditions.push("Part Time");
+                            }
+                            if (Active) {
+                              StatusConditions.push("Active");
+                            }
+                            if (Onboarding) {
+                              StatusConditions.push("Onboarding");
+                            }
+                            if (Terminated) {
+                              StatusConditions.push("Terminated");
+                            }
+                            if (Rayong) {
+                              ProvinceConditions.push("Rayong");
+                            }
+                            if (Bangkok) {
+                              ProvinceConditions.push("Bangkok");
+                            }
+                            if (Department1) {
+                              DepartmentConditions.push("Department1");
+                            }
+                            if (Department2) {
+                              DepartmentConditions.push("Department2");
+                            }
+                            if (Department3) {
+                              DepartmentConditions.push("Department3");
+                            }
 
-                        return TypeConditions.includes(item.type) && StatusConditions.includes(item.status) && ProvinceConditions.includes(item.province) && DepartmentConditions.includes(item.department)
+                            if (
+                              TypeConditions.length +
+                                StatusConditions.length +
+                                ProvinceConditions.length +
+                                DepartmentConditions.length ==
+                              0
+                            ) {
+                              return item;
+                            }
+                            if (TypeConditions.length == 0) {
+                              TypeConditions.push("Full Time");
+                              TypeConditions.push("Part Time");
+                            }
+                            if (StatusConditions.length == 0) {
+                              StatusConditions.push("Active");
+                              StatusConditions.push("Onboarding");
+                              StatusConditions.push("Terminated");
+                            }
+                            if (ProvinceConditions.length == 0) {
+                              ProvinceConditions.push("Rayong");
+                              ProvinceConditions.push("Bangkok");
+                            }
+                            if (DepartmentConditions.length == 0) {
+                              DepartmentConditions.push("Department1");
+                              DepartmentConditions.push("Department2");
+                              DepartmentConditions.push("Department3");
+                            }
 
-
-                        })
-                        .map((user) => (
-                          <TableRow
-                            className={classes.tableRow}
-                            hover
-                            key={user.id}
-                          >
-                            <TableCell
-                              onClick={() => {
-                                props.history.push("/profile/" + user.id);
-                              }}
-                            >
-                              <div className={classes.nameContainer}>
-                                <Avatar
-                                  className={classes.avatar}
-                                  src={user.avatarUrl}
+                            return (
+                              TypeConditions.includes(item.type) &&
+                              StatusConditions.includes(item.status) &&
+                              ProvinceConditions.includes(item.province) &&
+                              DepartmentConditions.includes(item.department)
+                            );
+                          })
+                          .map(
+                            (user) => (
+                              employNumber.push(user.id),
+                              (
+                                <TableRow
+                                  className={classes.tableRow}
+                                  hover
+                                  key={user.id}
                                 >
-                                  {getInitials(user.name)}
-                                </Avatar>
-                                <Link variant="body1">{user.name}</Link>
-                              </div>
-                            </TableCell>
-                            <TableCell>{user.type}</TableCell>
-                            <TableCell>{user.status}</TableCell>
-                            <TableCell>Tranier</TableCell>
-                            <TableCell>TPE</TableCell>
-                            <TableCell>
-                              {user.address.city}, {user.address.state},{" "}
-                              {user.address.country}
-                            </TableCell>
-                            <TableCell>{user.phone}</TableCell>
-                            <TableCell>
-                              {moment(user.createdAt).format("DD/MM/YYYY")}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </PerfectScrollbar>
-            </CardContent>
-            <CardActions className={classes.actions}>
-              <TablePagination
-                component="div"
-                count={posts.length}
-                onChangePage={handlePageChange}
-                onChangeRowsPerPage={handleRowsPerPageChange}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 25]}
-                backIconButtonProps={{
-                  "aria-label": "Previous Page",
-                }}
-                nextIconButtonProps={{
-                  "aria-label": "Next Page",
-                }}
-              />
-            </CardActions>
-          </Card>
+                                  <TableCell
+                                    onClick={() => {
+                                      props.history.push("/profile/" + user.id);
+                                    }}
+                                  >
+                                    <div className={classes.nameContainer}>
+                                      <Avatar
+                                        className={classes.avatar}
+                                        src={user.avatarUrl}
+                                      >
+                                        {getInitials(user.name)}
+                                      </Avatar>
+                                      <Link variant="body1">{user.name}</Link>
+                                    </div>
+                                  </TableCell>
+                                  <TableCell>{user.type}</TableCell>
+                                  <TableCell>{user.status}</TableCell>
+                                  <TableCell>{user.title}</TableCell>
+                                  <TableCell>{user.department}</TableCell>
+                                  <TableCell>{user.section}</TableCell>
+                                  <TableCell>{user.province}</TableCell>
+                                  <TableCell>{user.manager}</TableCell>
+                                  <TableCell>{user.email}</TableCell>
+                                  <TableCell>{user.hiring}</TableCell>
+                                </TableRow>
+                              )
+                            )
+                          )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </PerfectScrollbar>
+              </CardContent>
+              <CardActions className={classes.actions}>
+                <Typography style={{ flexGrow: 1, marginLeft: 10 }}>
+                  Total Employee: {employNumber.length}{" "}
+                </Typography>
+                <TablePagination
+                  style={{ flexGrow: 8 }}
+                  component="div"
+                  count={results.length}
+                  onChangePage={handlePageChange}
+                  onChangeRowsPerPage={handleRowsPerPageChange}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 25]}
+                  backIconButtonProps={{
+                    "aria-label": "Previous Page",
+                  }}
+                  nextIconButtonProps={{
+                    "aria-label": "Next Page",
+                  }}
+                />
+              </CardActions>
+            </Card>
+          )}
+          {catagory == "myteam" && (
+            <Card className={clsx(classes.root, className)}>
+              <CardContent className={classes.content}>
+                <PerfectScrollbar>
+                  <div
+                    className={classes.inner}
+                    style={{ width: "100%", height: "100%" }}
+                  >
+                    <Table style={{ overflowX: "scroll" }}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{ paddingRight: 200 }}>
+                            Name
+                          </TableCell>
+                          <TableCell>Type</TableCell>
+                          <TableCell>Status</TableCell>
+                          <TableCell>Title</TableCell>
+                          <TableCell>Department</TableCell>
+                          <TableCell>Section</TableCell>
+                          <TableCell>Location</TableCell>
+                          <TableCell>Manager</TableCell>
+                          <TableCell>Email</TableCell>
+                          <TableCell>HiringDate</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {/* Set user data here */}
+                        {results2
+                          .filter((item) => {
+                            let TypeConditions = [],
+                              StatusConditions = [],
+                              ProvinceConditions = [],
+                              DepartmentConditions = [];
+                            if (FullTime) {
+                              TypeConditions.push("Full Time");
+                            }
+                            if (PartTime) {
+                              TypeConditions.push("Part Time");
+                            }
+                            if (Active) {
+                              StatusConditions.push("Active");
+                            }
+                            if (Onboarding) {
+                              StatusConditions.push("Onboarding");
+                            }
+                            if (Terminated) {
+                              StatusConditions.push("Terminated");
+                            }
+                            if (Rayong) {
+                              ProvinceConditions.push("Rayong");
+                            }
+                            if (Bangkok) {
+                              ProvinceConditions.push("Bangkok");
+                            }
+                            if (Department1) {
+                              DepartmentConditions.push("Department1");
+                            }
+                            if (Department2) {
+                              DepartmentConditions.push("Department2");
+                            }
+                            if (Department3) {
+                              DepartmentConditions.push("Department3");
+                            }
+
+                            if (
+                              TypeConditions.length +
+                                StatusConditions.length +
+                                ProvinceConditions.length +
+                                DepartmentConditions.length ==
+                              0
+                            ) {
+                              return item;
+                            }
+                            if (TypeConditions.length == 0) {
+                              TypeConditions.push("Full Time");
+                              TypeConditions.push("Part Time");
+                            }
+                            if (StatusConditions.length == 0) {
+                              StatusConditions.push("Active");
+                              StatusConditions.push("Onboarding");
+                              StatusConditions.push("Terminated");
+                            }
+                            if (ProvinceConditions.length == 0) {
+                              ProvinceConditions.push("Rayong");
+                              ProvinceConditions.push("Bangkok");
+                            }
+                            if (DepartmentConditions.length == 0) {
+                              DepartmentConditions.push("Department1");
+                              DepartmentConditions.push("Department2");
+                              DepartmentConditions.push("Department3");
+                            }
+
+                            return (
+                              TypeConditions.includes(item.type) &&
+                              StatusConditions.includes(item.status) &&
+                              ProvinceConditions.includes(item.province) &&
+                              DepartmentConditions.includes(item.department)
+                            );
+                          })
+                          .map(
+                            (user) => (
+                              employNumber.push(user.id),
+                              (
+                                <TableRow hover key={user.id}>
+                                  <TableCell
+                                    onClick={() => {
+                                      props.history.push("/profile/" + user.id);
+                                    }}
+                                  >
+                                    <div className={classes.nameContainer}>
+                                      <Avatar
+                                        className={classes.avatar}
+                                        src={user.avatarUrl}
+                                      >
+                                        {getInitials(user.name)}
+                                      </Avatar>
+                                      <Link variant="body1">{user.name}</Link>
+                                    </div>
+                                  </TableCell>
+                                  <TableCell>{user.type}</TableCell>
+                                  <TableCell>{user.status}</TableCell>
+                                  <TableCell>{user.title}</TableCell>
+                                  <TableCell>{user.department}</TableCell>
+                                  <TableCell>{user.section}</TableCell>
+                                  <TableCell>{user.province}</TableCell>
+                                  <TableCell>{user.manager}</TableCell>
+                                  <TableCell>{user.email}</TableCell>
+                                  <TableCell>{user.hiring}</TableCell>
+                                </TableRow>
+                              )
+                            )
+                          )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </PerfectScrollbar>
+              </CardContent>
+              <CardActions className={classes.actions}>
+                <Typography style={{ flexGrow: 1, marginLeft: 10 }}>
+                  Total Employee: {employNumber.length}{" "}
+                </Typography>
+                <TablePagination
+                  style={{ flexGrow: 8 }}
+                  component="div"
+                  count={results2.length}
+                  onChangePage={handlePageChange}
+                  onChangeRowsPerPage={handleRowsPerPageChange}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  rowsPerPageOptions={[5, 10, 25]}
+                  backIconButtonProps={{
+                    "aria-label": "Previous Page",
+                  }}
+                  nextIconButtonProps={{
+                    "aria-label": "Next Page",
+                  }}
+                />
+              </CardActions>
+            </Card>
+          )}
         </Grid>
       </Grid>
     </div>

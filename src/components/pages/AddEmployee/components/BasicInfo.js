@@ -181,6 +181,29 @@ export default function BasicInfo(props) {
               {/* ----*----- */}
               <Grid container spacing={0}>
                 <Grid item md={5} xs={12}>
+                  <Typography className={classes.heading}>
+                    Nick Name
+                  </Typography>
+                </Grid>
+                <Grid item md={7} xs={12}>
+                  <TextField
+                    id="outlined-full-width"
+                    fullWidth
+                    margin="dense"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                    name="firstName"
+                  />
+                </Grid>
+              </Grid>
+              {/* ----*----- */}
+            </Grid>
+            <Grid item md={12} xs={12}>
+              {/* ----*----- */}
+              <Grid container spacing={0}>
+                <Grid item md={5} xs={12}>
                   <Typography className={classes.heading}>Gender</Typography>
                 </Grid>
                 <Grid item md={7} xs={12}>

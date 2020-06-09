@@ -109,16 +109,12 @@ export default function BankAccount() {
                           </Grid>
                           <Grid item md={6} xs={12}>
                           <div style={{display: "flex"}}>  
-                          { show ? 
+                        
                             <Typography className={classes.secondaryHeading}>
                               123456789
                             </Typography>
-                            :
-                            <Typography className={classes.secondaryHeading}>
-                              *****6789
-                            </Typography>
-                          }
-                            <ZoomInIcon fontSize="small" style={{marginLeft: 30}} onClick={handleEvent}/>
+                           
+                            <ZoomInIcon fontSize="small" style={{marginLeft: 30}} />
                             </div>
                           </Grid>
                         </Grid>

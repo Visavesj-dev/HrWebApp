@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 //import modules
 import mockData from "./data";
+import mockData2 from "./data2";
 import UsersToolbar from "./components/UserToolBar";
 import UsersTable from "./components/UserTable";
 
@@ -35,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Directory() {
   const classes = useStyles();
   const [users] = useState(mockData);
+  const [users2] = useState(mockData2);
+
 
   return (
     <div className={classes.root}>
@@ -42,7 +45,7 @@ export default function Directory() {
         <Grid item xs={12} md={12}>
           {/* <UsersToolbar /> */}
           <div className={classes.content}>
-            <UsersTable users={users} />
+            <UsersTable users={users} users2={users2} />
           </div>
         </Grid>
       </Grid>
