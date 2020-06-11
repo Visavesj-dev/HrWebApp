@@ -2,198 +2,29 @@ import uuid from 'uuid/v1';
 
 export default [
   {
-    id: 1,
-    name: 'Ekaterina Tankova',
-    type: "Full Time",
-    status: "Onboarding",
-    department:'Department1',
-    province:'Rayong',
-    address: {
-      country: 'USA',
-      state: 'West Virginia',
-      city: 'Parkersburg',
-      street: '2849 Fulton Street'
-    },
-    email: 'ekaterina.tankova@devias.io',
-    phone: '304-428-3097',
-    avatarUrl: '/images/avatars/avatar_3.png',
-    createdAt: 1555016400000
-  },
-  {
-    id: 2,
-    name: 'Cao Yu',
-    type: "Full Time",
-    status: "Terminated",
-    department:'Department2',
-    province:'Bangkok',
-    address: {
-      country: 'USA',
-      state: 'Bristow',
-      city: 'Iowa',
-      street: '1865  Pleasant Hill Road'
-    },
-    email: 'cao.yu@devias.io',
-    avatarUrl: '/images/avatars/avatar_4.png',
-    phone: '712-351-5711',
-    createdAt: 1555016400000
-  },
-  {
-    id: 3,
-    name: 'Alexa Richardson',
-    type: "Full Time",
-    status: "Active",
-    department:'Department1',
-    province:'Rayong',
-    address: {
-      country: 'USA',
-      state: 'Georgia',
-      city: 'Atlanta',
-      street: '4894  Lakeland Park Drive'
-    },
-    email: 'alexa.richardson@devias.io',
-    phone: '770-635-2682',
-    avatarUrl: '/images/avatars/avatar_2.png',
-    createdAt: 1555016400000
-  },
-  {
-    id: 4,
-    name: 'Anje Keizer',
-    type: "Full Time",
-    status: "Active",
-    department:'Department1',
-    province:'Bangkok',
-    address: {
-      country: 'USA',
-      state: 'Ohio',
-      city: 'Dover',
-      street: '4158  Hedge Street'
-    },
-    email: 'anje.keizer@devias.io',
-    avatarUrl: '/images/avatars/avatar_5.png',
-    phone: '908-691-3242',
-    createdAt: 1554930000000
-  },
-  {
-    id: 5,
-    name: 'Clarke Gillebert',
-    type: "Full Time",
-    status: "Terminated",
-    department:'Department2',
-    province:'Rayong',
-    address: {
-      country: 'USA',
-      state: 'Texas',
-      city: 'Dallas',
-      street: '75247'
-    },
-    email: 'clarke.gillebert@devias.io',
-    phone: '972-333-4106',
-    avatarUrl: '/images/avatars/avatar_6.png',
-    createdAt: 1554757200000
-  },
-  {
-    id: 6,
-    name: 'Adam Denisov',
-    type: "Part Time",
-    status: "Active",
-    department:'Department3',
-    province:'Bangkok',
-    address: {
-      country: 'USA',
-      state: 'California',
-      city: 'Bakerfield',
-      street: '317 Angus Road'
-    },
-    email: 'adam.denisov@devias.io',
-    phone: '858-602-3409',
-    avatarUrl: '/images/avatars/avatar_1.png',
-    createdAt: 1554670800000
-  },
-  {
-    id: 7,
-    name: 'Ava Gregoraci',
-    type: "Part Time",
-    status: "Terminated",
-    department:'Department1',
-    province:'Rayong',
-    address: {
-      country: 'USA',
-      state: 'California',
-      city: 'Redondo Beach',
-      street: '2188  Armbrester Drive'
-    },
-    email: 'ava.gregoraci@devias.io',
-    avatarUrl: '/images/avatars/avatar_7.png',
-    phone: '415-907-2647',
-    createdAt: 1554325200000
-  },
-  {
-    id: 8,
-    name: 'Emilee Simchenko',
-    type: "Part Time",
-    status: "Active",
-    department:'Department2',
-    province:'Bangkok',
-    address: {
-      country: 'USA',
-      state: 'Nevada',
-      city: 'Las Vegas',
-      street: '1798  Hickory Ridge Drive'
-    },
-    email: 'emilee.simchenko@devias.io',
-    phone: '702-661-1654',
-    avatarUrl: '/images/avatars/avatar_8.png',
-    createdAt: 1523048400000
-  },
-  {
-    id: 9,
-    name: 'Kwak Seong-Min',
-    type: "Part Time",
-    status: "Terminated",
-    department:'Department3',
-    province:'Rayong',
-    address: {
-      country: 'USA',
-      state: 'Michigan',
-      city: 'Detroit',
-      street: '3934  Wildrose Lane'
-    },
-    email: 'kwak.seong.min@devias.io',
-    avatarUrl: '/images/avatars/avatar_9.png',
-    phone: '313-812-8947'
-  },
-  {
-    id: 10,
-    name: 'Merrile Burgett',
-    type: "Part Time",
-    status: "Active",
-    department:'Department1',
-    province:'Bangkok',
-    address: {
-      country: 'USA',
-      state: 'Utah',
-      city: 'Salt Lake City',
-      street: '368 Lamberts Branch Road'
-    },
-    email: 'merrile.burgett@devias.io',
-    phone: '801-301-7894',
-    avatarUrl: '/images/avatars/avatar_10.png',
-    createdAt: 1522702800000
-  },
-  {
-    id: 11,
-    name: 'zzz',
-    type: "Part Time",
-    status: "Active",
-    department:'Department3',
-    province:'Rayong',
-    address: {
-        country: 'USA',
-        state: 'Utah',
-        city: 'Salt Lake City',
-        street: '368 Lamberts Branch Road'
-      },
-    
-  }
-  
-];
+    jobId: 1,
+    jobName: 'Accountant',
+    jobtask:[
+      {id:0,detail:'preparing accounts and tax returns.',criticaltask:true,knowledge:false,skill:true,attribute:false,},
+      {id:1,detail:'administering payrolls and controlling income and expenditure.',criticaltask:true,knowledge:false,skill:false,attribute:false,},
+      {id:2,detail:'auditing financial information.',criticaltask:false,knowledge:true,skill:true,attribute:true,},
+      {id:3,detail:'compiling and presenting reports, budgets, business plans, commentaries and financial statements.',criticaltask:false,knowledge:true,skill:false,attribute:true,},
+      {id:4,detail:'analysing accounts and business plans',criticaltask:true,knowledge:false,skill:true,attribute:true,},
+      {id:5,detail:'providing tax planning services with reference to current legislation',criticaltask:false,knowledge:true,skill:false,attribute:false,},
+      {id:6,detail:'financial forecasting and risk analysis',criticaltask:false,knowledge:false,skill:true,attribute:false,},
+      {id:7,detail:'dealing with insolvency cases',criticaltask:false,knowledge:false,skill:true,attribute:false,},
+      {id:8,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:9,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:10,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:11,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:12,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:13,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:14,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:15,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:16,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:17,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:18,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:19,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+      {id:20,detail:'',criticaltask:false,knowledge:false,skill:false,attribute:false,},
+    ]
+  }];

@@ -5,14 +5,21 @@ import {
   Card,
   CardActions,
   CardContent,
+  Avatar,
   Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  Typography,
   TablePagination,
+  Input,
+  Paper,
+  Link,
   Button,
+  Select,
+  CircularProgress,
 } from "@material-ui/core";
 // import MaterialTable from 'material-table';
 import TextField from "@material-ui/core/TextField";
@@ -27,9 +34,13 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import Jobtask from "../jobtask";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  detail: {
+    fontSize: "16.5px",
+  },
   content: {
     padding: 0,
     overflowX: "auto",
@@ -114,14 +125,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddTaskTable = (props) => {
+const IndividualTask = (props) => {
   const { className, tasks, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
   useEffect(() => {
-    setPosts(tasks);
+    setPosts(tasks[0]["jobtask"]);
+    console.log(tasks);
   }, []);
 
   const currentPosts = posts.slice(
@@ -167,6 +179,35 @@ const AddTaskTable = (props) => {
     );
   }
 
+  function TaskCatagories(props) {
+    let ct, k, s, a; //criticaltask, knowledge,skill,attribute
+    ct = props.criticaltask;
+    k = props.knowledge;
+    s = props.skill;
+    a = props.attribute;
+    let ctcatagory = "";
+    let catagories = "";
+    if (ct) {
+      ctcatagory = "Critical Task";
+    }
+    if (k) {
+      catagories += "K ";
+    }
+    if (s) {
+      catagories += "S ";
+    }
+    if (a) {
+      catagories += "A ";
+    }
+    return (
+      <div>
+        <div className={classes.detail}>
+          <font color="red">{ctcatagory}</font>
+        </div>
+        <div className={classes.detail}>{catagories}</div>
+      </div>
+    );
+  }
   function TextFields(props) {
     const id = props.id;
     const [text, setText] = React.useState(posts[id].detail);
@@ -181,14 +222,13 @@ const AddTaskTable = (props) => {
     return (
       <TextField
         value={text}
-        onChange={handleChange}
         label="Label"
         style={{ margin: 8 }}
         placeholder="Task Detail"
         fullWidth
         margin="normal"
         InputLabelProps={{
-          shrink: true,
+          readOnly: true,
         }}
         variant="outlined"
       />
@@ -205,7 +245,7 @@ const AddTaskTable = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={6} md={6}>
               <div className={classes.row1}>
-                <h1>Add task</h1>
+                <h1>Job's Title: {tasks[0]["jobName"]}</h1>
               </div>
             </Grid>
             <Grid item xs={4} md={4}>
@@ -226,31 +266,60 @@ const AddTaskTable = (props) => {
                   >
                     <TableHead>
                       <TableRow>
-                        <TableCell width="80%" align="center">
+                        <TableCell width="40%" align="center">
                           Task Detail
                         </TableCell>
-                        <TableCell align="center">Critical Task</TableCell>
+                        <TableCell width="10%">Catagories</TableCell>
+                        <TableCell>Learning Suggestion</TableCell>
+                        <TableCell>Method</TableCell>
+                        {/* <TableCell align="center">Critical Task</TableCell>
                         <TableCell align="center">Knowledge</TableCell>
                         <TableCell align="center">Skill</TableCell>
-                        <TableCell align="center">Attribute</TableCell>
+                        <TableCell align="center">Attribute</TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {results.map((item) => (
                         <React.Fragment>
                           <TableRow>
-                            <TableCell>{<TextFields id={item.id} />}</TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="criticaltask" />}
+                            <TableCell>
+                              <div className={classes.detail}>
+                                {item.detail}
+                              </div>
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="knowledge" />}
+                            <TableCell>
+                              <TaskCatagories
+                                criticaltask={item.criticaltask}
+                                knowledge={item.knowledge}
+                                skill={item.skill}
+                                attribute={item.attribute}
+                              />
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="skill" />}
+                            <TableCell>
+                              <TextField
+                                label="Learning Suggestion"
+                                style={{ margin: 8 }}
+                                placeholder="Learning Suggestion"
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                              />
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="attribute" />}
+                            <TableCell>
+                              <Select
+                                native
+                                // value={state.age}
+                                // onChange={handleChange}
+                                inputProps={{
+                                  name: "age",
+                                  id: "age-native-simple",
+                                }}
+                              >
+                                <option aria-label="None" value="" />
+                                <option value={10}>Method1</option>
+                                <option value={20}>Method2</option>
+                                <option value={30}>Method3</option>
+                              </Select>
                             </TableCell>
                           </TableRow>
                         </React.Fragment>
@@ -325,9 +394,9 @@ const AddTaskTable = (props) => {
   );
 };
 
-AddTaskTable.propTypes = {
+IndividualTask.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array.isRequired,
 };
 
-export default withRouter(AddTaskTable);
+export default withRouter(IndividualTask);
