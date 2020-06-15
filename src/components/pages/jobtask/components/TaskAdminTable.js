@@ -39,6 +39,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Jobtask from "../jobtask";
+import { ContactPhoneOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -66,6 +67,13 @@ const useStyles = makeStyles((theme) => ({
   },
   row1: {
     height: "42px",
+    display: "flex",
+    alignItems: "center",
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(2.6),
+  },
+  counterRow: {
+    height: "100px",
     display: "flex",
     alignItems: "center",
     marginTop: theme.spacing(0.5),
@@ -103,6 +111,44 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
+  },
+  counterLabel:{
+    width: "20%",
+    textAlign:"center",
+    fontSize:'20px',
+    marginLeft: "5px",
+  },
+  counterBox1: {
+    width: "20%",
+    height: "75px",
+    textAlign:"center",
+    fontSize:'30px',
+    background: "yellow",
+    marginLeft: "5px",
+  },
+  counterBox2: {
+    width: "20%",
+    height: "75px",
+    textAlign:"center",
+    fontSize:'30px',
+    background: "yellow",
+    marginLeft: "5px",
+  },
+  counterBox3: {
+    width: "20%",
+    height: "75px",
+    textAlign:"center",
+    fontSize:'30px',
+    background: "yellow",
+    marginLeft: "5px",
+  },
+  counterBox4: {
+    width: "20%",
+    height: "75px",
+    textAlign:"center",
+    fontSize:'30px',
+    background: "yellow",
+    marginLeft: "5px",
   },
   colorText: {
     color: "#212121",
@@ -143,15 +189,19 @@ const TaskAdminTable = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(5); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
-  const [learningSuggestion,setLearningSuggestion] = useState([]) 
+  const [learningSuggestion, setLearningSuggestion] = useState([]);
   const [job, setJob] = useState([]);
-  const [jobId, setJobId] = useState(parseInt(props.location.pathname.split('/').pop()));
-  // console.log(parseInt(props.location.pathname.split('/').pop()))
-  console.log(jobId)
+  const [jobId, setJobId] = useState(
+    parseInt(props.location.pathname.split("/").pop())
+  );
+
   useEffect(() => {
     setJob([jobs]);
-    setPosts(tasks[jobId].jobtask);
-    setLearningSuggestion(tasks[jobId].learningSuggestion)
+    let temp = tasks.filter((item) => {
+      return item.jobId == jobId;
+    });
+    setPosts(temp[0].jobtask);
+    setLearningSuggestion(tasks[jobId].learningSuggestion);
   }, []);
 
   const currentPosts = posts.slice(
@@ -176,6 +226,7 @@ const TaskAdminTable = (props) => {
     props.history.push(path);
   };
   function Checkboxes(props) {
+    console.log(props.id);
     const id = props.id;
     const value = props.value;
     const [checked] = React.useState(posts[id][value]);
@@ -195,115 +246,98 @@ const TaskAdminTable = (props) => {
       />
     );
   }
-  function SelectMethod(props){
-    let id = props.id
-    let tmp = learningSuggestion.filter(item=>{return item.id==id})
-    console.log(id)
-    console.log(tmp)
-    let selectvalue = tmp[0].method
-
-    const handleChange= (event)=>{
-      let items = [...learningSuggestion]
-      let item = items[id]
-      item['method'] =event.target.value
-      items[id] = item
-      setLearningSuggestion(items)
+  function counter() {
+    let counterComplete = 0;
+    let counterTasks = posts.length + 1;
+    for (let i = 0; i < posts.length; i++) {
+      if (posts[i].isComplete) {
+        counterComplete += 1;
+      }
     }
-    return <Select
-    native
-    value={selectvalue}
-    onChange={handleChange}
-    inputProps={{
-      name: "age",
-      id: "age-native-simple",
-    }}
-  >
-    <option aria-label="None" value="" />
-    <option value={1}>Method1</option>
-    <option value={2}>Method2</option>
-    <option value={3}>Method3</option>
-  </Select>
+    return (
+      <Grid item xs={6} md={6}>
+        counterComplete = {counterComplete} ,counterTasks={counterTasks} The
+        percentage={(counterComplete / counterTasks) * 100}
+        <div className={classes.row2}>
+        <div className={classes.counterLabel}>All Tasks</div>
+        <div className={classes.counterLabel}>Complete Tasks</div>
+        <div className={classes.counterLabel}>On Progress</div>
+        <div className={classes.counterLabel}>Percent</div>
+        </div>
+        <div className={classes.counterRow}>
+          <div className={classes.counterBox1}>{counterTasks}</div>
+          <div className={classes.counterBox2}>{counterComplete}</div>
+          <div className={classes.counterBox3}>{counterTasks-counterComplete}</div>
+          <div className={classes.counterBox4}>
+            {(counterComplete / counterTasks) * 100} %
+          </div>
+        </div>
+      </Grid>
+    );
+  }
+  function SelectMethod(props) {
+    let id = props.id;
+    let tmp = learningSuggestion.filter((item) => {
+      return item.id == id;
+    });
+    // console.log(id)
+    // console.log(tmp)
+    let selectvalue = tmp[0].method;
+
+    const handleChange = (event) => {
+      let items = [...learningSuggestion];
+      let item = items[id];
+      item["method"] = event.target.value;
+      items[id] = item;
+      setLearningSuggestion(items);
+    };
+    return (
+      <Select
+        native
+        value={selectvalue}
+        onChange={handleChange}
+        inputProps={{
+          name: "age",
+          id: "age-native-simple",
+        }}
+      >
+        <option aria-label="None" value="" />
+        <option value={1}>Method1</option>
+        <option value={2}>Method2</option>
+        <option value={3}>Method3</option>
+      </Select>
+    );
   }
 
-
-  function SuggestionTextfiled(props){
-    let id = props.id
-    let tmp = learningSuggestion.filter(item=>{return item.id==id})
-    let textfiledvalue = tmp[0].detail
-    const handleChange= (event)=>{
-      let items = [...learningSuggestion]
-      let item = items[id]
-      item['detail'] = event.target.value
-      items[id] = item
-      setLearningSuggestion(items)
-    }
-    return <TextField
-    value={textfiledvalue}
-    onChange={handleChange}
-    label="Label"
-    style={{ margin: 8 }}
-    placeholder="Task Detail"
-    fullWidth
-    margin="normal"
-    InputLabelProps={{
-      shrink: true,
-    }}
-    variant="outlined"
-  />
+  function SuggestionTextfiled(props) {
+    let id = props.id;
+    let tmp = learningSuggestion.filter((item) => {
+      return item.id == id;
+    });
+    let textfiledvalue = tmp[0].detail;
+    const handleChange = (event) => {
+      let items = [...learningSuggestion];
+      let item = items[id];
+      item["detail"] = event.target.value;
+      items[id] = item;
+      setLearningSuggestion(items);
+    };
+    return (
+      <TextField
+        value={textfiledvalue}
+        onChange={handleChange}
+        label="Label"
+        style={{ margin: 8 }}
+        placeholder="Task Detail"
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        variant="outlined"
+      />
+    );
   }
-  // function SelectJob() {
-  //   const [jobDetail, setJobDetail] = useState();
-  //   const handleChange = (event) => {
-  //     setJobId(event.target.value);
-  //     let tmp = job.filter((item) => {
-  //       return item.jobId == event.target.value;
-  //     });
-  //     setJobDetail(tmp[0].detail);
-  //     let tmp2 = tasks.filter((item) => {
-  //       return item.jobId == event.target.value;
-  //     });
-  //     setPosts(tmp2[0].jobtask);
-  //     console.log(posts);
-  //   };
-  //   return (
-  //     <Grid container spacing={3}>
-  //       <Grid item xs={3} md={3}>
-  //         <FormControl fullWidth className={classes.formControl}>
-  //           <InputLabel fullWidth id="demo-simple-select-label">
-  //             Select Job
-  //           </InputLabel>
-  //           <Select
-  //             fullWidth
-  //             labelId="demo-simple-select-label"
-  //             id="demo-simple-select"
-  //             value={jobId}
-  //             className={classes.selectEmpty}
-  //             onChange={handleChange}
-  //           >
-  //             {job.map((item) => {
-  //               return <MenuItem value={item.jobId}>{item.jobName}</MenuItem>;
-  //             })}
-  //           </Select>
-  //         </FormControl>
-  //       </Grid>
-  //       <Grid item xs={6} md={6}>
-  //         <TextField
-  //           disabled
-  //           label="Job's Detail"
-  //           value={jobDetail}
-  //           style={{ margin: 8 }}
-  //           placeholder="Job's Detail"
-  //           fullWidth
-  //           margin="normal"
-  //           InputLabelProps={{
-  //             shrink: true,
-  //           }}
-  //           variant="outlined"
-  //         />
-  //       </Grid>
-  //     </Grid>
-  //   );
-  // }
   function IsCriticalTask(criticaltask) {
     if (criticaltask) {
       return "red";
@@ -344,18 +378,23 @@ const TaskAdminTable = (props) => {
         {/* left tab for filtering*/}
         {/* Table */}
         <Grid item xs={12} md={12}>
-          <Card marginBottom='100'>
+          <Card marginBottom="100">
             <Grid container spacing={3}>
               {/* Profile Card */}
               <Grid item xs={2} md={2}>
-                <Avatar className={classes.avatar} src={"/images/avatars/avatar_3.png"}>
+                <Avatar
+                  className={classes.avatar}
+                  src={"/images/avatars/avatar_3.png"}
+                >
                   {getInitials("Kobsak")}
                 </Avatar>
               </Grid>
               <Grid item xs={3} md={3}>
-              <div className={classes.row3}>Name : Ekaterina Tankova</div>
-              <div className={classes.row3}>Position : Chemical Engineering</div>
-              <div className={classes.row3}>Department : Department1</div>
+                <div className={classes.row3}>Name : Ekaterina Tankova</div>
+                <div className={classes.row3}>
+                  Position : Chemical Engineering
+                </div>
+                <div className={classes.row3}>Department : Department1</div>
               </Grid>
             </Grid>
           </Card>
@@ -403,25 +442,22 @@ const TaskAdminTable = (props) => {
                               />
                             </TableCell>
                             <TableCell>
-                              <Checkboxes id={item.id} value={'isComplete'}/>
+                              <Checkboxes id={item.id} value={"isComplete"} />
                             </TableCell>
                             <TableCell>
-                            <Button
-                              variant="contained"
-                              component="label"
-                            >
-                              Upload File
-                              <input
-                                type="file"
-                                style={{ display: "none" }}
-                              />
-                            </Button>
+                              <Button variant="contained" component="label">
+                                Upload File
+                                <input
+                                  type="file"
+                                  style={{ display: "none" }}
+                                />
+                              </Button>
                             </TableCell>
                             <TableCell>
-                              <SuggestionTextfiled id={item.id}/>
+                              <SuggestionTextfiled id={item.id} />
                             </TableCell>
                             <TableCell>
-                              <SelectMethod id ={item.id}/>
+                              <SelectMethod id={item.id} />
                             </TableCell>
                           </TableRow>
                         </React.Fragment>
@@ -449,6 +485,10 @@ const TaskAdminTable = (props) => {
               />
             </CardActions>
           </Card>
+          <Grid container>
+            <Grid item xs={6} md={6}></Grid>
+            {counter()}
+          </Grid>
           <Grid container>
             <Grid item xs={8} md={8}></Grid>
             <Grid item xs={4} md={4}>
@@ -489,7 +529,7 @@ const TaskAdminTable = (props) => {
               </div>
             </Grid>
           </Grid>
-        </Grid>{" "}
+        </Grid>
         {/*main grid*/}
       </Grid>
     </div>
