@@ -5,20 +5,27 @@ import {
   Card,
   CardActions,
   CardContent,
+  Avatar,
   Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  Typography,
   TablePagination,
+  Input,
+  Paper,
+  Link,
   Button,
+  Select,
+  CircularProgress,
 } from "@material-ui/core";
+
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
@@ -31,15 +38,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import Jobtask from "../jobtask";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 500,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  detail: {
+    fontSize: "16.5px",
   },
   content: {
     padding: 0,
@@ -125,16 +129,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddTaskTable = (props) => {
+const AddSuggestion = (props) => {
   const { className, tasks, jobs, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
   const [job, setJob] = useState([]);
+  const [jobId, setJobId] = useState(55555);
   useEffect(() => {
-    setPosts(tasks);
+    setPosts([]);
     setJob(jobs);
+    // console.log(jobs);
+    // console.log(tasks);
   }, []);
 
   const currentPosts = posts.slice(
@@ -158,9 +165,8 @@ const AddTaskTable = (props) => {
   const routeChange = (path) => {
     props.history.push(path);
   };
-
   function SelectJob() {
-    const [jobId, setJobId] = useState();
+
     const [jobDetail, setJobDetail] = useState();
     const handleChange = (event) => {
       setJobId(event.target.value);
@@ -168,101 +174,103 @@ const AddTaskTable = (props) => {
         return item.jobId == event.target.value;
       });
       setJobDetail(tmp[0].detail);
+      let tmp2 = tasks.filter((item)=>{
+        return item.jobId == event.target.value
+      });
+      setPosts(tmp2[0].jobtask)
+      console.log(posts)
     };
     return (
       <Grid container spacing={3}>
-      <Grid item xs={3} md={3}>
-        <FormControl fullWidth className={classes.formControl}> 
-          <InputLabel fullWidth id="demo-simple-select-label">Select Job</InputLabel>
-          <Select
-            fullWidth
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={jobId}
-            className={classes.selectEmpty}
-            onChange={handleChange}
-          >
-            {job.map((item) => {
-              return <MenuItem value={item.jobId}>{item.jobName}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
+        <Grid item xs={3} md={3}>
+          <FormControl fullWidth className={classes.formControl}>
+            <InputLabel fullWidth id="demo-simple-select-label">
+              Select Job
+            </InputLabel>
+            <Select
+              fullWidth
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={jobId}
+              className={classes.selectEmpty}
+              onChange={handleChange}
+            >
+              {job.map((item) => {
+                return <MenuItem value={item.jobId}>{item.jobName}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={6} md={6}>
-        <TextField
-          disabled
-          label="Job's Detail"
-          value={jobDetail}
-          style={{ margin: 8 }}
-          placeholder="Job's Detail"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        /></Grid></Grid>
+          <TextField
+            disabled
+            label="Job's Detail"
+            value={jobDetail}
+            style={{ margin: 8 }}
+            placeholder="Job's Detail"
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+          />
+        </Grid>
+      </Grid>
     );
   }
-  function Checkboxes(props) {
-    const id = props.id;
-    const value = props.value;
-    const [checked] = React.useState(posts[id][value]);
-    const handleChange = (event) => {
-      let items = [...posts];
-      let item = { ...items[id] };
-      item[value] = !item[value];
-      items[id] = item;
-      setPosts(items);
-    };
-
+  function IsCriticalTask(criticaltask) {
+    if (criticaltask) {
+      return "red";
+    } else return "black";
+  }  
+  function TaskCatagories(props) {
+    let ct, k, s, a; //criticaltask, knowledge,skill,attribute
+    ct = props.criticaltask;
+    k = props.knowledge;
+    s = props.skill;
+    a = props.attribute;
+    let color = "black";
+    let catagories = "";
+    if (ct) {
+      color = "red";
+    }
+    if (k) {
+      catagories += "K ";
+    }
+    if (s) {
+      catagories += "S ";
+    }
+    if (a) {
+      catagories += "A ";
+    }
     return (
-      <Checkbox
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "primary checkbox" }}
-      />
-    );
-  }
-
-  function TextFields(props) {
-    const id = props.id;
-    const [text, setText] = React.useState(posts[id].detail);
-    const handleChange = (e) => {
-      let items = [...posts];
-      let item = { ...items[id] };
-      item.detail = e.target.value;
-      items[id] = item;
-      setPosts(items);
-      setText(e.target.value);
-    };
-    return (
-      <TextField
-        value={text}
-        onChange={handleChange}
-        label="Label"
-        style={{ margin: 8 }}
-        placeholder="Task Detail"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant="outlined"
-      />
+      <div>
+        <div className={classes.detail}>
+          <font color={color}>{catagories}</font>
+        </div>
+      </div>
     );
   }
 
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={12}>
-          <div className={classes.row1}>
-            <h1>Assign task</h1>
-          </div>
+        {/* left tab for filtering*/}
+        {/* Table */}
+        <Grid item xs={11} md={12}>
+          {/*Top of the table searching and adding button */}
+          <Grid container spacing={3}>
+            <Grid item xs={6} md={6}>
+              <div className={classes.row1}>
+                <h1>Add Suggestion</h1>
+              </div>
+            </Grid>
+            <Grid item xs={4} md={4}>
+              <div className={classes.row1}></div>
+            </Grid>
           </Grid>
-            {SelectJob()}
-      <Grid item xs={12} md={12}>
+          {SelectJob()}
           <Card className={clsx(classes.root, className)}>
             <CardContent className={classes.content}>
               <PerfectScrollbar>
@@ -276,31 +284,62 @@ const AddTaskTable = (props) => {
                   >
                     <TableHead>
                       <TableRow>
-                        <TableCell width="80%" align="center">
+                        <TableCell width="40%" align="center">
                           Task Detail
                         </TableCell>
-                        <TableCell align="center">Critical Task</TableCell>
+                        <TableCell width="10%">Catagories</TableCell>
+                        <TableCell>Learning Suggestion</TableCell>
+                        <TableCell>Method</TableCell>
+                        {/* <TableCell align="center">Critical Task</TableCell>
                         <TableCell align="center">Knowledge</TableCell>
                         <TableCell align="center">Skill</TableCell>
-                        <TableCell align="center">Attribute</TableCell>
+                        <TableCell align="center">Attribute</TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {results.map((item) => (
                         <React.Fragment>
                           <TableRow>
-                            <TableCell>{<TextFields id={item.id} />}</TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="criticaltask" />}
+                            <TableCell>
+                              <div className={classes.detail}>
+                                <font color={IsCriticalTask(item.criticaltask)}>
+                                  {item.detail}
+                                </font>
+                              </div>
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="knowledge" />}
+                            <TableCell>
+                              <TaskCatagories
+                                criticaltask={item.criticaltask}
+                                knowledge={item.knowledge}
+                                skill={item.skill}
+                                attribute={item.attribute}
+                              />
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="skill" />}
+                            <TableCell>
+                              <TextField
+                                label="Learning Suggestion"
+                                style={{ margin: 8 }}
+                                placeholder="Learning Suggestion"
+                                fullWidth
+                                margin="normal"
+                                variant="outlined"
+                              />
                             </TableCell>
-                            <TableCell align="center">
-                              {<Checkboxes id={item.id} value="attribute" />}
+                            <TableCell>
+                              <Select
+                                native
+                                // value={state.age}
+                                // onChange={handleChange}
+                                inputProps={{
+                                  name: "age",
+                                  id: "age-native-simple",
+                                }}
+                              >
+                                <option aria-label="None" value="" />
+                                <option value={1}>Method1</option>
+                                <option value={2}>Method2</option>
+                                <option value={3}>Method3</option>
+                              </Select>
                             </TableCell>
                           </TableRow>
                         </React.Fragment>
@@ -375,9 +414,9 @@ const AddTaskTable = (props) => {
   );
 };
 
-AddTaskTable.propTypes = {
+AddSuggestion.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array.isRequired,
 };
 
-export default withRouter(AddTaskTable);
+export default withRouter(AddSuggestion);

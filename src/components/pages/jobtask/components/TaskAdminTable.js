@@ -21,7 +21,11 @@ import {
   Select,
   CircularProgress,
 } from "@material-ui/core";
-// import MaterialTable from 'material-table';
+import getInitials from "../modules/getInitials";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
@@ -53,7 +57,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   avatar: {
-    marginRight: theme.spacing(2),
+    margin: theme.spacing(2),
+    width: "100px",
+    height: "100px",
   },
   actions: {
     justifyContent: "flex-end",
@@ -108,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: theme.spacing(1),
   },
+  row3: {
+    height: "30px",
+    display: "flex",
+    alignItems: "center",
+    marginTop: theme.spacing(1),
+  },
   spacer: {
     flexGrow: 1,
   },
@@ -125,15 +137,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IndividualTask = (props) => {
-  const { className, tasks, ...rest } = props;
+const TaskAdminTable = (props) => {
+  const { className, tasks, jobs, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
+  const [learningSuggestion,setLearningSuggestion] = useState([]) 
+  const [job, setJob] = useState([]);
+  const [jobId, setJobId] = useState(parseInt(props.location.pathname.split('/').pop()));
+  // console.log(parseInt(props.location.pathname.split('/').pop()))
+  console.log(jobId)
   useEffect(() => {
-    setPosts(tasks[0]["jobtask"]);
-    console.log(tasks);
+    setJob([jobs]);
+    setPosts(tasks[jobId].jobtask);
+    setLearningSuggestion(tasks[jobId].learningSuggestion)
   }, []);
 
   const currentPosts = posts.slice(
@@ -157,7 +175,6 @@ const IndividualTask = (props) => {
   const routeChange = (path) => {
     props.history.push(path);
   };
-
   function Checkboxes(props) {
     const id = props.id;
     const value = props.value;
@@ -178,17 +195,130 @@ const IndividualTask = (props) => {
       />
     );
   }
+  function SelectMethod(props){
+    let id = props.id
+    let tmp = learningSuggestion.filter(item=>{return item.id==id})
+    console.log(id)
+    console.log(tmp)
+    let selectvalue = tmp[0].method
 
+    const handleChange= (event)=>{
+      let items = [...learningSuggestion]
+      let item = items[id]
+      item['method'] =event.target.value
+      items[id] = item
+      setLearningSuggestion(items)
+    }
+    return <Select
+    native
+    value={selectvalue}
+    onChange={handleChange}
+    inputProps={{
+      name: "age",
+      id: "age-native-simple",
+    }}
+  >
+    <option aria-label="None" value="" />
+    <option value={1}>Method1</option>
+    <option value={2}>Method2</option>
+    <option value={3}>Method3</option>
+  </Select>
+  }
+
+
+  function SuggestionTextfiled(props){
+    let id = props.id
+    let tmp = learningSuggestion.filter(item=>{return item.id==id})
+    let textfiledvalue = tmp[0].detail
+    const handleChange= (event)=>{
+      let items = [...learningSuggestion]
+      let item = items[id]
+      item['detail'] = event.target.value
+      items[id] = item
+      setLearningSuggestion(items)
+    }
+    return <TextField
+    value={textfiledvalue}
+    onChange={handleChange}
+    label="Label"
+    style={{ margin: 8 }}
+    placeholder="Task Detail"
+    fullWidth
+    margin="normal"
+    InputLabelProps={{
+      shrink: true,
+    }}
+    variant="outlined"
+  />
+  }
+  // function SelectJob() {
+  //   const [jobDetail, setJobDetail] = useState();
+  //   const handleChange = (event) => {
+  //     setJobId(event.target.value);
+  //     let tmp = job.filter((item) => {
+  //       return item.jobId == event.target.value;
+  //     });
+  //     setJobDetail(tmp[0].detail);
+  //     let tmp2 = tasks.filter((item) => {
+  //       return item.jobId == event.target.value;
+  //     });
+  //     setPosts(tmp2[0].jobtask);
+  //     console.log(posts);
+  //   };
+  //   return (
+  //     <Grid container spacing={3}>
+  //       <Grid item xs={3} md={3}>
+  //         <FormControl fullWidth className={classes.formControl}>
+  //           <InputLabel fullWidth id="demo-simple-select-label">
+  //             Select Job
+  //           </InputLabel>
+  //           <Select
+  //             fullWidth
+  //             labelId="demo-simple-select-label"
+  //             id="demo-simple-select"
+  //             value={jobId}
+  //             className={classes.selectEmpty}
+  //             onChange={handleChange}
+  //           >
+  //             {job.map((item) => {
+  //               return <MenuItem value={item.jobId}>{item.jobName}</MenuItem>;
+  //             })}
+  //           </Select>
+  //         </FormControl>
+  //       </Grid>
+  //       <Grid item xs={6} md={6}>
+  //         <TextField
+  //           disabled
+  //           label="Job's Detail"
+  //           value={jobDetail}
+  //           style={{ margin: 8 }}
+  //           placeholder="Job's Detail"
+  //           fullWidth
+  //           margin="normal"
+  //           InputLabelProps={{
+  //             shrink: true,
+  //           }}
+  //           variant="outlined"
+  //         />
+  //       </Grid>
+  //     </Grid>
+  //   );
+  // }
+  function IsCriticalTask(criticaltask) {
+    if (criticaltask) {
+      return "red";
+    } else return "black";
+  }
   function TaskCatagories(props) {
     let ct, k, s, a; //criticaltask, knowledge,skill,attribute
     ct = props.criticaltask;
     k = props.knowledge;
     s = props.skill;
     a = props.attribute;
-    let ctcatagory = "";
+    let color = "black";
     let catagories = "";
     if (ct) {
-      ctcatagory = "Critical Task";
+      color = "red";
     }
     if (k) {
       catagories += "K ";
@@ -202,36 +332,9 @@ const IndividualTask = (props) => {
     return (
       <div>
         <div className={classes.detail}>
-          <font color="red">{ctcatagory}</font>
+          <font color={color}>{catagories}</font>
         </div>
-        <div className={classes.detail}>{catagories}</div>
       </div>
-    );
-  }
-  function TextFields(props) {
-    const id = props.id;
-    const [text, setText] = React.useState(posts[id].detail);
-    const handleChange = (e) => {
-      let items = [...posts];
-      let item = { ...items[id] };
-      item.detail = e.target.value;
-      items[id] = item;
-      setPosts(items);
-      setText(e.target.value);
-    };
-    return (
-      <TextField
-        value={text}
-        label="Label"
-        style={{ margin: 8 }}
-        placeholder="Task Detail"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          readOnly: true,
-        }}
-        variant="outlined"
-      />
     );
   }
 
@@ -240,18 +343,22 @@ const IndividualTask = (props) => {
       <Grid container spacing={3}>
         {/* left tab for filtering*/}
         {/* Table */}
-        <Grid item xs={11} md={12}>
-          {/*Top of the table searching and adding button */}
-          <Grid container spacing={3}>
-            <Grid item xs={6} md={6}>
-              <div className={classes.row1}>
-                <h1>Job's Title: {tasks[0]["jobName"]}</h1>
-              </div>
+        <Grid item xs={12} md={12}>
+          <Card marginBottom='100'>
+            <Grid container spacing={3}>
+              {/* Profile Card */}
+              <Grid item xs={2} md={2}>
+                <Avatar className={classes.avatar} src={"/images/avatars/avatar_3.png"}>
+                  {getInitials("Kobsak")}
+                </Avatar>
+              </Grid>
+              <Grid item xs={3} md={3}>
+              <div className={classes.row3}>Name : Ekaterina Tankova</div>
+              <div className={classes.row3}>Position : Chemical Engineering</div>
+              <div className={classes.row3}>Department : Department1</div>
+              </Grid>
             </Grid>
-            <Grid item xs={4} md={4}>
-              <div className={classes.row1}></div>
-            </Grid>
-          </Grid>
+          </Card>
 
           <Card className={clsx(classes.root, className)}>
             <CardContent className={classes.content}>
@@ -270,12 +377,10 @@ const IndividualTask = (props) => {
                           Task Detail
                         </TableCell>
                         <TableCell width="10%">Catagories</TableCell>
+                        <TableCell>Complete</TableCell>
+                        <TableCell>Assesment</TableCell>
                         <TableCell>Learning Suggestion</TableCell>
                         <TableCell>Method</TableCell>
-                        {/* <TableCell align="center">Critical Task</TableCell>
-                        <TableCell align="center">Knowledge</TableCell>
-                        <TableCell align="center">Skill</TableCell>
-                        <TableCell align="center">Attribute</TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -284,7 +389,9 @@ const IndividualTask = (props) => {
                           <TableRow>
                             <TableCell>
                               <div className={classes.detail}>
-                                {item.detail}
+                                <font color={IsCriticalTask(item.criticaltask)}>
+                                  {item.detail}
+                                </font>
                               </div>
                             </TableCell>
                             <TableCell>
@@ -296,30 +403,25 @@ const IndividualTask = (props) => {
                               />
                             </TableCell>
                             <TableCell>
-                              <TextField
-                                label="Learning Suggestion"
-                                style={{ margin: 8 }}
-                                placeholder="Learning Suggestion"
-                                fullWidth
-                                margin="normal"
-                                variant="outlined"
-                              />
+                              <Checkboxes id={item.id} value={'isComplete'}/>
                             </TableCell>
                             <TableCell>
-                              <Select
-                                native
-                                // value={state.age}
-                                // onChange={handleChange}
-                                inputProps={{
-                                  name: "age",
-                                  id: "age-native-simple",
-                                }}
-                              >
-                                <option aria-label="None" value="" />
-                                <option value={10}>Method1</option>
-                                <option value={20}>Method2</option>
-                                <option value={30}>Method3</option>
-                              </Select>
+                            <Button
+                              variant="contained"
+                              component="label"
+                            >
+                              Upload File
+                              <input
+                                type="file"
+                                style={{ display: "none" }}
+                              />
+                            </Button>
+                            </TableCell>
+                            <TableCell>
+                              <SuggestionTextfiled id={item.id}/>
+                            </TableCell>
+                            <TableCell>
+                              <SelectMethod id ={item.id}/>
                             </TableCell>
                           </TableRow>
                         </React.Fragment>
@@ -394,9 +496,9 @@ const IndividualTask = (props) => {
   );
 };
 
-IndividualTask.propTypes = {
+TaskAdminTable.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array.isRequired,
 };
 
-export default withRouter(IndividualTask);
+export default withRouter(TaskAdminTable);

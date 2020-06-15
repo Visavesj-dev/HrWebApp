@@ -482,17 +482,31 @@ const JobtaskTable = (props) => {
             </Grid>
 
             {/* ---Button ____ */}
-            <Grid item xs={6} md={6}>
+            <Grid item xs={3} md={3}>
               <div className={classes.row2}>
                 <span className={classes.spacer} />
                 <Button
                   color="primary"
                   variant="contained"
                   onClick={() => {
-                    props.history.push("/addTask");
+                    props.history.push("/addtask");
                   }}
                 >
-                  Assign new Job
+                  Add task
+                </Button>
+              </div>
+            </Grid>
+            <Grid item xs={3} md={3}>
+              <div className={classes.row2}>
+                <span className={classes.spacer} />
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => {
+                    props.history.push("/addsuggestion");
+                  }}
+                >
+                  Add Suggestion
                 </Button>
               </div>
             </Grid>

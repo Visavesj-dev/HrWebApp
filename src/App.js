@@ -11,8 +11,9 @@ import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import document from "./components/pages/document/document"
 import jobtask from './components/pages/jobtask/jobtask'
-import task from './components/pages/jobtask/task'
+import task from './components/pages/jobtask/addsuggestion'
 import addtask from './components/pages/jobtask/addtask'
+import taskAdmin from './components/pages/jobtask/task_admin'
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -63,8 +64,9 @@ export default function App() {
         <Container className={classes.content} maxWidth={false}>
           <Route path="/documents" component={document}/>
           <Route path="/jobtask" component={jobtask}/>
-          <Route path="/task/" component={task}/>
+          <Route path="/addsuggestion/" component={task}/>
           <Route path="/addtask/" component={addtask}/>
+          <Route path="/task" component={taskAdmin}/>
         </Container>
       </div>
     </Router>

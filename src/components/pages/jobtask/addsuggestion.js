@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
 //import modules
-import users from "./data/usersdata";
-import tasks from "./data/tasksdata";
-import JobtaskTable from "./components/JobtaskTable";
-
+import tasks from './data/tasksdata'
+import jobdetail from './data/jobdetaildata'
+import AddSuggestionTable from "./components/AddSuggestionTable"
 //import material
 import Grid from "@material-ui/core/Grid";
 
@@ -20,18 +19,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Jobtask() {
+export default function AddSuggestion() {
   const classes = useStyles();
-  const [usersdata] = useState(users);
-  const [tasksdata] = useState(tasks);
-
+  const [taskdata] = useState(tasks)
+  const [jobdetaildata] =useState(jobdetail) 
   return (
     <div className={classes.root}>
       <Grid container>
         <Grid item xs={12} md={12}>
-          {/* <UsersToolbar /> */}
           <div className={classes.content}>
-            <JobtaskTable users={usersdata} tasks={tasksdata} />
+            <AddSuggestionTable tasks={taskdata} jobs={jobdetaildata}/>
           </div>
         </Grid>
       </Grid>
