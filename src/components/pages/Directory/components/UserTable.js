@@ -264,7 +264,6 @@ const UsersTable = (props) => {
                     }
                     label="Full Time"
                   />
-
                   <FormControlLabel
                     control={
                       <Checkbox

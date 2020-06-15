@@ -5,27 +5,21 @@ import { NavLink } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import PollIcon from '@material-ui/icons/Poll';
+import { Layers as LayersIcon } from "@material-ui/icons";
 
 //import styles
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
-import {
-  Layers as LayersIcon,
-  BarChart as BarChartIcon,
-  Person as PersonIcon,
-} from "@material-ui/icons";
+
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
-
   menuButton: {
     marginRight: 36,
   },
@@ -93,7 +87,6 @@ export default function Menu(props) {
       }}
     >
       <div className={classes.toolbar}></div>
-      
       <Divider />
       <List>
         {/* Directory */}
@@ -110,32 +103,18 @@ export default function Menu(props) {
           <ListItemText primary="Directory" />
         </ListItem>
 
-        {/* Ore Chart */}
+        {/* Quiz */}
         <ListItem
           component={NavLink}
-          to="/orechart"
+          to="/quiz"
           button
-          key="Ore Chart"
+          key="Quiz"
           activeClassName={classes.isActive}
         >
           <ListItemIcon>
-            <PersonIcon />
+            <PollIcon />
           </ListItemIcon>
-          <ListItemText primary="Ore Chart" />
-        </ListItem>
-
-        {/* Documents */}
-        <ListItem
-          component={NavLink}
-          to="/documents"
-          button
-          key="Documents"
-          activeClassName={classes.isActive}
-        >
-          <ListItemIcon>
-            <LibraryBooksIcon />
-          </ListItemIcon>
-          <ListItemText primary="Documents" />
+          <ListItemText primary="Quiz" />
         </ListItem>
       </List>
     </Drawer>

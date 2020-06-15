@@ -3,7 +3,6 @@ import React, { useState } from "react";
 //import modules
 import mockData from "./data";
 import mockData2 from "./data2";
-import UsersToolbar from "./components/UserToolBar";
 import UsersTable from "./components/UserTable";
 
 //import material

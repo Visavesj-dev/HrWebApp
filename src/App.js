@@ -12,6 +12,8 @@ import Menu from "./components/layouts/Menu";
 import Directory from "./components/pages/Directory/Directory";
 import EmployeeProfile from "./components/pages/EmployeeProfile/EmployeeProfile";
 import AddEmployee from "./components/pages/AddEmployee/AddEmployee";
+import Quiz from "./components/pages/Quiz/Quiz";
+import Create from "./components/pages/Quiz/pages/create"
 
 //import materails
 import { Container } from "@material-ui/core";
@@ -51,6 +53,10 @@ export default function App() {
   };
   //----*----//
 
+  const showSnackbar = () => {
+   
+  }
+
   return (
     <Router>
       <div className={classes.root}>
@@ -65,6 +71,8 @@ export default function App() {
           <Route path="/directory" component={Directory} />
           <Route path="/profile/:id" component={EmployeeProfile}/>
           <Route path="/addEmployee" component={AddEmployee} />
+          <Route path="/quiz" component={Quiz}/>
+          <Route path="/create"  render={() => <Create showSnackbar={showSnackbar} />} />
           </Switch>
         </Container>
       </div>
