@@ -166,7 +166,6 @@ const AddSuggestion = (props) => {
     props.history.push(path);
   };
   function SelectJob() {
-
     const [jobDetail, setJobDetail] = useState();
     const handleChange = (event) => {
       setJobId(event.target.value);

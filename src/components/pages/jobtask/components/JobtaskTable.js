@@ -35,9 +35,6 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Divider from "@material-ui/core/Divider";
 import { withRouter } from "react-router-dom";
-// import Modal from '@material-ui/core/Modal';
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
 
 //import Tools
 import PropTypes from "prop-types";
@@ -144,8 +141,9 @@ const JobtaskTable = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
+  const [task, setTask] = useState([]);
   const [searchTerm, setSearchTerm] = React.useState(""); //searching
-  //use for filter
+  //the state use for filter
   const [state, setState] = React.useState({
     FullTime: false,
     PartTime: false,
@@ -180,6 +178,7 @@ const JobtaskTable = (props) => {
   //searching
   useEffect(() => {
     setPosts(users);
+    setTask(tasks);
   }, []);
 
   const currentPosts = posts.slice(
@@ -214,9 +213,11 @@ const JobtaskTable = (props) => {
     //function clear value
     setSearchTerm("");
   };
-  const routeChange = (path) =>{ 
+
+  const routeChange = (path) => {
     props.history.push(path);
-  }
+  };
+
   // circularprogress need 2 props which is complete,all
   function CircularProgressWithLabel(props) {
     return (
@@ -246,6 +247,7 @@ const JobtaskTable = (props) => {
   function Eachrow(props) {
     const user = props.eachuser;
     const [open, setOpen] = React.useState(false);
+    const job = task[0]
     return (
       <React.Fragment>
         <TableRow>
@@ -282,10 +284,10 @@ const JobtaskTable = (props) => {
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-            <Link variant="body1" onClick={()=>routeChange("/task/1")}>{user.name}</Link>
-              {results.map(item=>{
-
-              })}
+              <Link variant="body1" onClick={() => routeChange("/task/"+job.jobId)}>
+                {job.jobName}
+              </Link>
+              {results.map((item) => {})}
             </Collapse>
           </TableCell>
         </TableRow>
@@ -524,9 +526,6 @@ const JobtaskTable = (props) => {
                         <TableCell>Department</TableCell>
                         <TableCell>Progress</TableCell>
                         <TableCell />
-                        {/* {tableColumn[catagory].map((item) => (
-                          <TableCell align="center">{item.title}</TableCell>
-                        ))} */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
