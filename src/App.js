@@ -14,6 +14,7 @@ import jobtask from './components/pages/jobtask/jobtask'
 import task from './components/pages/jobtask/addsuggestion'
 import addtask from './components/pages/jobtask/addtask'
 import taskAdmin from './components/pages/jobtask/task_admin'
+import taskView from './components/pages/jobtask/task_view'
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/addsuggestion/" component={task}/>
           <Route path="/addtask/" component={addtask}/>
           <Route path="/task" component={taskAdmin}/>
+          <Route path="/taskv" component={taskView}/>
         </Container>
       </div>
     </Router>

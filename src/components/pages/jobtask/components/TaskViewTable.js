@@ -195,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaskAdminTable = (props) => {
+const TaskViewTable = (props) => {
   const { className, tasks, jobs, ...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(5); //posts per page
@@ -252,6 +252,7 @@ const TaskAdminTable = (props) => {
 
     return (
       <Checkbox
+        disabled
         checked={checked}
         onChange={handleChange}
         inputProps={{ "aria-label": "primary checkbox" }}
@@ -300,6 +301,7 @@ const TaskAdminTable = (props) => {
     return (
       <Select
         native
+        disabled
         value={selectvalue}
         onChange={handleChange}
         inputProps={{
@@ -330,6 +332,7 @@ const TaskAdminTable = (props) => {
     };
     return (
       <TextField
+        disabled
         value={textfiledvalue}
         onChange={handleChange}
         label="Label"
@@ -349,7 +352,6 @@ const TaskAdminTable = (props) => {
       return "red";
     } else return "black";
   }
-  
   function TaskCatagories(props) {
     let ct, k, s, a; //criticaltask, knowledge,skill,attribute
     ct = props.criticaltask;
@@ -449,7 +451,7 @@ const TaskAdminTable = (props) => {
                             </TableCell>
                             <TableCell>
                               <Button variant="contained" component="label">
-                                Upload File
+                                Download File
                                 <input
                                   type="file"
                                   style={{ display: "none" }}
@@ -496,6 +498,7 @@ const TaskAdminTable = (props) => {
                 id="Comment"
                 label="Comment"
                 rows={4}
+                disabled
                 multiline
                 fullWidth
                 height="250px"
@@ -505,33 +508,12 @@ const TaskAdminTable = (props) => {
             </Grid>
           </Grid>
           <Grid container>
+            {/* <Grid item xs={6} md={6}></Grid> */}
             {counter()}
-            <Grid item xs={2} md={2}></Grid>
-            <Grid item xs={4} md={4}>
-              <div className={classes.row1}></div>
+            <Grid item xs={4} md={4}></Grid>
+            <Grid item xs={2} md={2}>
+              <div className={classes.row2}></div>
               <div className={classes.row1}>
-                <Grid container spacing={1}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      props.history.push("/jobtask");
-                    }}
-                  >
-                    Save Draft
-                  </Button>
-                </Grid>
-                <Grid container spacing={1}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      props.history.push("/jobtask");
-                    }}
-                  >
-                    Save
-                  </Button>
-                </Grid>
                 <Grid container spacing={1}>
                   <Button
                     color="secondary"
@@ -553,9 +535,9 @@ const TaskAdminTable = (props) => {
   );
 };
 
-TaskAdminTable.propTypes = {
+TaskViewTable.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array.isRequired,
 };
 
-export default withRouter(TaskAdminTable);
+export default withRouter(TaskViewTable);

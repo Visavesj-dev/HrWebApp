@@ -247,7 +247,7 @@ const JobtaskTable = (props) => {
   function Eachrow(props) {
     const user = props.eachuser;
     const [open, setOpen] = React.useState(false);
-    const job = task[0]
+    const job = task[0];
     return (
       <React.Fragment>
         <TableRow>
@@ -268,7 +268,10 @@ const JobtaskTable = (props) => {
             {user.department},{user.province}
           </TableCell>
           <TableCell>
-            <CircularProgressWithLabel value={50} complete={4} all={5} />
+            {user.type}
+          </TableCell>
+          <TableCell>
+            {user.status}
           </TableCell>
 
           <TableCell>
@@ -284,9 +287,41 @@ const JobtaskTable = (props) => {
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Link variant="body1" onClick={() => routeChange("/task/"+job.jobId)}>
-                {job.jobName}
-              </Link>
+              <Table>
+                <TableRow>
+                <TableCell>Job Title</TableCell>
+                <TableCell>Progress </TableCell>
+                <TableCell></TableCell>
+                </TableRow>
+                <TableRow onClick={() => routeChange("/task/" + job.jobId)}>
+                <TableCell>
+                  <Link
+                    variant="body1"
+                    onClick={() => routeChange("/task/" + job.jobId)}
+                  >
+                    {job.jobName}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <CircularProgressWithLabel complete={1} all={8} />
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              <TableRow onClick={() => routeChange("/taskv/" + job.jobId)}>
+                <TableCell>
+                  <Link
+                    variant="body1"
+                    onClick={() => routeChange("/taskv/" + job.jobId)}
+                  >
+                    {job.jobName}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <CircularProgressWithLabel complete={1} all={8} />
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              </Table>
               {results.map((item) => {})}
             </Collapse>
           </TableCell>
@@ -524,7 +559,8 @@ const JobtaskTable = (props) => {
                       <TableRow>
                         <TableCell>Name</TableCell>
                         <TableCell>Department</TableCell>
-                        <TableCell>Progress</TableCell>
+                        <TableCell>Type</TableCell>
+                        <TableCell>Status</TableCell>
                         <TableCell />
                       </TableRow>
                     </TableHead>
