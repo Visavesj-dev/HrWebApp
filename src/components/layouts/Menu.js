@@ -134,6 +134,7 @@ export default function Menu(props) {
           </ListItemIcon>
           <ListItemText primary="Documents" />
         </ListItem>
+
         <ListItem
           component={NavLink}
           to="/certificate"
@@ -145,6 +146,19 @@ export default function Menu(props) {
             {certificateIcon}
           </ListItemIcon>
           <ListItemText primary="Certificate" />
+        </ListItem>
+        
+        <ListItem
+          component={NavLink}
+          to="/viewCertificate"
+          button
+          key="viewCertificate"
+          activeClassName={classes.isActive}
+        >
+          <ListItemIcon>
+            {certificateIcon}
+          </ListItemIcon>
+          <ListItemText primary="viewCertificate" />
         </ListItem>
       </List>
     </Drawer>
