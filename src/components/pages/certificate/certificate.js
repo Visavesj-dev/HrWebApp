@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 //import materials
-import { Grid } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import DateFnsUtils from "@date-io/date-fns";
@@ -11,6 +11,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import { DropzoneArea } from "material-ui-dropzone";
+import { AttachFile,Description, PictureAsPdf, Theaters } from '@material-ui/icons';
 import {
   DatePicker,
   TimePicker,
@@ -66,10 +68,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const handlePreviewIcon = (fileObject, classes) => {
+  const {type} = fileObject.file
+  const iconProps = {
+    className : classes.image,
+  }
+
+  if (type.startsWith("video/")) return <Theaters {...iconProps} />
+  // if (type.startsWith("audio/")) return <AudioTrack {...iconProps} />
+
+  switch (type) {
+    case "application/msword":
+    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      return <Description {...iconProps} />
+    case "application/pdf":
+      return <PictureAsPdf {...iconProps} />
+    default:
+      return <AttachFile {...iconProps} />
+  }
+}
+
+
 function Certificate(props) {
   const classes = useStyles();
   const [startDate, setStartDate] = useState();
   const [expireDate, setExpireDate] = useState(new Date());
+  const [file, setFile] = useState([]);
+
   const calendaIcon = (
     <svg
       id="Capa_1"
@@ -410,45 +435,67 @@ function Certificate(props) {
           </div>
         </Grid>
         <Grid item md={10} xs={10}>
-        <div className={classes.textFieldPadding}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Impact</FormLabel>
-            <FormGroup aria-label="position" row>
-            <FormControlLabel
-                value="law"
-                control={<Checkbox color="primary" />}
-                label="Law"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                value="policy"
-                control={<Checkbox color="primary" />}
-                label="Company Policy"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                value="competency"
-                control={<Checkbox color="primary" />}
-                label="competency"
-                labelPlacement="bottom"
-              />
-            </FormGroup>
-          </FormControl>
+          <div className={classes.textFieldPadding}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Impact</FormLabel>
+              <FormGroup aria-label="position" row>
+                <FormControlLabel
+                  value="law"
+                  control={<Checkbox color="primary" />}
+                  label="Law"
+                  labelPlacement="bottom"
+                />
+                <FormControlLabel
+                  value="policy"
+                  control={<Checkbox color="primary" />}
+                  label="Company Policy"
+                  labelPlacement="bottom"
+                />
+                <FormControlLabel
+                  value="competency"
+                  control={<Checkbox color="primary" />}
+                  label="competency"
+                  labelPlacement="bottom"
+                />
+              </FormGroup>
+            </FormControl>
           </div>
         </Grid>
+        <Grid item md={10} xs={10} height='100px'>
+          <DropzoneArea getPreviewIcon={handlePreviewIcon} onChange={(files) => console.log("Files:", files)} />
+        </Grid>
+        <Grid item md={10} xs={10}>
+            <form noValidate autoComplete="off">
+              <div className={classes.textFieldPadding}>
+                <TextField
+                  fullWidth
+                  required
+                  id="Email"
+                  label="Email to"
+                  // defaultValue="Certificate name"
+                />
+              </div>
+          </form>
+        </Grid>
+
+        {/* footer button         */}
         <Grid item md={8} xs={8}></Grid>
         <Grid item md={3} xs={3}>
           <Button
-            variant="contained"
             color="primary"
-            className={classes.margin}
+            variant="contained"
+            onClick={() => {
+              props.history.push("/directory");
+            }}
           >
             SAVE
           </Button>
           <Button
-            variant="contained"
             color="secondary"
-            className={classes.margin}
+            variant="contained"
+            onClick={() => {
+              props.history.push("/directory");
+            }}
           >
             BACK
           </Button>
