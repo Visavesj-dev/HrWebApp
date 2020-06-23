@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 //import modules
 import mockData from "./data";
-import UsersToolbar from "./components/UserToolBar";
 import UsersTable from "./components/UserTable";
 
 //import material
