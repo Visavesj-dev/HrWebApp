@@ -3,7 +3,7 @@ import React, { useState, useEffect, useReducer } from "react";
 
 //import modules
 import getInitials from "../modules/getInitials";
-import Modal from "./Modal.tsx";
+
 
 //import material
 import {
@@ -43,12 +43,14 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import moment from "moment";
 
 //Icon
+import DescriptionIcon from '@material-ui/icons/Description';
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import IconButton from "@material-ui/core/IconButton";
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { fieldToInputBase } from "formik-material-ui";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -137,25 +139,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const JobtaskTable = (props) => {
-  const { className, users, tasks, ...rest } = props;
+  const { className, users,...rest } = props;
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = useState(10); //posts per page
   const [page, setPage] = useState(0); // current page
   const [posts, setPosts] = useState([]); //เก็บข้อมูล array
-  const [task, setTask] = useState([]);
   const [searchTerm, setSearchTerm] = React.useState(""); //searching
   //the state use for filter
   const [state, setState] = React.useState({
-    FullTime: false,
-    PartTime: false,
-    Active: false,
-    Onboarding: false,
-    Terminated: false,
-    Rayong: false,
-    Bangkok: false,
-    Department1: false,
-    Department2: false,
-    Department3: false,
+    Avaliable:false,
+    LastYear:false,
+    Expired:false,
+    Law:false,
+    Policy:false,
+    Competency:false,
   });
   // const [open, setOpen] = React.useState(false);
 
@@ -164,22 +161,17 @@ const JobtaskTable = (props) => {
   };
 
   const {
-    FullTime,
-    PartTime,
-    Active,
-    Onboarding,
-    Terminated,
-    Rayong,
-    Bangkok,
-    Department1,
-    Department2,
-    Department3,
+    Avaliable,
+    LastYear,
+    Expired,
+    Law,
+    Policy,
+    Competency,
   } = state;
 
   //searching
   useEffect(() => {
     setPosts(users);
-    setTask(tasks);
   }, []);
 
   const currentPosts = posts.slice(
@@ -219,112 +211,47 @@ const JobtaskTable = (props) => {
     props.history.push(path);
   };
 
-  // circularprogress need 2 props which is complete,all
-  function CircularProgressWithLabel(props) {
-    return (
-      <Box position="relative" display="inline-flex">
-        <CircularProgress
-          variant="static"
-          value={(props.complete / props.all) * 100}
-        />
-        <Box
-          top={0}
-          left={0}
-          bottom={0}
-          right={0}
-          position="absolute"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography variant="caption" component="div" color="textSecondary">
-            {props.complete}/{props.all}
-          </Typography>
-        </Box>
-      </Box>
-    );
-  }
-
   function Eachrow(props) {
-    const user = props.eachuser;
+    const cer = props.eachuser;
+    let expireDate = Date()
+    expireDate = Date.parse(cer.expireDate)
+    var today = new Date();
+    let isExpire = 'Expire'
+    if(expireDate>today){isExpire = (expireDate-today)/ (1000 * 60 * 60 * 24)}
+    if(isExpire!='Expire'){isExpire = Math.round(isExpire)}
+    let imp =''
+    if(cer.impactLaw){imp=imp+'Law '}
+    if(cer.impactPolicy){imp=imp+'Policy '}
+    if(cer.impactCompetency){imp=imp+'Competency '}
     const [open, setOpen] = React.useState(false);
-    const job = task[0];
     return (
       <React.Fragment>
         <TableRow>
           <TableCell
             onClick={() => {
-              routeChange("/profile/" + user.id);
+              routeChange("/profile/");
             }}
           >
-            <div className={classes.nameContainer}>
-              <Avatar className={classes.avatar} src={user.avatarUrl}>
-                {getInitials(user.name)}
-              </Avatar>
-              <Link variant="body1">{user.name}</Link>
-            </div>
+            {cer.certificateName}
           </TableCell>
 
-          <TableCell>
-            {user.department},{user.province}
+          <TableCell align='center'>
+            {cer.issueBy}
           </TableCell>
-          <TableCell>
-            {user.type}
+          <TableCell align='center'>
+            {cer.issueDate}
           </TableCell>
-          <TableCell>
-            {user.status}
+          <TableCell align='center'>
+            {cer.expireDate} 
           </TableCell>
-
-          <TableCell>
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
+          <TableCell align='center'>
+          {isExpire}
           </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <Table>
-                <TableRow>
-                <TableCell>Job Title</TableCell>
-                <TableCell>Progress </TableCell>
-                <TableCell></TableCell>
-                </TableRow>
-                <TableRow onClick={() => routeChange("/task/" + job.jobId)}>
-                <TableCell>
-                  <Link
-                    variant="body1"
-                    onClick={() => routeChange("/task/" + job.jobId)}
-                  >
-                    {job.jobName}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <CircularProgressWithLabel complete={1} all={8} />
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-              <TableRow onClick={() => routeChange("/taskv/" + job.jobId)}>
-                <TableCell>
-                  <Link
-                    variant="body1"
-                    onClick={() => routeChange("/taskv/" + job.jobId)}
-                  >
-                    {job.jobName}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <CircularProgressWithLabel complete={1} all={8} />
-                </TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-              </Table>
-              {results.map((item) => {})}
-            </Collapse>
+          <TableCell align='center'>
+            {imp}
+          </TableCell>
+          <TableCell align='center'>
+            <DescriptionIcon/>
           </TableCell>
         </TableRow>
       </React.Fragment>
@@ -348,35 +275,6 @@ const JobtaskTable = (props) => {
               <Divider />
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
-                  Type
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={FullTime}
-                        onChange={handleChange}
-                        name="FullTime"
-                      />
-                    }
-                    label="Full Time"
-                  />
-
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={PartTime}
-                        onChange={handleChange}
-                        name="PartTime"
-                      />
-                    }
-                    label="Part Time"
-                  />
-                </FormGroup>
-              </FormControl>
-              <Divider />
-              <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend" className={classes.headerText}>
                   Status
                 </FormLabel>
                 <FormGroup>
@@ -384,99 +282,71 @@ const JobtaskTable = (props) => {
                     control={
                       <Checkbox
                         color="primary"
-                        checked={Active}
+                        checked={Avaliable}
                         onChange={handleChange}
-                        name="Active"
+                        name="Avaliable"
                       />
                     }
-                    label="Active"
+                    label="Avaliable"
                   />
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={Onboarding}
+                        checked={LastYear}
                         onChange={handleChange}
-                        name="Onboarding"
+                        name="LastYear"
                       />
                     }
-                    label="Onboarding"
+                    label="Last Year Active"
                   />
                   <FormControlLabel
                     control={
                       <Checkbox
                         color="primary"
-                        checked={Terminated}
+                        checked={Expired}
                         onChange={handleChange}
-                        name="Terminated"
+                        name="Expired"
                       />
                     }
-                    label="Terminated"
+                    label="Expired"
                   />
                 </FormGroup>
               </FormControl>
               <Divider />
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend" className={classes.headerText}>
-                  Filter By location
+                  Filter By Impact
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={Bangkok}
+                        checked={Law}
                         onChange={handleChange}
-                        name="Bangkok"
+                        name="Law"
                       />
                     }
-                    label="Bangkok"
+                    label="Law"
                   />
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={Rayong}
+                        checked={Policy}
                         onChange={handleChange}
-                        name="Rayong"
+                        name="Policy"
                       />
                     }
-                    label="Rayong"
-                  />
-                </FormGroup>
-              </FormControl>
-              <Divider />
-              <FormControl component="fieldset" className={classes.formControl}>
-                <FormLabel component="legend" className={classes.headerText}>
-                  Filter By Department
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={Department1}
-                        onChange={handleChange}
-                        name="Department1"
-                      />
-                    }
-                    label="Department1"
+                    label="Company Policy"
                   />
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={Department2}
+                        checked={Competency}
                         onChange={handleChange}
-                        name="Department2"
+                        name="Competency"
                       />
                     }
-                    label="Department2"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={Department3}
-                        onChange={handleChange}
-                        name="Department3"
-                      />
-                    }
-                    label="Department3"
+                    label="Competency"
                   />
                 </FormGroup>
               </FormControl>
@@ -500,8 +370,11 @@ const JobtaskTable = (props) => {
           {/*Top of the table searching and adding button */}
           <Grid container spacing={3}>
             <Grid item xs={6} md={6}>
-              <div className={classes.row1}>
-                <h1>Job Task</h1>
+              <div className={classes.row2}>
+                <h1>User Certificate  </h1>
+              </div>
+              <div className={classes.row2}>
+              <h3> you got {users.length} certificate(s).</h3>
               </div>
               {/* Searching */}
               <div className={classes.row1}>
@@ -520,34 +393,10 @@ const JobtaskTable = (props) => {
             </Grid>
 
             {/* ---Button ____ */}
-            <Grid item xs={3} md={3}>
-              <div className={classes.row2}>
-                <span className={classes.spacer} />
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    props.history.push("/addtask");
-                  }}
-                >
-                  Add task
-                </Button>
-              </div>
+            {/* <Grid item xs={3} md={3}>
             </Grid>
             <Grid item xs={3} md={3}>
-              <div className={classes.row2}>
-                <span className={classes.spacer} />
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    props.history.push("/addsuggestion");
-                  }}
-                >
-                  Add Suggestion
-                </Button>
-              </div>
-            </Grid>
+            </Grid> */}
             {/* ------------- */}
           </Grid>
 
@@ -558,84 +407,109 @@ const JobtaskTable = (props) => {
                   <Table style={{ overflowX: "scroll" }}>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Department</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell />
+                        <TableCell>Certificate</TableCell>
+                        <TableCell align='center'>Issue By</TableCell>
+                        <TableCell align='center'>Issue Date</TableCell>
+                        <TableCell align='center'>Expire Date</TableCell>
+                        <TableCell align='center'>อายุ(วัน)</TableCell>
+                        <TableCell align='center'>Impact</TableCell>
+                        <TableCell align='center'>Attach File</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {results
-                        .filter((item) => {
-                          let conditionsCount = 0;
-                          let TypeConditions = [],
-                            StatusConditions = [],
-                            ProvinceConditions = [],
-                            DepartmentConditions = [];
-                          if (FullTime) {
-                            TypeConditions.push("Full Time");
+                      {results.filter((item) => {
+                          let IsReturnImpact = false
+                          let IsReturnStatus = false
+                          if(Law&&item.impactLaw){IsReturnImpact=true}
+                          if(Policy&&item.impactPolicy){IsReturnImpact=true}
+                          if(Competency&item.impactCompetency){IsReturnImpact=true}
+                          if(!Law&&!Policy&&!Competency){IsReturnImpact=true}
+                          
+                          if(Avaliable){
+                            let expireDate = Date.parse(item.expireDate)
+                            var today = new Date();
+                            if(expireDate>today){IsReturnStatus=true}
                           }
-                          if (PartTime) {
-                            TypeConditions.push("Part Time");
+                          if(LastYear){
+                            let expireDate = Date.parse(item.expireDate)
+                            var today = new Date();
+                            if((expireDate-today)/ (1000 * 60 * 60 * 24)<365&&(expireDate-today)/ (1000 * 60 * 60 * 24)>0){IsReturnStatus=true}
                           }
-                          if (Active) {
-                            StatusConditions.push("Active");
+                          if(Expired){
+                            let expireDate = Date.parse(item.expireDate)
+                            var today = new Date();
+                            if(expireDate<today){IsReturnStatus=true}
                           }
-                          if (Onboarding) {
-                            StatusConditions.push("Onboarding");
+                          if(!Avaliable&&!LastYear&&!Expired){IsReturnStatus=true}
+                          if(IsReturnImpact&&IsReturnStatus){
+                            return item
                           }
-                          if (Terminated) {
-                            StatusConditions.push("Terminated");
-                          }
-                          if (Rayong) {
-                            ProvinceConditions.push("Rayong");
-                          }
-                          if (Bangkok) {
-                            ProvinceConditions.push("Bangkok");
-                          }
-                          if (Department1) {
-                            DepartmentConditions.push("Department1");
-                          }
-                          if (Department2) {
-                            DepartmentConditions.push("Department2");
-                          }
-                          if (Department3) {
-                            DepartmentConditions.push("Department3");
-                          }
-                          if (
-                            TypeConditions.length +
-                              StatusConditions.length +
-                              ProvinceConditions.length +
-                              DepartmentConditions.length ==
-                            0
-                          ) {
-                            return item;
-                          }
-                          if (TypeConditions.length == 0) {
-                            TypeConditions.push("Full Time");
-                            TypeConditions.push("Part Time");
-                          }
-                          if (StatusConditions.length == 0) {
-                            StatusConditions.push("Active");
-                            StatusConditions.push("Onboarding");
-                            StatusConditions.push("Terminated");
-                          }
-                          if (ProvinceConditions.length == 0) {
-                            ProvinceConditions.push("Rayong");
-                            ProvinceConditions.push("Bangkok");
-                          }
-                          if (DepartmentConditions.length == 0) {
-                            DepartmentConditions.push("Department1");
-                            DepartmentConditions.push("Department2");
-                            DepartmentConditions.push("Department3");
-                          }
-                          return (
-                            TypeConditions.includes(item.type) &&
-                            StatusConditions.includes(item.status) &&
-                            ProvinceConditions.includes(item.province) &&
-                            DepartmentConditions.includes(item.department)
-                          );
+                          //   StatusConditions = [],
+                          //   ProvinceConditions = [],
+                          //   DepartmentConditions = [];
+                          // if (FullTime) {
+                          //   TypeConditions.push("Full Time");
+                          // }
+                          // if (PartTime) {
+                          //   TypeConditions.push("Part Time");
+                          // }
+                          // if (Active) {
+                          //   StatusConditions.push("Active");
+                          // }
+                          // if (Onboarding) {
+                          //   StatusConditions.push("Onboarding");
+                          // }
+                          // if (Terminated) {
+                          //   StatusConditions.push("Terminated");
+                          // }
+                          // if (Rayong) {
+                          //   ProvinceConditions.push("Rayong");
+                          // }
+                          // if (Bangkok) {
+                          //   ProvinceConditions.push("Bangkok");
+                          // }
+                          // if (Department1) {
+                          //   DepartmentConditions.push("Department1");
+                          // }
+                          // if (Department2) {
+                          //   DepartmentConditions.push("Department2");
+                          // }
+                          // if (Department3) {
+                          //   DepartmentConditions.push("Department3");
+                          // }
+                          // if (
+                          //   TypeConditions.length +
+                          //     StatusConditions.length +
+                          //     ProvinceConditions.length +
+                          //     DepartmentConditions.length ==
+                          //   0
+                          // ) {
+                          //   return item;
+                          // }
+                          // if (TypeConditions.length == 0) {
+                          //   TypeConditions.push("Full Time");
+                          //   TypeConditions.push("Part Time");
+                          // }
+                          // if (StatusConditions.length == 0) {
+                          //   StatusConditions.push("Active");
+                          //   StatusConditions.push("Onboarding");
+                          //   StatusConditions.push("Terminated");
+                          // }
+                          // if (ProvinceConditions.length == 0) {
+                          //   ProvinceConditions.push("Rayong");
+                          //   ProvinceConditions.push("Bangkok");
+                          // }
+                          // if (DepartmentConditions.length == 0) {
+                          //   DepartmentConditions.push("Department1");
+                          //   DepartmentConditions.push("Department2");
+                          //   DepartmentConditions.push("Department3");
+                          // }
+                          // return (
+                          //   TypeConditions.includes(item.type) &&
+                          //   StatusConditions.includes(item.status) &&
+                          //   ProvinceConditions.includes(item.province) &&
+                          //   DepartmentConditions.includes(item.department)
+                          // );
                         })
                         .map((user) => (
                           <React.Fragment>
