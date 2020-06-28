@@ -24,8 +24,10 @@ import {
   Link,
   Button,
   CircularProgress,
+  Modal,
 } from "@material-ui/core";
 // import MaterialTable from 'material-table';
+import { Document, Page } from 'react-pdf';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
@@ -36,7 +38,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Divider from "@material-ui/core/Divider";
 import { withRouter } from "react-router-dom";
-
+import PDFViewer from 'pdf-viewer-reactjs'
 //import Tools
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -216,9 +218,9 @@ const JobtaskTable = (props) => {
     let expireDate = Date()
     expireDate = Date.parse(cer.expireDate)
     var today = new Date();
-    let isExpire = 'Expire'
+    let isExpire = 'Expired'
     if(expireDate>today){isExpire = (expireDate-today)/ (1000 * 60 * 60 * 24)}
-    if(isExpire!='Expire'){isExpire = Math.round(isExpire)}
+    if(isExpire!='Expired'){isExpire = Math.round(isExpire)}
     let imp =''
     if(cer.impactLaw){imp=imp+'Law '}
     if(cer.impactPolicy){imp=imp+'Policy '}
@@ -250,16 +252,41 @@ const JobtaskTable = (props) => {
           <TableCell align='center'>
             {imp}
           </TableCell>
-          <TableCell align='center'>
+          <TableCell align='center' onClick={() => handleOpen()}>
             <DescriptionIcon/>
           </TableCell>
         </TableRow>
       </React.Fragment>
     );
   }
+  const [modalOpen,setModalOpen] =useState(false)
+  const handleOpen=()=>{
+    setModalOpen(true)
+  }
+  const handleClose=()=>{
+    setModalOpen(false)
+  }
+  function ModalContent(){
+    // let link = {{url:"http://www.africau.edu/images/default/sample.pdf"}}
+    return   <PDFViewer
+    document={{
+        url: 'https://arxiv.org/pdf/quant-ph/0410100.pdf',
+    }}
+/>
+  }
 
   return (
     <div>
+      <Modal
+          open={modalOpen}
+          align='center'
+          width={'80%'}
+          onClose={handleClose}
+          // setAppElement={'#root'}
+          maxMediaWidth={1024}
+        >
+          {ModalContent()}
+        </Modal>
       <Grid container spacing={3}>
         {/* left tab for filtering*/}
         <Grid item xs={3} md={2}>
@@ -444,72 +471,6 @@ const JobtaskTable = (props) => {
                           if(IsReturnImpact&&IsReturnStatus){
                             return item
                           }
-                          //   StatusConditions = [],
-                          //   ProvinceConditions = [],
-                          //   DepartmentConditions = [];
-                          // if (FullTime) {
-                          //   TypeConditions.push("Full Time");
-                          // }
-                          // if (PartTime) {
-                          //   TypeConditions.push("Part Time");
-                          // }
-                          // if (Active) {
-                          //   StatusConditions.push("Active");
-                          // }
-                          // if (Onboarding) {
-                          //   StatusConditions.push("Onboarding");
-                          // }
-                          // if (Terminated) {
-                          //   StatusConditions.push("Terminated");
-                          // }
-                          // if (Rayong) {
-                          //   ProvinceConditions.push("Rayong");
-                          // }
-                          // if (Bangkok) {
-                          //   ProvinceConditions.push("Bangkok");
-                          // }
-                          // if (Department1) {
-                          //   DepartmentConditions.push("Department1");
-                          // }
-                          // if (Department2) {
-                          //   DepartmentConditions.push("Department2");
-                          // }
-                          // if (Department3) {
-                          //   DepartmentConditions.push("Department3");
-                          // }
-                          // if (
-                          //   TypeConditions.length +
-                          //     StatusConditions.length +
-                          //     ProvinceConditions.length +
-                          //     DepartmentConditions.length ==
-                          //   0
-                          // ) {
-                          //   return item;
-                          // }
-                          // if (TypeConditions.length == 0) {
-                          //   TypeConditions.push("Full Time");
-                          //   TypeConditions.push("Part Time");
-                          // }
-                          // if (StatusConditions.length == 0) {
-                          //   StatusConditions.push("Active");
-                          //   StatusConditions.push("Onboarding");
-                          //   StatusConditions.push("Terminated");
-                          // }
-                          // if (ProvinceConditions.length == 0) {
-                          //   ProvinceConditions.push("Rayong");
-                          //   ProvinceConditions.push("Bangkok");
-                          // }
-                          // if (DepartmentConditions.length == 0) {
-                          //   DepartmentConditions.push("Department1");
-                          //   DepartmentConditions.push("Department2");
-                          //   DepartmentConditions.push("Department3");
-                          // }
-                          // return (
-                          //   TypeConditions.includes(item.type) &&
-                          //   StatusConditions.includes(item.status) &&
-                          //   ProvinceConditions.includes(item.province) &&
-                          //   DepartmentConditions.includes(item.department)
-                          // );
                         })
                         .map((user) => (
                           <React.Fragment>
