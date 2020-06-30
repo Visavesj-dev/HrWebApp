@@ -12,7 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 //import styles
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-const drawerWidth = 240;
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   appBar: {
-    backgroundColor: "#ED2324",
+    backgroundColor: "rgb(255, 87, 69)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
+
+  const { data } = props.history.location.pathname
   const classes = useStyles();
 
   return (
@@ -66,7 +68,9 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}></Typography>
+          <Typography variant="h6" className={classes.title}>
+                Human Capital Management |  
+          </Typography>
           <Button variant="contained" >
             Login
           </Button>
