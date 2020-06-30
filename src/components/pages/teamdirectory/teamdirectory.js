@@ -4,7 +4,6 @@ import React, { useState, useCallback } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import DateFnsUtils from "@date-io/date-fns";
 import TextField from "@material-ui/core/TextField";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,12 +15,6 @@ import {
   PictureAsPdf,
   Theaters,
 } from "@material-ui/icons";
-import {
-  DatePicker,
-  TimePicker,
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
 //import style
 import { makeStyles } from "@material-ui/core/styles";
 import { ExpandLess } from "@material-ui/icons";
@@ -118,11 +111,13 @@ function TeamDirectory(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
+      <Grid item md={12} xs={12}>
+        <h1>Team directory</h1>
+        </Grid>
         <Grid item md={2} xs={2}> 
         
         </Grid>
         <Grid item md={10} xs={10}>
-          <h1>Team directory</h1>
         <Grid item md={10} xs={10}>
           <div className={classes.label}>
             <h3>Team Vision</h3>
@@ -164,14 +159,14 @@ function TeamDirectory(props) {
               <h3>Team Culture Fit</h3>
             </div>
           </Grid>
-
-            <Grid item md={0.5} xs={0.5}>
+{/* 
+            <Grid item md={1} xs={1}>
             <div className={classes.row1}>1</div>
             <div className={classes.row1}>2</div>
             <div className={classes.row1}>3</div>
             <div className={classes.row1}>4</div>
             <div className={classes.row1}>5</div>
-            </Grid>
+            </Grid> */}
             <Grid item md={9} xs={9}>
               <form noValidate autoComplete="off">
                 <div className={classes.textFieldPadding}>
