@@ -183,7 +183,8 @@ export default function Menu(props) {
             {taskIcon()}
           </ListItemIcon>
           <ListItemText primary="Job Tasks" />
-
+          </ListItem>
+          
         <ListItem
           component={NavLink}
           to="/certificate"
@@ -210,6 +211,7 @@ export default function Menu(props) {
           <ListItemText primary="viewCertificate" />
         </ListItem>
       </List>
+
     </Drawer>
   );
 }

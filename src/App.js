@@ -11,7 +11,7 @@ import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import TeamDirectory from "./components/pages/teamdirectory/teamdirectory"
 import ViewTeamDirectory from "./components/pages/viewTeamDirectory/viewTeamDirectory"
-import document from "./components/pages/document/document"
+import document from "./components/pages/documents/document"
 import jobtask from './components/pages/jobtask/jobtask'
 import task from './components/pages/jobtask/addsuggestion'
 import addtask from './components/pages/jobtask/addtask'
