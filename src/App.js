@@ -9,6 +9,8 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
+import TeamDirectory from "./components/pages/teamdirectory/teamdirectory"
+import ViewTeamDirectory from "./components/pages/viewTeamDirectory/viewTeamDirectory"
 import document from "./components/pages/document/document"
 import jobtask from './components/pages/jobtask/jobtask'
 import task from './components/pages/jobtask/addsuggestion'
@@ -73,7 +75,9 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-    <Switch>      
+          <Switch>
+          <Route path="/teamdirectory" component={TeamDirectory} />
+          <Route path='/viewteamdirectory' component={ViewTeamDirectory}/>
       <Route path="/documents" component={document}/>
           <Route path="/jobtask" component={jobtask}/>
           <Route path="/addsuggestion/" component={task}/>
