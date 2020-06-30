@@ -12,6 +12,10 @@ import Menu from "./components/layouts/Menu";
 import organization_chart from "./components/pages/organization_chart/organization_chart";
 import Certificate from './components/pages/certificate/certificate'
 import ViewCertificate from './components/pages/viewCertificate/viewCertificate'
+import Directory from "./components/pages/Directory/Directory";
+import EmployeeProfile from "./components/pages/EmployeeProfile/EmployeeProfile";
+import AddEmployee from "./components/pages/AddEmployee/AddEmployee";
+
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -43,7 +47,7 @@ export default function App() {
   const classes = useStyles();
 
   // Drawer movement
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -67,6 +71,9 @@ export default function App() {
             <Route path="/organization_chart" component={organization_chart} />
             <Route path="/certificate" component={Certificate} />
             <Route path="/viewCertificate" component={ViewCertificate} />
+          <Route path="/directory" component={Directory} />
+          <Route path="/profile/:id" component={EmployeeProfile}/>
+          <Route path="/addEmployee" component={AddEmployee} />
           </Switch>
         </Container>
       </div>
