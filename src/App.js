@@ -9,6 +9,12 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
+import document from "./components/pages/document/document"
+import jobtask from './components/pages/jobtask/jobtask'
+import task from './components/pages/jobtask/addsuggestion'
+import addtask from './components/pages/jobtask/addtask'
+import taskAdmin from './components/pages/jobtask/task_admin'
+import taskView from './components/pages/jobtask/task_view'
 import organization_chart from "./components/pages/organization_chart/organization_chart";
 import Certificate from './components/pages/certificate/certificate'
 import ViewCertificate from './components/pages/viewCertificate/viewCertificate'
@@ -67,7 +73,13 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-          <Switch>
+    <Switch>      
+      <Route path="/documents" component={document}/>
+          <Route path="/jobtask" component={jobtask}/>
+          <Route path="/addsuggestion/" component={task}/>
+          <Route path="/addtask/" component={addtask}/>
+          <Route path="/task" component={taskAdmin}/>
+          <Route path="/taskv" component={taskView}/>
             <Route path="/organization_chart" component={organization_chart} />
             <Route path="/certificate" component={Certificate} />
             <Route path="/viewCertificate" component={ViewCertificate} />
