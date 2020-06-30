@@ -10,6 +10,8 @@ import {
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import organization_chart from "./components/pages/organization_chart/organization_chart";
+import Certificate from './components/pages/certificate/certificate'
+import ViewCertificate from './components/pages/viewCertificate/viewCertificate'
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -63,6 +65,8 @@ export default function App() {
         <Container className={classes.content} maxWidth={false}>
           <Switch>
             <Route path="/organization_chart" component={organization_chart} />
+            <Route path="/certificate" component={Certificate} />
+            <Route path="/viewCertificate" component={ViewCertificate} />
           </Switch>
         </Container>
       </div>
