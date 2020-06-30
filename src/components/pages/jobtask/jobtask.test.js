@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Document from './Document';
+import Jobtask from './jobtask';
 
-describe('<Document />', () => {
+describe('<Jobtask />', () => {
   test('renders', () => {
-    const wrapper = shallow(<Document />);
+    const wrapper = shallow(<Jobtask />);
     expect(wrapper).toMatchSnapshot();
   });
 });
