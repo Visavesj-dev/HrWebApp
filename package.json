@@ -27,14 +27,9 @@
     "firebase": "^7.15.0",
     "formik": "^2.1.4",
     "formik-material-ui": "^2.0.0-beta.1",
-
     "immutable": "^4.0.0-rc.12",
-    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "material-table": "^1.57.2",
-    "node-sass": "^4.14.1",
     "p2": "^0.7.1",
-
     "html2canvas": "^1.0.0-rc.5",
     "jsonwebtoken": "^8.5.1",
     "mini-css-extract-plugin": "^0.9.0",
@@ -42,7 +37,6 @@
     "material-table": "^1.57.2",
     "material-ui-dropzone": "^3.3.0",
     "pdf-viewer-reactjs": "^2.0.7",
-
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
@@ -63,16 +57,13 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-
     "tinycolor2": "^1.4.1",
-
     "sass-loader": "^8.0.2",
     "ts-loader": "^7.0.5",
     "typescript": "3.8.3",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.2",
     "screenshot-desktop": "^1.12.0",
-
     "url-join": "^4.0.1"
   },
   "scripts": {
