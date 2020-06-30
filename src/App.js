@@ -9,8 +9,7 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
-import Certificate from './components/pages/certificate/certificate'
-import ViewCertificate from './components/pages/viewCertificate/viewCertificate'
+
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -59,10 +58,7 @@ export default function App() {
         />
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
-          <Switch>
-            <Route path="/certificate" component={Certificate} />
-            <Route path="/viewCertificate" component={ViewCertificate} />
-          </Switch>
+          <Switch>{/* Route */}</Switch>
         </Container>
       </div>
     </Router>
