@@ -145,8 +145,22 @@ export default function Menu(props) {
           <ListItemIcon>
             {groupDirectoryIcon}
           </ListItemIcon>
+          <ListItemText primary="Assign Team Directory" />
+        </ListItem>
+
+        <ListItem
+          component={NavLink}
+          to="/viewteamdirectory"
+          button
+          key="viewteamdirectory"
+          activeClassName={classes.isActive}
+        >
+          <ListItemIcon>
+            {groupDirectoryIcon}
+          </ListItemIcon>
           <ListItemText primary="Team Directory" />
         </ListItem>
+
       </List>
     </Drawer>
   );

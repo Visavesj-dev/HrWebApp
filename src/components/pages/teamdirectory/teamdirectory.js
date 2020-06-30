@@ -62,12 +62,26 @@ const useStyles = makeStyles((theme) => ({
     width: "85%",
     marginTop: 20,
   },
+  row1: {
+    textAlign: "right",
+    height: "42px",
+    display: "flex",
+    alignItems: "center",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2.6),
+  },
+  marginBot:{
+    marginBottom:"6px"
+  },
   textFieldPadding: {
     padding: theme.spacing(2),
     textAlign: "left",
   },
   label: {
     textAlign: "left",
+  },
+  label2:{
+    textAlign: "right",
   },
   margin: {
     margin: theme.spacing(1),
@@ -104,9 +118,11 @@ function TeamDirectory(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
+        <Grid item md={2} xs={2}> 
+        
+        </Grid>
         <Grid item md={10} xs={10}>
           <h1>Team directory</h1>
-        </Grid>
         <Grid item md={10} xs={10}>
           <div className={classes.label}>
             <h3>Team Vision</h3>
@@ -149,8 +165,12 @@ function TeamDirectory(props) {
             </div>
           </Grid>
 
-            <Grid item md={1} xs={1}>
-              
+            <Grid item md={0.5} xs={0.5}>
+            <div className={classes.row1}>1</div>
+            <div className={classes.row1}>2</div>
+            <div className={classes.row1}>3</div>
+            <div className={classes.row1}>4</div>
+            <div className={classes.row1}>5</div>
             </Grid>
             <Grid item md={9} xs={9}>
               <form noValidate autoComplete="off">
@@ -162,6 +182,7 @@ function TeamDirectory(props) {
                     id="culture1"
                     defaultValue="team culture"
                   />
+                  <div className={classes.marginBot}/>
                   <TextField
                     fullWidth
                     required
@@ -169,6 +190,7 @@ function TeamDirectory(props) {
                     id="culture2"
                     defaultValue="team culture"
                   />
+                  <div className={classes.marginBot}/>
                   <TextField
                     fullWidth
                     required
@@ -176,6 +198,7 @@ function TeamDirectory(props) {
                     id="culture2"
                     defaultValue="team culture"
                   />
+                  <div className={classes.marginBot}/>
                   <TextField
                     fullWidth
                     required
@@ -183,6 +206,7 @@ function TeamDirectory(props) {
                     id="culture4"
                     defaultValue="team culture"
                   />
+                  <div className={classes.marginBot}/>
                   <TextField
                     fullWidth
                     required
@@ -190,14 +214,15 @@ function TeamDirectory(props) {
                     id="culture5"
                     defaultValue="team culture"
                   />
+                  <div className={classes.marginBot}/>
                 </div>
               </form>
             </Grid>
-
+            </Grid>
 
         {/* footer button         */}
         <Grid item md={8} xs={8}></Grid>
-        <Grid item md={3} xs={3}>
+        <Grid item md={1.5} xs={1.5}>
           <Button
             color="primary"
             variant="contained"
@@ -207,6 +232,8 @@ function TeamDirectory(props) {
           >
             SAVE
           </Button>
+          </Grid>
+          <Grid item md={2} xs={2}>
           <Button
             color="secondary"
             variant="contained"

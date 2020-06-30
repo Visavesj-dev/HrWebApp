@@ -10,6 +10,7 @@ import {
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
 import TeamDirectory from "./components/pages/teamdirectory/teamdirectory"
+import ViewTeamDirectory from "./components/pages/viewTeamDirectory/viewTeamDirectory"
 //import materails
 import { Container } from "@material-ui/core";
 
@@ -60,6 +61,7 @@ export default function App() {
         <Container className={classes.content} maxWidth={false}>
           <Switch>
           <Route path="/teamdirectory" component={TeamDirectory} />
+          <Route path='/viewteamdirectory' component={ViewTeamDirectory}/>
           </Switch>
         </Container>
       </div>
