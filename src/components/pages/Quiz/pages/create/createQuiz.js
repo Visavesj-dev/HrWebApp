@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -12,7 +11,6 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import Question from "./Question";
 import QuestionForm from "./QuestionForm";
 import { calculateDefaultTimeLimit } from "../../../../common/utils/appUtil";
@@ -57,33 +55,26 @@ class CreateQuiz extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  addQuestion(q) {
+  addQuestion(q) { // เพิ่มทีละข้อ
     const { questions, timelimit } = this.state;
-    const { showSnackbar } = this.props;
     const question = q;
     if (questions.length === 0) {
       question.id = 1;
     } else {
-      // räknar ut ett id som det nuvarande högsta id+1. Kan då använda id både som unik identifierare och som index
+      // คำนวณ ID เป็น ID สูงสุดในปัจจุบัน + 1 สามารถใช้ ID ทั้งเป็นตัวระบุที่ไม่ซ้ำกัน
       question.id = Math.max(...questions.map((o) => o.id)) + 1;
     }
     if (timelimit && !question.timelimit) {
       question.timelimit = calculateDefaultTimeLimit(question);
     }
-    questions.push(question);
+    questions.push(question); // เอา question ใส่ลง array
     this.setState({
-      questions,
+      questions
     });
-    const snack = {
-      variant: "success",
-      message: "Added question",
-    };
-    showSnackbar(snack);
   }
 
-  addQuestions(qs) {
+  addQuestions(qs) { // เพิ่ม คำถาม เเบบหลายๆข้อ
     const { questions, timelimit } = this.state;
-    const { showSnackbar } = this.props;
     for (let i = 0; i < qs.length; i++) {
       const question = qs[i];
       if (questions.length === 0) {
@@ -99,16 +90,11 @@ class CreateQuiz extends Component {
     this.setState({
       questions,
     });
-    const snack = {
-      variant: "success",
-      message: "Added questions",
-    };
-    showSnackbar(snack);
   }
 
   deleteQuestion(question) {
     const { questions } = this.state;
-    const index = questions.map((e) => e.id).indexOf(question.id);
+    const index = questions.map((e) => e.id).indexOf(question.id); // find id in arrray
     questions.splice(index, 1);
     this.setState({
       questions,
@@ -148,12 +134,11 @@ class CreateQuiz extends Component {
       gamemode,
       questions,
     } = this.state;
-    const { showSnackbar } = this.props;
     const { classes } = this.props;
     return (
       <div>
         <Grid container spacing={2}>
-        <Grid item md={6}>
+        <Grid item md={12}>
           <Card className={classes.card}>
             <Grid item xs={12} style={{ marginBottom: 10 }}>
               <Typography variant="h4">Create New Quiz</Typography>
@@ -172,7 +157,6 @@ class CreateQuiz extends Component {
                       }}
                     >
                       <MenuItem value="normal">Normal</MenuItem>
-                      <MenuItem value="wild">Wild</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -204,7 +188,7 @@ class CreateQuiz extends Component {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  <FormControl>
+                  <FormControl style={{marginRight: 20}} fullWidth>
                     <TextField
                       label="Title"
                       name="title"
@@ -213,7 +197,8 @@ class CreateQuiz extends Component {
                       onChange={this.handleChange("title")}
                     />
                   </FormControl>
-                  <FormControl>
+                  
+                  <FormControl fullWidth>
                     <TextField
                       label="Password"
                       type="password"
@@ -233,14 +218,13 @@ class CreateQuiz extends Component {
             </Grid>
           </Card>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={12}>
 
           
             <QuestionForm
               addQuestions={this.addQuestions}
               addQuestion={this.addQuestion}
               isTimelimit={!!timelimit}
-              showSnackbar={showSnackbar}
             />
         </Grid>
         
@@ -259,8 +243,4 @@ class CreateQuiz extends Component {
     );
   }
 }
-CreateQuiz.propTypes = {
-  showSnackbar: PropTypes.func.isRequired,
-  createQuiz: PropTypes.func.isRequired,
-};
 export default withStyles(styles)(CreateQuiz);

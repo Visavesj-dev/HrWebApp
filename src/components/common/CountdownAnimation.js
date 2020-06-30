@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import './CountdownAnimation.scss';
 
 class CountdownAnimation extends PureComponent {
-  // jag skulle kunna lägga en counter här som rendrerar null efter några sekunder
-  // så att är säkert att den inte hinner loopa
+
   render() {
     const { speed } = this.props;
     if (speed === 'slow') {

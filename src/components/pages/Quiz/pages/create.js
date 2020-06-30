@@ -4,9 +4,8 @@ import { Typography, Card } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import CreateQuiz from './create/createQuiz';
-import { fire, fireGolf } from '../../../../base';
+import { fire } from '../../../../base';
 import { generateGameId } from '../../../common/utils/appUtil';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -23,10 +22,9 @@ class Create extends Component {
     super(props);
     this.state = {
       gametype: 'quiz', // type ของ เกม quiz ,minigane etc.
-      gameId: '', // 
+      gameId: '', // ค่า id
     };
     this.createGame = this.createGame.bind(this);
-    // this.validateGame = this.validateGame.bind(this);
   }
 
     setGameType = name => () => {
@@ -34,43 +32,29 @@ class Create extends Component {
     };
 
     createGame(g) {
-      const { gametype } = this.state;
       const game = g;
       game.gameId = generateGameId(); // fucntion สร้าง id 
       game.created = Date.now(); // เวลาสร้าง 
-      // game.status = 'CREATED';
-      // game.phase = 'setup';
+      game.status = 'CREATED';
+      game.phase = 'connection';
 
      
-      // game push få ett id.
+      // game push id.
       let gameRef;
-      // if (game.gametype === 'golf') {
-      //   gameRef = fireGolf.database().ref('/games').push();
-      // } else {
-      //   gameRef = fire.database().ref('/games').push();
-      // }
-      game.key = gameRef.key;
+     
+      gameRef = fire.database().ref('/games').push(); // get pin from firebase
+      game.key = gameRef.key;  
       gameRef.set(game, (error) => {
-        if (error) {
+        if (error) { 
           this.setState({
             errorText: `Error: ${error}`,
           });
-          // const snack = {
-          //   variant: 'error',
-          //   message: 'Unexpected internal error',
-          // };
-          // that.props.showSnackbar(snack);
         } else {
-          // const snack = {
-          //   variant: 'success',
-          //   message: 'Successfully created!',
-          // };
-          // that.props.showSnackbar(snack);
           this.setState({
             gameId: game.gameId, // เก็บค่า id 
-            gametype: 'done',
+            gametype: 'done', 
           });
-          localStorage.setItem('RecentGameId', game.gameId);
+          localStorage.setItem('RecentGameId', game.gameId); // เก็บค่า pin ชั่วคราว
 
           // show gameid and password
           // show button to start game / navigate to host
@@ -81,13 +65,12 @@ class Create extends Component {
     render() {
       const { classes } = this.props;
       const { gametype, gameId } = this.state;
-      const { showSnackbar } = this.props;
       return (
         <div className={classes.root}>
           {!gametype && (
           <Grid container spacing={2}>
             <Grid item xs={6}>
-            {/* ให้เกมtye เป้็น quiz */}
+            {/* ให้เกมtye เป็น quiz */}
               <Card className="card-button" onClick={this.setGameType('quiz')}> 
                 <CardHeader title="Quiz" align="center"/>
                 <CardContent>
@@ -122,7 +105,7 @@ class Create extends Component {
           </Grid>
           )}
           {gametype === 'quiz' && 
-          <CreateQuiz createQuiz={this.createGame} showSnackbar={showSnackbar} /> // สำหรับ quiz , 1 ~
+          <CreateQuiz createQuiz={this.createGame} /> // สำหรับ quiz , 1 ~
           }
           {gametype === 'done' // ถ้าสำเร็จ ให้เเสดง pin id  , 2 ~
                     && (
@@ -141,7 +124,5 @@ class Create extends Component {
       );
     }
 }
-Create.propTypes = {
-  showSnackbar: PropTypes.func.isRequired,
-};
+
 export default withStyles(styles)(Create);

@@ -11,9 +11,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Typography, Card } from "@material-ui/core";
-import PropTypes from 'prop-types';
 import { withStyles } from "@material-ui/core/styles";
-// import GenerateQuizForm from './GenerateQuizForm';
+import GenerateQuizForm from './GenerateQuizForm';
 
 const styles = (theme) => ({
     card: {
@@ -33,7 +32,7 @@ class QuestionForm extends Component {
       timelimit: '10',
       qType: 'text',
       aType: 'multiple',
-      generateQuestions: false,
+      generateQuestions: true,
 
     };
     this.sendQuestion = this.sendQuestion.bind(this);
@@ -92,23 +91,23 @@ class QuestionForm extends Component {
     const {
       question, correctAnswer, wrongAnswerOne, wrongAnswerTwo, wrongAnswerThree, timelimit, qType, aType, generateQuestions,
     } = this.state;
-    const { addQuestions, showSnackbar, isTimelimit , classes } = this.props;
+    const { addQuestions, isTimelimit , classes } = this.props;
     if (generateQuestions) {
       return (
-        <div>
-          <Button onClick={this.toggleGenerateQuestion} variant="contained">Custom questions</Button>
-          {/* <Button onClick={this.toggleGenerateQuestion} disabled variant="contained">Auto generate questions</Button> */}
-          {/* <GenerateQuizForm addQuestions={addQuestions} showSnackbar={showSnackbar} /> */}
-        </div>
+        <Card className={classes.card}>
+          <Button style={{marginRight: 5}} onClick={this.toggleGenerateQuestion} variant="contained">Custom questions</Button>
+          <Button onClick={this.toggleGenerateQuestion} disabled variant="contained">Auto generate questions</Button>
+          <GenerateQuizForm addQuestions={addQuestions}  />
+        </Card>
       );
     }
     return (
      
       <Card className={classes.card}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item xs={12} style={{marginBottom: 15}}>
-            <Button onClick={this.toggleGenerateQuestion} disabled variant="contained">Custom questions</Button>
-            {/* <Button onClick={this.toggleGenerateQuestion} variant="contained">Auto generate questions</Button> */}
+            <Button style={{marginRight: 5}} onClick={this.toggleGenerateQuestion} disabled variant="contained">Custom questions</Button>
+            <Button onClick={this.toggleGenerateQuestion} variant="contained">Auto generate questions</Button>
           </Grid>
           <Grid item xs={12} md={12}>
             <FormControl required fullWidth>
@@ -140,9 +139,9 @@ class QuestionForm extends Component {
                 }}
               >
                 <MenuItem value="boolean">True/false</MenuItem>
-                <MenuItem value="player">Player</MenuItem>
+                {/* <MenuItem value="player">Player</MenuItem> */}
                 <MenuItem value="multiple">Mulitichoice</MenuItem>
-                <MenuItem value="free">Free text</MenuItem>
+                {/* <MenuItem value="free">Free text</MenuItem> */}
               </Select>
             </FormControl>
           </Grid>
@@ -157,12 +156,13 @@ class QuestionForm extends Component {
               />
             </FormControl>
           </Grid>
+          <Grid item xs={12}>
           {aType === 'multiple'
                         && (
-                        <Grid container>
+                        <Grid container spacing={2}>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl>
+                            <FormControl fullWidth>
                               <TextField
                                 label="Correct answer"
                                 name="correctAnswer"
@@ -174,7 +174,7 @@ class QuestionForm extends Component {
                           </Grid>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl>
+                            <FormControl fullWidth>
                               <TextField
                                 label="Wrong answer"
                                 name="wrongAnswerOne"
@@ -186,7 +186,7 @@ class QuestionForm extends Component {
                           </Grid>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl>
+                            <FormControl fullWidth>
                               <TextField
                                 label="Wrong answer"
                                 name="wrongAnswerTwo"
@@ -198,7 +198,7 @@ class QuestionForm extends Component {
                           </Grid>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl>
+                            <FormControl fullWidth>
                               <TextField
                                 label="Wrong answer"
                                 name="wrongAnswerThree"
@@ -249,6 +249,7 @@ class QuestionForm extends Component {
                         </Grid>
                         )
                     }
+                    </Grid>
           <Grid item xs={12}>
             <Button onClick={this.sendQuestion} variant="contained">Add question</Button>
           </Grid>
@@ -257,10 +258,5 @@ class QuestionForm extends Component {
     );
   }
 }
-QuestionForm.propTypes = {
-  showSnackbar: PropTypes.func.isRequired,
-  addQuestion: PropTypes.func.isRequired,
-  addQuestions: PropTypes.func.isRequired,
-  isTimelimit: PropTypes.bool.isRequired,
-};
+
 export default withStyles(styles)(QuestionForm);
