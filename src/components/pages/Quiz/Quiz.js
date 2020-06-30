@@ -44,7 +44,7 @@ export default function Quiz() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container >
           <Grid item xs={12}>
             <Typography variant="h3" align="center">SCG Quiz</Typography>
           </Grid>
