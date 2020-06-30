@@ -9,7 +9,6 @@ import {
 //import components
 import Header from "./components/layouts/Header";
 import Menu from "./components/layouts/Menu";
-import organization_chart from "./components/pages/organization_chart/organization_chart";
 import Certificate from './components/pages/certificate/certificate'
 import ViewCertificate from './components/pages/viewCertificate/viewCertificate'
 //import materails
@@ -19,7 +18,6 @@ import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
-    
     display: "flex",
   },
   toolbar: {
@@ -34,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     padding: 0,
-    marginTop:50,
-    marginLeft:30,
   },
 }));
 
@@ -55,7 +51,7 @@ export default function App() {
 
   return (
     <Router>
-      <div className={classes.root} >
+      <div className={classes.root}>
         <Header
           open={open}
           handleDrawerOpen={handleDrawerOpen}
@@ -64,7 +60,6 @@ export default function App() {
         <Menu open={open} />
         <Container className={classes.content} maxWidth={false}>
           <Switch>
-            <Route path="/organization_chart" component={organization_chart} />
             <Route path="/certificate" component={Certificate} />
             <Route path="/viewCertificate" component={ViewCertificate} />
           </Switch>
