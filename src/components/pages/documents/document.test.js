@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Document from './document';
-
+import Document from './document'
 describe('<Document />', () => {
   test('renders', () => {
     const wrapper = shallow(<Document />);
